@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-900 text-slate-50 overflow-x-hidden min-h-screen;
+  }
+}
+
+@layer utilities {
+  .bg-mesh {
+    background-color: #0f172a;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(145, 100%, 20%, 0.5) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(215, 100%, 20%, 0.5) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(250, 100%, 20%, 0.5) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(145, 100%, 15%, 0.5) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+  }
+
+  .glass-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/10 border-t-white/20 border-l-white/20 shadow-xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply -translate-y-1 shadow-2xl border-t-white/30 border-l-white/30 bg-gradient-to-br from-white/15 to-white/5;
+  }
+}
