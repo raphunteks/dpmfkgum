@@ -1,40 +1,64 @@
 <%- include('partials/header') %>
 
 <div class="space-y-8 animate-fade-in pt-8 relative z-10">
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
         <div>
-            <h1 class="text-3xl font-bold mb-2 text-white">Program Kerja</h1>
-            <p class="text-slate-400">Daftar program dan realisasi legislatif periode berjalan.</p>
+            <span class="px-3 py-1 text-xs font-semibold rounded-full border bg-dentistry-100 text-dentistry-600 border-dentistry-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 transition-colors shadow-sm mb-3 inline-block">Legislasi & Eksekusi</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-3 text-slate-900 dark:text-white transition-colors">Program Kerja</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 transition-colors">Daftar program dan realisasi legislatif periode berjalan.</p>
         </div>
-        <select class="glass rounded-xl px-4 py-2 text-sm text-white outline-none appearance-none border-white/20" aria-label="Filter Status Program">
-            <option value="" class="bg-slate-800">Semua Status</option>
-            <option value="PLANNED" class="bg-slate-800">Direncanakan</option>
-            <option value="ONGOING" class="bg-slate-800">Berjalan</option>
-            <option value="COMPLETED" class="bg-slate-800">Selesai</option>
-        </select>
+        
+        <!-- Filter Dropdown Super UI -->
+        <div class="relative w-full md:w-auto">
+            <select class="glass-input rounded-xl px-5 py-3 pr-10 text-sm font-medium text-slate-700 dark:text-white outline-none appearance-none w-full md:w-56 shadow-sm cursor-pointer transition-colors" aria-label="Filter Status Program">
+                <option value="" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Semua Status</option>
+                <option value="PLANNED" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Direncanakan</option>
+                <option value="ONGOING" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Berjalan</option>
+                <option value="COMPLETED" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Selesai</option>
+            </select>
+            <i class="ph ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none text-lg"></i>
+        </div>
     </header>
 
-    <div class="space-y-4" role="list">
-        <% DB.programs.forEach(prog => { %>
-            <article class="glass-card rounded-2xl p-6 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center hover:bg-white/5 transition-colors" role="listitem">
-                <div class="flex-1">
-                    <div class="flex flex-wrap items-center gap-3 mb-2">
-                        <h2 class="text-xl font-bold text-white"><%= prog.name %></h2>
+    <div class="space-y-5" role="list">
+        <% if(typeof DB.programs !== 'undefined' && DB.programs.length > 0) { %>
+            <% DB.programs.forEach(prog => { %>
+                <article class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center bg-white/40 dark:bg-transparent border border-slate-200/60 dark:border-white/10 hover:border-dentistry-300 dark:hover:border-brand-500/50 transition-all shadow-sm group" role="listitem">
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-dentistry-600 dark:group-hover:text-brand-400 transition-colors"><%= prog.name %></h2>
+                            
+                            <!-- Dynamic Status Badges untuk Light & Dark Mode -->
+                            <% if(prog.status === 'ONGOING') { %>
+                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 transition-colors shadow-sm dark:shadow-none">ONGOING</span>
+                            <% } else if(prog.status === 'COMPLETED') { %>
+                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-dentistry-50 text-dentistry-600 border-dentistry-200 dark:bg-brand-500/20 dark:text-brand-300 dark:border-brand-500/30 transition-colors shadow-sm dark:shadow-none">COMPLETED</span>
+                            <% } else { %>
+                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-amber-50 text-amber-600 border-amber-200 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 transition-colors shadow-sm dark:shadow-none"><%= prog.status %></span>
+                            <% } %>
+                        </div>
                         
-                        <% if(prog.status === 'ONGOING') { %>
-                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-blue-500/20 text-blue-300 border-blue-500/30">ONGOING</span>
-                        <% } else if(prog.status === 'COMPLETED') { %>
-                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-brand-500/20 text-brand-300 border-brand-500/30">COMPLETED</span>
-                        <% } else { %>
-                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-amber-500/20 text-amber-300 border-amber-500/30"><%= prog.status %></span>
-                        <% } %>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed mb-4 transition-colors"><%= prog.description %></p>
+                        
+                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-2 transition-colors">
+                            <span class="w-6 h-6 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-dentistry-500 dark:text-slate-300 transition-colors"><i class="ph-fill ph-users"></i></span>
+                            Sasaran: <%= prog.target %>
+                        </p>
                     </div>
-                    <p class="text-slate-300 text-sm mb-2"><%= prog.description %></p>
-                    <p class="text-xs text-slate-500 flex items-center gap-2"><i class="ph ph-users"></i> Sasaran: <%= prog.target %></p>
-                </div>
-                <a href="/program-kerja/<%= prog.slug %>" class="px-4 py-2 rounded-xl text-sm font-medium transition-all bg-white/10 hover:bg-white/20 text-white border border-white/10 shrink-0 text-center w-full md:w-auto">Lihat Detail</a>
-            </article>
-        <% }) %>
+                    
+                    <a href="/program-kerja/<%= prog.slug %>" class="px-6 py-3 rounded-xl text-sm font-bold transition-all bg-white hover:bg-slate-50 text-slate-700 hover:text-dentistry-600 border border-slate-200 shadow-sm dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/10 dark:shadow-none shrink-0 text-center w-full sm:w-auto flex items-center justify-center gap-2 group-hover:shadow-md">
+                        Lihat Detail <i class="ph ph-arrow-right"></i>
+                    </a>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <!-- Tampilan Fallback jika Program Kerja Kosong -->
+            <div class="text-center py-16 glass-card rounded-3xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-transparent transition-colors shadow-sm">
+                <i class="ph-fill ph-briefcase text-5xl text-slate-300 dark:text-slate-600 mb-4 block transition-colors"></i>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">Belum ada Program Kerja</h3>
+                <p class="text-slate-500 dark:text-slate-400 transition-colors">Daftar inisiatif dan program kerja akan muncul di sini.</p>
+            </div>
+        <% } %>
     </div>
 </div>
 
