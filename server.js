@@ -7,6 +7,19 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware untuk mem-parsing body form & cookie manual (Tanpa library tambahan)
+app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    const list = {};
+    const rc = req.headers.cookie;
+    rc && rc.split(';').forEach((cookie) => {
+        const parts = cookie.split('=');
+        list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+    req.cookies = list;
+    next();
+});
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://dpmfkgumi.vercel.app';
 
 // ==========================================
@@ -46,14 +59,12 @@ async function setCache(key, value, ttl = 3600) {
 }
 
 // ==========================================
-// 🗄️ MOCK DATABASE (DIPERBARUI DENGAN SLUG)
+// 🗄️ MOCK DATABASE 
 // ==========================================
 const getDatabase = async () => {
-    // 1. Cek Cache Redis
     const cachedDB = await getCache('dpm_database_v1');
     if (cachedDB) return cachedDB;
 
-    // 2. Fallback Database
     const DB = {
         organization: {
             name: "DPM KBMFKG UMI",
@@ -88,9 +99,19 @@ const getDatabase = async () => {
         ]
     };
 
-    // 3. Set Cache
-    await setCache('dpm_database_v1', DB, 3600); // Cache 1 Jam
+    await setCache('dpm_database_v1', DB, 3600);
     return DB;
+};
+
+// ==========================================
+// 🛡️ AUTHENTICATION MIDDLEWARE
+// ==========================================
+const requireAuth = (req, res, next) => {
+    if (req.cookies.dpm_admin_session === 'authenticated') {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
 };
 
 // ==========================================
@@ -200,12 +221,51 @@ app.get('/our-team', (req, res) => {
     res.render('ourteam', { seo });
 });
 
-// 6. ADMIN DASHBOARD
-app.get('/admin', (req, res) => {
+// ==========================================
+// 🔐 SISTEM LOGIN & ADMIN DASHBOARD
+// ==========================================
+app.get('/admin/login', (req, res) => {
+    if (req.cookies.dpm_admin_session === 'authenticated') return res.redirect('/admin');
+    
+    const seo = {
+        title: `Login Administrator | DPM KBMFKG UMI`,
+        description: "Portal masuk Sistem Manajemen Informasi DPM KBMFKG UMI",
+        canonical: `${BASE_URL}/admin/login`,
+        ogImage: `${BASE_URL}/img/logo-dpm.png`,
+        type: "website"
+    };
+    res.render('admin-login', { seo, error: null });
+});
+
+app.post('/admin/login', (req, res) => {
+    const { username, password } = req.body;
+    
+    // Validasi dengan Environment Variable Vercel (Fallback nilai default)
+    const validUser = process.env.USER_ADMIN || 'dpmffkgumi2026';
+    const validPass = process.env.PASS_ADMIN || 'dpmfkgumi999';
+
+    if (username === validUser && password === validPass) {
+        // Set cookie 24 jam (86400000 ms)
+        res.cookie('dpm_admin_session', 'authenticated', { httpOnly: true, maxAge: 86400000 });
+        res.redirect('/admin');
+    } else {
+        const seo = { title: `Login Administrator | DPM KBMFKG UMI`, description: "Portal Masuk Admin", type: "website" };
+        res.render('admin-login', { seo, error: 'Kredensial Autentikasi Ditolak!' });
+    }
+});
+
+app.get('/admin/logout', (req, res) => {
+    res.clearCookie('dpm_admin_session');
+    res.redirect('/admin/login');
+});
+
+// Gunakan requireAuth Middleware untuk memproteksi /admin
+app.get('/admin', requireAuth, (req, res) => {
     const seo = {
         title: `Workspace Admin | DPM KBMFKG UMI`,
         description: "Sistem Manajemen Informasi DPM KBMFKG UMI",
         canonical: `${BASE_URL}/admin`,
+        ogImage: `${BASE_URL}/img/logo-dpm.png`,
         type: "website"
     };
     res.render('admin-dashboard', { seo });
