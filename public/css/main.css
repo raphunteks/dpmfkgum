@@ -2,102 +2,207 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base Dark Theme for Glassmorphism */
-body {
-    background-color: #0f172a; /* Slate 900 */
-    color: #f8fafc;
-    overflow-x: hidden;
-    font-family: 'Inter', sans-serif;
+/* =========================================
+   SUPER BIG UPGRADE - THEME VARIABLES
+   ========================================= */
+:root {
+    /* LIGHT MODE (Dentistry Cyan/Blue) */
+    --bg-base: #e2e8f0;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --brand-primary: #0ea5e9;
+    
+    /* Neumorphism Shadows (Light) */
+    --neu-shadow: 8px 8px 16px rgba(163, 177, 198, 0.5), 
+                 -8px -8px 16px rgba(255, 255, 255, 0.8);
+    --neu-inset: inset 6px 6px 12px rgba(163, 177, 198, 0.5), 
+                 inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+                 
+    /* Glassmorphism (Light) */
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    
+    /* Holographic Gradient */
+    --holo-grad: linear-gradient(120deg, #0ea5e9, #2dd4bf, #0ea5e9);
 }
 
-/* Animated Mesh Gradient Background */
+.dark {
+    /* DARK MODE (Deep Space Slate) */
+    --bg-base: #0f172a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --brand-primary: #38bdf8;
+    
+    /* Neumorphism Shadows (Dark) */
+    --neu-shadow: 8px 8px 16px rgba(0, 0, 0, 0.6), 
+                 -8px -8px 16px rgba(30, 41, 59, 0.5);
+    --neu-inset: inset 6px 6px 12px rgba(0, 0, 0, 0.6), 
+                 inset -6px -6px 12px rgba(30, 41, 59, 0.5);
+                 
+    /* Glassmorphism (Dark) */
+    --glass-bg: rgba(15, 23, 42, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    
+    /* Holographic Gradient */
+    --holo-grad: linear-gradient(120deg, #38bdf8, #818cf8, #38bdf8);
+}
+
+/* =========================================
+   BASE STYLES
+   ========================================= */
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* =========================================
+   ANIMATED MESH & HOLOGRAPHIC BACKGROUND
+   ========================================= */
 .bg-mesh {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     z-index: -1;
     background-image: 
-        radial-gradient(at 0% 0%, hsla(145,100%,20%,0.8) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, hsla(215,100%,20%,0.8) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, hsla(250,100%,20%,0.8) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, hsla(145,100%,15%,0.8) 0px, transparent 50%);
-    background-attachment: fixed;
-    filter: blur(80px);
+        radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(45, 212, 191, 0.15), transparent 40%);
+    filter: blur(60px);
+    animation: holo-breath 10s infinite alternate;
 }
 
-/* Core Glassmorphism Utility Class */
-.glass {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/* =========================================
+   HYBRID UI CLASSES (GLASS + NEUMORPH)
+   ========================================= */
+.neu-flat {
+    background: var(--bg-base);
+    box-shadow: var(--neu-shadow);
+    border-radius: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-flat:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 24px rgba(0,0,0,0.15), -12px -12px 24px rgba(255,255,255,0.1);
+}
+
+.neu-inset {
+    background: var(--bg-base);
+    box-shadow: var(--neu-inset);
+    border-radius: 1rem;
 }
 
 .glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--neu-shadow);
+    border-radius: 1.5rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.glass-input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    transition: all 0.2s;
+.glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--glass-border);
 }
 
-.glass-input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(34, 197, 94, 0.5); /* Brand green */
+.holographic-text {
+    background: var(--holo-grad);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: holo-shift 4s linear infinite;
+}
+
+/* =========================================
+   CUSTOM TOGGLE (Dentistry Ref)
+   ========================================= */
+.theme-toggle {
+    appearance: none;
+    width: 60px;
+    height: 32px;
+    background: var(--bg-base);
+    border-radius: 32px;
+    position: relative;
+    cursor: pointer;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    box-shadow: var(--neu-inset);
+    transition: all 0.4s ease;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
-
-/* Utility Animation untuk Reactivitas EJS */
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.animate-slide-up {
-    animation: slideUp 0.3s ease-out forwards;
+.theme-toggle:checked::after {
+    transform: translateX(28px);
+    background: #0f172a;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.5);
 }
+
+.theme-icon-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* =========================================
+   ANIMATIONS & TRANSITIONS
+   ========================================= */
+.animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+.animate-float { animation: floating 6s ease-in-out infinite; }
+.animate-pulse-holo { animation: holo-shift 3s linear infinite, scaleUp 2s infinite alternate; }
 
 @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
 }
 
-@keyframes blob {
-    0% { transform: translate(0px, 0px) scale(1); }
-    33% { transform: translate(30px, -50px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-    100% { transform: translate(0px, 0px) scale(1); }
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
 }
 
-.animate-blob {
-    animation: blob 7s infinite;
+@keyframes holo-shift {
+    to { background-position: 200% center; }
 }
-.animation-delay-2000 {
-    animation-delay: 2s;
+
+@keyframes holo-breath {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.1); opacity: 1; }
 }
+
+@keyframes scaleUp {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Scrollbar Holographic */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-base); box-shadow: var(--neu-inset); }
+::-webkit-scrollbar-thumb { background: var(--holo-grad); background-size: 200%; border-radius: 10px; animation: holo-shift 3s infinite; }
