@@ -7,15 +7,25 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware untuk mem-parsing body form & cookie manual (Tanpa library tambahan)
+// Middleware untuk mem-parsing body form & cookie manual secara aman
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     const list = {};
     const rc = req.headers.cookie;
-    rc && rc.split(';').forEach((cookie) => {
-        const parts = cookie.split('=');
-        list[parts.shift().trim()] = decodeURI(parts.join('='));
-    });
+    if (rc) {
+        rc.split(';').forEach((cookie) => {
+            const parts = cookie.split('=');
+            const key = parts.shift().trim();
+            const value = parts.join('=');
+            try {
+                // Gunakan decodeURIComponent, dibungkus try-catch agar kebal error Vercel
+                list[key] = decodeURIComponent(value);
+            } catch (e) {
+                // Abaikan cookie yang gagal diurai (biasanya routing/analytics cookie internal Vercel)
+                list[key] = value;
+            }
+        });
+    }
     req.cookies = list;
     next();
 });
