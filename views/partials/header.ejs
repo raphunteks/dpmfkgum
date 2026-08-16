@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 🚀 MASTERPIECE SEO METADATA (DINAMIS DARI SERVER.JS) -->
+    <title><%= seo.title %></title>
+    <meta name="description" content="<%= seo.description %>">
+    <link rel="canonical" href="<%= seo.canonical %>">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <meta property="og:type" content="<%= seo.type || 'website' %>">
+    <meta property="og:title" content="<%= seo.title %>">
+    <meta property="og:description" content="<%= seo.description %>">
+    <meta property="og:image" content="<%= seo.ogImage %>">
+    <meta property="og:url" content="<%= seo.canonical %>">
+    <meta property="og:site_name" content="<%= DB.organization.name %>">
+    
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= seo.title %>">
+    <meta name="twitter:description" content="<%= seo.description %>">
+    <meta name="twitter:image" content="<%= seo.ogImage %>">
+
+    <!-- 🌐 JSON-LD STRUCTURED DATA (GSC GOLD STANDARD) -->
+    <% if (seo.structuredData) { %>
+    <script type="application/ld+json">
+        <%- JSON.stringify(seo.structuredData) %>
+    </script>
+    <% } %>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <!-- Security Script -->
+    <script src="/js/protect-devtools.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' }
+                    },
+                    animation: { 'fade-in': 'fadeIn 0.5s ease-out forwards' },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-mesh"></div>
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="fixed top-0 w-full z-50 glass border-b-0 border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <a href="/" class="flex items-center gap-3 cursor-pointer" aria-label="Beranda Utama">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-blue-500 p-[2px]">
+                            <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
+                                <i class="ph ph-scales text-xl text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-bold text-lg leading-tight tracking-tight block text-white">DPM KBMFKG</span>
+                            <span class="text-xs text-slate-400 font-medium block">Universitas Muslim Indonesia</span>
+                        </div>
+                    </a>
+
+                    <div class="hidden md:flex items-center space-x-1 glass rounded-full px-2 py-1">
+                        <a href="/" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-house text-lg"></i> Beranda</a>
+                        <a href="/tentang" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/tentang' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-users text-lg"></i> Organisasi</a>
+                        <a href="/program-kerja" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/program-kerja' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-briefcase text-lg"></i> Program Kerja</a>
+                        <a href="/berita" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/berita' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-newspaper text-lg"></i> Berita</a>
+                        <a href="/our-team" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/our-team' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-star text-lg"></i> Our Team</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center gap-3">
+                        <a href="/admin" class="px-4 py-2 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:bg-white/10 text-slate-300 hover:text-white"><i class="ph ph-sign-in"></i> Login Admin</a>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2" aria-label="Buka Menu Navigasi">
+                            <i class="ph ph-list text-2xl" id="menu-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10 absolute w-full animate-fade-in">
+                <div class="px-4 pt-2 pb-6 space-y-2">
+                    <a href="/" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-house text-xl"></i> Beranda</a>
+                    <a href="/tentang" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/tentang' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-users text-xl"></i> Organisasi</a>
+                    <a href="/program-kerja" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/program-kerja' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-briefcase text-xl"></i> Program Kerja</a>
+                    <a href="/berita" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/berita' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-newspaper text-xl"></i> Berita</a>
+                    <a href="/our-team" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/our-team' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-star text-xl"></i> Our Team</a>
+                    <div class="h-px bg-white/10 my-2"></div>
+                    <a href="/admin" class="w-full text-left px-4 py-3 rounded-xl text-slate-300 hover:bg-white/5 flex items-center gap-3"><i class="ph ph-sign-in text-xl"></i> Login Admin</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-grow pt-28 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full min-h-screen">

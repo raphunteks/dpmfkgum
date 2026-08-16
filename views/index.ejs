@@ -1,0 +1,76 @@
+<%- include('partials/header') %>
+
+<div class="space-y-12 animate-fade-in relative z-10">
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-10 text-center flex flex-col items-center justify-center min-h-[60vh]">
+        <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-green-500/20 text-green-300 border-green-500/30">Portal Resmi v1.0</span>
+        <h1 class="mt-6 text-5xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+            <%= DB.organization.name %>
+        </h1>
+        <p class="mt-6 text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            <%= DB.organization.tagline %>
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+            <a href="/tentang" class="px-8 py-3 text-lg rounded-xl font-medium bg-brand-500 hover:bg-brand-600 text-white shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2"><i class="ph ph-magnifying-glass"></i> Kenali Kami</a>
+            <a href="/berita" class="px-8 py-3 text-lg rounded-xl font-medium bg-white/10 hover:bg-white/20 text-white border border-white/10 flex items-center justify-center gap-2"><i class="ph ph-newspaper"></i> Berita Terkini</a>
+        </div>
+    </section>
+
+    <!-- Stats / Quick Info -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center mb-4">
+                <i class="ph ph-clock-counter-clockwise text-2xl text-brand-400"></i>
+            </div>
+            <h3 class="text-3xl font-bold text-white mb-1">Periode Aktif</h3>
+            <p class="text-slate-400 text-sm"><%= DB.periods.find(p => p.status === 'ACTIVE').name %></p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                <i class="ph ph-briefcase text-2xl text-blue-400"></i>
+            </div>
+            <h3 class="text-3xl font-bold text-white mb-1"><%= DB.programs.length %></h3>
+            <p class="text-slate-400 text-sm">Program Kerja</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
+                <i class="ph ph-calendar-check text-2xl text-purple-400"></i>
+            </div>
+            <h3 class="text-3xl font-bold text-white mb-1"><%= DB.events.length %></h3>
+            <p class="text-slate-400 text-sm">Agenda Mendatang</p>
+        </div>
+    </section>
+
+    <!-- Recent News Preview -->
+    <section aria-labelledby="news-heading">
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h2 id="news-heading" class="text-2xl font-bold text-white">Berita Terbaru</h2>
+                <p class="text-slate-400 text-sm">Informasi seputar aktivitas legislatif</p>
+            </div>
+            <a href="/berita" class="hidden sm:flex px-4 py-2 rounded-xl text-sm font-medium hover:bg-white/10 text-slate-300 hover:text-white items-center gap-2">Lihat Semua <i class="ph ph-arrow-right"></i></a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <% DB.news.slice(0, 2).forEach(item => { %>
+                <!-- Optimized Semantic URL with SLUG -->
+                <a href="/berita/<%= item.slug %>" class="glass-card rounded-2xl p-0 overflow-hidden group cursor-pointer block" aria-label="Baca berita: <%= item.title %>">
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10"></div>
+                        <!-- SEO Optimized Image -->
+                        <img src="<%= item.image %>" alt="Ilustrasi berita <%= item.title %>" loading="lazy" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute bottom-4 left-4 z-20">
+                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">Terbaru</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-slate-400 mb-2 flex items-center gap-2"><i class="ph ph-calendar"></i> <%= item.date %></p>
+                        <h3 class="text-lg font-semibold text-white mb-2 leading-snug group-hover:text-brand-400 transition-colors"><%= item.title %></h3>
+                        <p class="text-slate-400 text-sm line-clamp-2"><%= item.excerpt %></p>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+    </section>
+</div>
+
+<%- include('partials/footer') %>

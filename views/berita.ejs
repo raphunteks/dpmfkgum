@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<div class="space-y-8 animate-fade-in pt-8 relative z-10">
+    <header>
+        <h1 class="text-3xl font-bold mb-2 text-white">Pusat Informasi & Berita</h1>
+        <p class="text-slate-400">Publikasi resmi dan dokumentasi kegiatan KBMFKG UMI.</p>
+    </header>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <% DB.news.forEach(item => { %>
+            <a href="/berita/<%= item.slug %>" class="glass-card rounded-2xl p-0 overflow-hidden flex flex-col group" aria-label="Baca berita: <%= item.title %>">
+                <div class="h-48 overflow-hidden relative">
+                    <!-- SEO Image Optimization (Lazy load + Alt text spesifik) -->
+                    <img src="<%= item.image %>" alt="Cover berita: <%= item.title %>" loading="lazy" width="600" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/30 self-start mb-3"><%= item.status %></span>
+                    <h2 class="text-lg font-bold mb-2 leading-tight text-white group-hover:text-brand-400 transition-colors"><%= item.title %></h2>
+                    <p class="text-sm text-slate-400 mb-4 flex-1"><%= item.excerpt %></p>
+                    <time datetime="<%= item.date %>" class="text-xs text-slate-500 border-t border-white/10 pt-3 flex items-center gap-1"><i class="ph ph-calendar"></i> <%= item.date %></time>
+                </div>
+            </a>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

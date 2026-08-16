@@ -1,0 +1,38 @@
+</main>
+
+    <footer class="glass border-t border-white/10 mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-slate-400 text-sm text-center md:text-left">
+                &copy; <%= new Date().getFullYear() %> DPM KBMFKG UMI.<br/>
+                <span class="text-xs opacity-70">Architecture by EJS & Tailwind</span>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-white/20 transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-white/20 transition-colors"><i class="ph ph-youtube-logo text-xl"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-300 hover:bg-white/20 transition-colors"><i class="ph ph-envelope-simple text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Menu Mobile dengan Proteksi Null (Mencegah TypeError)
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+
+            // Cek apakah elemen navbar eksis di halaman ini sebelum memasang event listener
+            if (btn && menu && icon) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                    if(menu.classList.contains('hidden')) {
+                        icon.classList.replace('ph-x', 'ph-list');
+                    } else {
+                        icon.classList.replace('ph-list', 'ph-x');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

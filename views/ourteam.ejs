@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<div class="space-y-8 animate-fade-in pt-8 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-blue-500/20 text-blue-300 border-blue-500/30">Dewan Penasihat & Tim</span>
+        <h2 class="text-4xl font-bold mt-4 mb-4">Our Team</h2>
+        <p class="text-slate-300 leading-relaxed">Susunan Dewan Penasihat dan Pengurus Inti DPM KBMFKG UMI.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <% DB.team.forEach(person => { %>
+            <div class="glass-card rounded-2xl p-0 overflow-hidden flex flex-col text-center">
+                <div class="h-64 bg-slate-800 overflow-hidden relative">
+                    <!-- Referensi Path sesuai permintaan Anda: /css/axaprofil.png -->
+                    <img src="<%= person.image %>" alt="<%= person.name %>" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-white mb-1"><%= person.name %></h3>
+                    <p class="text-sm text-brand-400 font-medium"><%= person.position %></p>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

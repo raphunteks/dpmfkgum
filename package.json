@@ -1,0 +1,17 @@
+{
+  "name": "dpm-kbmfkg-umi-ejs",
+  "version": "1.0.0",
+  "description": "Digital Platform DPM KBMFKG UMI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
