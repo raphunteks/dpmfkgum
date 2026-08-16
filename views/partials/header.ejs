@@ -10,6 +10,10 @@
     <link rel="canonical" href="<%= seo.canonical %>">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
+    <!-- 🌐 FAVICON LOGO WEB DINAMIS -->
+    <link rel="icon" href="/img/logo-dpm.png" type="image/png">
+    <link rel="apple-touch-icon" href="/img/logo-dpm.png">
+
     <!-- Open Graph / Facebook / WhatsApp Preview -->
     <meta property="og:type" content="<%= seo.type || 'website' %>">
     <meta property="og:title" content="<%= seo.title %>">
@@ -63,7 +67,7 @@
             }
         }
 
-        // Theme Logic Init (Mencegah FOUC / kedip saat muat ulang)
+        // Theme Logic Init
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -72,22 +76,19 @@
     </script>
 </head>
 <body class="transition-colors duration-500">
-    <!-- Background Elements -->
     <div class="bg-mesh"></div>
     <div class="fixed top-0 left-1/4 w-96 h-96 bg-[var(--brand-primary)] rounded-full mix-blend-screen filter blur-[100px] pointer-events-none opacity-20"></div>
     <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none opacity-20"></div>
 
-    <!-- Holographic Nav -->
     <header>
         <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 py-3">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     
-                    <!-- Logo (Neu/Holo hybrid) -->
                     <a href="/" class="flex items-center gap-4 group cursor-pointer" aria-label="Beranda Utama">
                         <div class="w-12 h-12 rounded-2xl neu-flat flex items-center justify-center overflow-hidden relative group-hover:scale-105 transition-transform">
                             <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                            <i class="ph ph-scales text-2xl text-[var(--brand-primary)] drop-shadow-md"></i>
+                            <img src="/img/logo-dpm.png" alt="Logo DPM" class="w-8 h-8 object-contain drop-shadow-md z-10">
                         </div>
                         <div>
                             <span class="font-extrabold text-xl leading-tight tracking-tight block holographic-text">DPM KBMFKG</span>
@@ -95,7 +96,6 @@
                         </div>
                     </a>
 
-                    <!-- Desktop Menu (Glass Pills) -->
                     <div class="hidden md:flex items-center p-1 rounded-full neu-inset">
                         <a href="/" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-house text-lg"></i> Beranda</a>
                         <a href="/tentang" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/tentang' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-users text-lg"></i> Organisasi</a>
@@ -104,7 +104,6 @@
                         <a href="/our-team" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/our-team' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-star text-lg"></i> Our Team</a>
                     </div>
 
-                    <!-- Right Actions: Theme Toggle & Admin -->
                     <div class="hidden md:flex items-center gap-6">
                         <div class="theme-icon-wrapper flex items-center gap-3">
                             <i class="ph ph-sun-dim text-2xl text-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"></i>
@@ -115,7 +114,6 @@
                         </a>
                     </div>
 
-                    <!-- Mobile Hamburger Menu & Mobile Theme Toggle -->
                     <div class="md:hidden flex items-center gap-4">
                         <div class="theme-icon-wrapper flex items-center">
                             <input type="checkbox" id="mobile-theme-toggle" class="theme-toggle scale-75" aria-label="Toggle Dark Mode">
@@ -127,7 +125,6 @@
                 </div>
             </div>
 
-            <!-- Mobile Menu Dropdown -->
             <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-[var(--glass-border)] absolute w-full animate-fade-in shadow-2xl mt-3">
                 <div class="px-4 pt-4 pb-8 space-y-3">
                     <a href="/" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-house text-xl"></i> Beranda</a>
@@ -142,12 +139,9 @@
         </nav>
     </header>
 
-    <!-- Main Content Wrapper -->
     <main class="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full min-h-screen relative z-10">
 
-    <!-- Script Eksekusi Interaksi UI -->
     <script>
-        // Logika Toggle Tema
         function initThemeToggle(toggleId) {
             const toggleBtn = document.getElementById(toggleId);
             if(!toggleBtn) return;
@@ -157,9 +151,7 @@
             }
 
             toggleBtn.addEventListener('change', function() {
-                // Sinkronisasi status checkbox (desktop & mobile)
                 document.querySelectorAll('.theme-toggle').forEach(btn => btn.checked = this.checked);
-                
                 document.body.style.opacity = '0.5'; 
                 setTimeout(() => {
                     if (this.checked) {
@@ -177,7 +169,6 @@
         initThemeToggle('theme-toggle');
         initThemeToggle('mobile-theme-toggle');
 
-        // Logika Dropdown Menu Mobile
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
