@@ -49,8 +49,8 @@ const DB = {
 };
 
 // --- KOMPONEN UI DASAR ---
-const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  <div className={`glass-card rounded-2xl p-6 ${className}`}>{children}</div>
+const Card = ({ children, className = "", onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) => (
+  <div className={`glass-card rounded-2xl p-6 ${className}`} onClick={onClick}>{children}</div>
 );
 
 const Button = ({ children, onClick, type = 'button', variant = 'primary', className = "" }: any) => {
