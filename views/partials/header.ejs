@@ -38,7 +38,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/main.css">
@@ -48,6 +48,7 @@
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
@@ -61,64 +62,136 @@
                 }
             }
         }
+
+        // Theme Logic Init (Mencegah FOUC / kedip saat muat ulang)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
     </script>
 </head>
-<body>
+<body class="transition-colors duration-500">
     <!-- Background Elements -->
     <div class="bg-mesh"></div>
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none"></div>
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-[var(--brand-primary)] rounded-full mix-blend-screen filter blur-[100px] pointer-events-none opacity-20"></div>
+    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-screen filter blur-[100px] pointer-events-none opacity-20"></div>
 
-    <!-- Navbar -->
+    <!-- Holographic Nav -->
     <header>
-        <nav class="fixed top-0 w-full z-50 glass border-b-0 border-white/10">
+        <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 py-3">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <a href="/" class="flex items-center gap-3 cursor-pointer" aria-label="Beranda Utama">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-500 to-blue-500 p-[2px]">
-                            <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
-                                <i class="ph ph-scales text-xl text-white"></i>
-                            </div>
+                <div class="flex justify-between items-center h-16">
+                    
+                    <!-- Logo (Neu/Holo hybrid) -->
+                    <a href="/" class="flex items-center gap-4 group cursor-pointer" aria-label="Beranda Utama">
+                        <div class="w-12 h-12 rounded-2xl neu-flat flex items-center justify-center overflow-hidden relative group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                            <i class="ph ph-scales text-2xl text-[var(--brand-primary)] drop-shadow-md"></i>
                         </div>
                         <div>
-                            <span class="font-bold text-lg leading-tight tracking-tight block text-white">DPM KBMFKG</span>
-                            <span class="text-xs text-slate-400 font-medium block">Universitas Muslim Indonesia</span>
+                            <span class="font-extrabold text-xl leading-tight tracking-tight block holographic-text">DPM KBMFKG</span>
+                            <span class="text-xs text-[var(--text-muted)] font-medium block">Universitas Muslim Indonesia</span>
                         </div>
                     </a>
 
-                    <div class="hidden md:flex items-center space-x-1 glass rounded-full px-2 py-1">
-                        <a href="/" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-house text-lg"></i> Beranda</a>
-                        <a href="/tentang" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/tentang' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-users text-lg"></i> Organisasi</a>
-                        <a href="/program-kerja" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/program-kerja' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-briefcase text-lg"></i> Program Kerja</a>
-                        <a href="/berita" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/berita' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-newspaper text-lg"></i> Berita</a>
-                        <a href="/our-team" class="px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2 <%= path === '/our-team' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-white/5' %>"><i class="ph ph-star text-lg"></i> Our Team</a>
+                    <!-- Desktop Menu (Glass Pills) -->
+                    <div class="hidden md:flex items-center p-1 rounded-full neu-inset">
+                        <a href="/" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-house text-lg"></i> Beranda</a>
+                        <a href="/tentang" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/tentang' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-users text-lg"></i> Organisasi</a>
+                        <a href="/program-kerja" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/program-kerja' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-briefcase text-lg"></i> Program Kerja</a>
+                        <a href="/berita" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/berita' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-newspaper text-lg"></i> Berita</a>
+                        <a href="/our-team" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 <%= path === '/our-team' ? 'bg-[var(--brand-primary)] text-white shadow-lg' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]' %>"><i class="ph ph-star text-lg"></i> Our Team</a>
                     </div>
 
-                    <div class="hidden md:flex items-center gap-3">
-                        <a href="/admin" class="px-4 py-2 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 hover:bg-white/10 text-slate-300 hover:text-white"><i class="ph ph-sign-in"></i> Login Admin</a>
+                    <!-- Right Actions: Theme Toggle & Admin -->
+                    <div class="hidden md:flex items-center gap-6">
+                        <div class="theme-icon-wrapper flex items-center gap-3">
+                            <i class="ph ph-sun-dim text-2xl text-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]"></i>
+                            <input type="checkbox" id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                        </div>
+                        <a href="/admin" class="px-5 py-2.5 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 neu-flat text-[var(--text-main)] hover:text-[var(--brand-primary)]">
+                            <i class="ph ph-sign-in text-xl"></i> Admin
+                        </a>
                     </div>
 
-                    <div class="md:hidden flex items-center">
-                        <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2" aria-label="Buka Menu Navigasi">
+                    <!-- Mobile Hamburger Menu & Mobile Theme Toggle -->
+                    <div class="md:hidden flex items-center gap-4">
+                        <div class="theme-icon-wrapper flex items-center">
+                            <input type="checkbox" id="mobile-theme-toggle" class="theme-toggle scale-75" aria-label="Toggle Dark Mode">
+                        </div>
+                        <button id="mobile-menu-btn" class="text-[var(--text-main)] hover:text-[var(--brand-primary)] p-2 neu-flat rounded-lg" aria-label="Buka Menu Navigasi">
                             <i class="ph ph-list text-2xl" id="menu-icon"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10 absolute w-full animate-fade-in">
-                <div class="px-4 pt-2 pb-6 space-y-2">
-                    <a href="/" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-house text-xl"></i> Beranda</a>
-                    <a href="/tentang" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/tentang' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-users text-xl"></i> Organisasi</a>
-                    <a href="/program-kerja" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/program-kerja' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-briefcase text-xl"></i> Program Kerja</a>
-                    <a href="/berita" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/berita' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-newspaper text-xl"></i> Berita</a>
-                    <a href="/our-team" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/our-team' ? 'bg-brand-500/20 text-brand-300' : 'text-slate-300 hover:bg-white/5' %>"><i class="ph ph-star text-xl"></i> Our Team</a>
-                    <div class="h-px bg-white/10 my-2"></div>
-                    <a href="/admin" class="w-full text-left px-4 py-3 rounded-xl text-slate-300 hover:bg-white/5 flex items-center gap-3"><i class="ph ph-sign-in text-xl"></i> Login Admin</a>
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-[var(--glass-border)] absolute w-full animate-fade-in shadow-2xl mt-3">
+                <div class="px-4 pt-4 pb-8 space-y-3">
+                    <a href="/" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-house text-xl"></i> Beranda</a>
+                    <a href="/tentang" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/tentang' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-users text-xl"></i> Organisasi</a>
+                    <a href="/program-kerja" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/program-kerja' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-briefcase text-xl"></i> Program Kerja</a>
+                    <a href="/berita" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/berita' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-newspaper text-xl"></i> Berita</a>
+                    <a href="/our-team" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 <%= path === '/our-team' ? 'bg-[var(--brand-primary)] text-white shadow-md' : 'text-[var(--text-muted)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-main)]' %> font-medium"><i class="ph ph-star text-xl"></i> Our Team</a>
+                    <div class="h-px bg-[var(--glass-border)] my-4"></div>
+                    <a href="/admin" class="w-full text-left px-4 py-3 rounded-xl neu-flat text-[var(--text-main)] flex items-center gap-3 font-bold justify-center"><i class="ph ph-sign-in text-xl"></i> Login Admin</a>
                 </div>
             </div>
         </nav>
     </header>
 
     <!-- Main Content Wrapper -->
-    <main class="flex-grow pt-28 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full min-h-screen">
+    <main class="flex-grow pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full min-h-screen relative z-10">
+
+    <!-- Script Eksekusi Interaksi UI -->
+    <script>
+        // Logika Toggle Tema
+        function initThemeToggle(toggleId) {
+            const toggleBtn = document.getElementById(toggleId);
+            if(!toggleBtn) return;
+            
+            if(document.documentElement.classList.contains('dark')) {
+                toggleBtn.checked = true;
+            }
+
+            toggleBtn.addEventListener('change', function() {
+                // Sinkronisasi status checkbox (desktop & mobile)
+                document.querySelectorAll('.theme-toggle').forEach(btn => btn.checked = this.checked);
+                
+                document.body.style.opacity = '0.5'; 
+                setTimeout(() => {
+                    if (this.checked) {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                    }
+                    document.body.style.opacity = '1';
+                }, 150);
+            });
+        }
+
+        initThemeToggle('theme-toggle');
+        initThemeToggle('mobile-theme-toggle');
+
+        // Logika Dropdown Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                if(mobileMenu.classList.contains('hidden')) {
+                    menuIcon.classList.remove('ph-x');
+                    menuIcon.classList.add('ph-list');
+                } else {
+                    menuIcon.classList.remove('ph-list');
+                    menuIcon.classList.add('ph-x');
+                }
+            });
+        }
+    </script>
