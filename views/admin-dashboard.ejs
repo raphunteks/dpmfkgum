@@ -14,39 +14,38 @@
         </div>
         <div class="flex items-center gap-4 w-full md:w-auto">
             <div class="px-5 py-2.5 neu-inset rounded-xl text-sm font-bold text-[var(--brand-primary)] flex items-center gap-2 flex-1 md:flex-none justify-center">
-                <i class="ph ph-check-circle animate-pulse"></i> Root Access
+                <i class="ph ph-shield-check animate-pulse"></i> Root Access
             </div>
-            <a href="/" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-rose-500 text-white shadow-[0_5px_15px_rgba(225,29,72,0.4)] hover:bg-rose-600 transition-colors flex items-center gap-2 justify-center flex-1 md:flex-none">
-                <i class="ph ph-power"></i> Terminate
+            <a href="/admin/logout" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-rose-500 text-white shadow-[0_5px_15px_rgba(225,29,72,0.4)] hover:bg-rose-600 transition-colors flex items-center gap-2 justify-center flex-1 md:flex-none">
+                <i class="ph ph-power"></i> Log Out
             </a>
         </div>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-10">
-        <!-- Sidebar Navigation (Neumorphism Inset) -->
+        <!-- Sidebar Navigation (Diubah Sesuai Gbr 1 Request) -->
         <div class="w-full lg:w-72 shrink-0 space-y-4 neu-flat p-4 h-fit">
             <h3 class="text-xs font-black uppercase tracking-widest text-[var(--text-muted)] pl-4 mb-4">Core Modules</h3>
             <a href="/admin" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold bg-[var(--brand-primary)] text-white shadow-lg shadow-cyan-500/30">
-                <i class="ph ph-squares-four text-xl"></i> Analytics Hub
+                <i class="ph ph-squares-four text-xl"></i> Overview
             </a>
-            <a href="/admin/periods" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
-                <i class="ph ph-clock-counter-clockwise text-xl"></i> Kepengurusan
+            <a href="/admin/tentang" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
+                <i class="ph ph-users text-xl"></i> Tentang
             </a>
-            <a href="/admin/news" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
-                <i class="ph ph-newspaper text-xl"></i> Berita & Konten
+            <a href="/admin/program-kerja" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
+                <i class="ph ph-briefcase text-xl"></i> Program Kerja
             </a>
-            <a href="/admin/team" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
-                <i class="ph ph-users-three text-xl"></i> Database Anggota
+            <a href="/admin/berita" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
+                <i class="ph ph-newspaper text-xl"></i> Berita
             </a>
-            <a href="/admin/settings" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
-                <i class="ph ph-gear-six text-xl"></i> Pengaturan
+            <a href="/admin/our-team" class="w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-bold text-[var(--text-muted)] hover:text-[var(--text-main)] hover:neu-inset">
+                <i class="ph ph-star text-xl"></i> Our Team
             </a>
         </div>
 
         <!-- Main Content Area -->
         <div class="flex-1 space-y-8">
             
-            <!-- Statistik Dinamis -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="neu-flat p-6 relative overflow-hidden group">
                     <div class="absolute -right-4 -top-4 text-[var(--bg-base)] opacity-50 group-hover:scale-150 transition-transform duration-500"><i class="ph-fill ph-users text-8xl"></i></div>
