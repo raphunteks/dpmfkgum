@@ -93,6 +93,19 @@ body {
     border-radius: 1rem;
 }
 
+/* Form Input Element */
+.neu-input {
+    background: var(--bg-base);
+    box-shadow: var(--neu-inset);
+    border: 2px solid transparent;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+}
+.neu-input:focus {
+    border-color: var(--brand-primary);
+    outline: none;
+}
+
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
