@@ -1,112 +1,130 @@
 <%- include('partials/header') %>
 
 <div class="animate-fade-in pt-8 relative z-10">
-    <!-- Header Admin -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-white/10 pb-6 gap-4">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-slate-200 dark:border-white/10 pb-6 gap-4 transition-colors">
         <div>
-            <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                <i class="ph ph-shield-check text-brand-500"></i> Workspace Admin
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3 transition-colors">
+                <div class="p-2 bg-dentistry-100 dark:bg-brand-500/20 rounded-lg text-dentistry-600 dark:text-brand-500 shadow-inner">
+                    <i class="ph ph-shield-check"></i>
+                </div>
+                Portal CMS Admin
             </h2>
-            <p class="text-sm text-slate-400 mt-1">Sistem Manajemen Informasi <%= DB.organization.name %></p>
+            <p class="text-slate-600 dark:text-slate-400 mt-2 font-medium transition-colors">Sistem Manajemen Data Interaktif <%= DB.organization.name %></p>
         </div>
         <div class="flex items-center gap-4">
-            <span class="hidden sm:inline-flex px-3 py-1 bg-blue-500/20 border border-blue-500/30 rounded-full text-xs text-blue-300 items-center gap-1">
-                <i class="ph ph-user"></i> Super Admin
+            <span class="hidden sm:inline-flex px-4 py-1.5 bg-blue-100 border border-blue-200 dark:bg-blue-500/20 dark:border-blue-500/30 rounded-full text-sm font-bold text-blue-600 dark:text-blue-300 items-center gap-2 shadow-sm transition-colors">
+                <i class="ph-fill ph-user-circle text-lg"></i> Root Administrator
             </span>
-            <a href="/" class="px-4 py-2 rounded-xl text-sm font-medium bg-red-500/20 hover:bg-red-500/40 text-red-200 border border-red-500/30 flex items-center gap-2 transition-colors">
-                <i class="ph ph-sign-out"></i> Keluar
+            <a href="/" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-rose-100 hover:bg-rose-200 text-rose-600 border border-rose-200 dark:bg-red-500/20 dark:hover:bg-red-500/40 dark:text-red-200 dark:border-red-500/30 flex items-center gap-2 transition-all shadow-sm">
+                <i class="ph ph-sign-out text-lg"></i> Keluar
             </a>
         </div>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-8">
-        <!-- Sidebar Navigation -->
-        <div class="w-full lg:w-64 shrink-0 space-y-2">
-            <a href="/admin" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-sm font-medium bg-brand-500/20 text-brand-400 border border-brand-500/30">
-                <i class="ph ph-squares-four text-lg"></i> Dashboard Utama
+        <div class="w-full lg:w-72 shrink-0 space-y-2">
+            <a href="/admin" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-colors text-sm font-bold bg-dentistry-500 text-white dark:bg-brand-500/20 dark:text-brand-400 border border-transparent dark:border-brand-500/30 shadow-md dark:shadow-none">
+                <i class="ph-fill ph-squares-four text-xl"></i> Dashboard Utama
             </a>
-            <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white cursor-not-allowed opacity-60">
-                <i class="ph ph-clock-counter-clockwise text-lg"></i> Kepengurusan (Mock)
-            </button>
-            <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white cursor-not-allowed opacity-60">
-                <i class="ph ph-newspaper text-lg"></i> Konten & Berita (Mock)
-            </button>
-            <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white cursor-not-allowed opacity-60">
-                <i class="ph ph-users text-lg"></i> Database Anggota (Mock)
-            </button>
-            <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white cursor-not-allowed opacity-60">
-                <i class="ph ph-gear text-lg"></i> Pengaturan Sistem (Mock)
-            </button>
+            <!-- Menghapus "(Mock)" dan membuka akses sidebar -->
+            <a href="/admin/kepengurusan" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-colors text-sm font-semibold text-slate-600 hover:bg-white/60 hover:text-dentistry-600 border border-transparent hover:border-slate-200 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white dark:hover:border-transparent">
+                <i class="ph ph-users-three text-xl"></i> Data Kepengurusan
+            </a>
+            <a href="/admin/berita" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-colors text-sm font-semibold text-slate-600 hover:bg-white/60 hover:text-dentistry-600 border border-transparent hover:border-slate-200 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white dark:hover:border-transparent">
+                <i class="ph ph-newspaper text-xl"></i> Publikasi & Berita
+            </a>
+            <a href="/admin/program-kerja" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-colors text-sm font-semibold text-slate-600 hover:bg-white/60 hover:text-dentistry-600 border border-transparent hover:border-slate-200 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white dark:hover:border-transparent">
+                <i class="ph ph-briefcase text-xl"></i> Program Kerja
+            </a>
+            <a href="/admin/pengaturan" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl transition-colors text-sm font-semibold text-slate-600 hover:bg-white/60 hover:text-dentistry-600 border border-transparent hover:border-slate-200 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white dark:hover:border-transparent">
+                <i class="ph ph-gear-six text-xl"></i> Pengaturan Sistem
+            </a>
         </div>
 
-        <!-- Main Content Area -->
         <div class="flex-1">
-            <div class="space-y-6 animate-fade-in">
+            <div class="space-y-8 animate-fade-in">
                 
-                <!-- Statistik Dinamis berdasarkan server.js -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="glass-card rounded-2xl p-5">
-                        <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Total Pengurus</p>
-                        <!-- Simulasi dinamis menggunakan data team + dummy number -->
-                        <h4 class="text-2xl font-bold text-white"><%= DB.team ? DB.team.length + 141 : 142 %></h4>
-                    </div>
-                    <div class="glass-card rounded-2xl p-5">
-                        <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Program Berjalan</p>
-                        <h4 class="text-2xl font-bold text-blue-400">
-                            <!-- Filter Dinamis dari Backend -->
-                            <%= DB.programs.filter(p => p.status === 'ONGOING').length %>
-                        </h4>
-                    </div>
-                    <div class="glass-card rounded-2xl p-5">
-                        <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Berita Publik</p>
-                        <h4 class="text-2xl font-bold text-emerald-400">
-                            <!-- Filter Dinamis dari Backend -->
-                            <%= DB.news.filter(n => n.status === 'PUBLISHED').length %>
-                        </h4>
-                    </div>
-                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-2">
-                            <span class="relative flex h-3 w-3">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
-                            </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+                    <div class="glass-card rounded-3xl p-6 bg-white/40 dark:bg-transparent">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold">Total Pengurus</p>
+                            <i class="ph-fill ph-users text-slate-400 dark:text-slate-500"></i>
                         </div>
-                        <p class="text-slate-400 text-xs uppercase tracking-wider font-semibold mb-1">Status Redis</p>
-                        <h4 class="text-xl mt-1 font-bold text-brand-400">CONNECTED</h4>
+                        <h4 class="text-3xl font-extrabold text-slate-900 dark:text-white transition-colors"><%= DB.team ? DB.team.length : 0 %></h4>
+                    </div>
+                    <div class="glass-card rounded-3xl p-6 bg-white/40 dark:bg-transparent">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold">Program Aktif</p>
+                            <i class="ph-fill ph-rocket-launch text-blue-400"></i>
+                        </div>
+                        <h4 class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 transition-colors">
+                            <%= DB.programs ? DB.programs.filter(p => p.status === 'ONGOING').length : 0 %>
+                        </h4>
+                    </div>
+                    <div class="glass-card rounded-3xl p-6 bg-white/40 dark:bg-transparent">
+                        <div class="flex justify-between items-start mb-2">
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold">Berita Publik</p>
+                            <i class="ph-fill ph-article text-emerald-500"></i>
+                        </div>
+                        <h4 class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 transition-colors">
+                            <%= DB.news ? DB.news.length : 0 %>
+                        </h4>
+                    </div>
+                    <div class="glass-card rounded-3xl p-6 relative overflow-hidden bg-white/40 dark:bg-transparent">
+                        <div class="absolute top-4 right-4 flex items-center gap-2 bg-dentistry-100 dark:bg-brand-500/20 px-2 py-1 rounded-full">
+                            <span class="relative flex h-2.5 w-2.5">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-dentistry-400 dark:bg-brand-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dentistry-500 dark:bg-brand-500"></span>
+                            </span>
+                            <span class="text-[10px] font-bold text-dentistry-600 dark:text-brand-400">ONLINE</span>
+                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold mb-2">Status Database</p>
+                        <h4 class="text-xl mt-2 font-extrabold text-slate-800 dark:text-white transition-colors">MongoDB</h4>
                     </div>
                 </div>
 
-                <!-- Audit Log -->
-                <div class="glass-card rounded-2xl p-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="font-bold text-lg text-white">Audit Log Sistem (Mock)</h3>
-                        <button class="px-4 py-2 rounded-xl text-xs font-medium bg-white/5 hover:bg-white/10 text-slate-300 transition-colors border border-white/10 flex items-center gap-2">
-                            <i class="ph ph-download-simple"></i> Export CSV
+                <div class="glass-card rounded-3xl p-8 bg-white/50 dark:bg-transparent">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h3 class="font-extrabold text-xl text-slate-900 dark:text-white transition-colors">Log Aktivitas Sistem</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Rekaman perubahan data secara realtime.</p>
+                        </div>
+                        <button class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-slate-50 text-slate-700 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300 transition-colors border border-slate-200 dark:border-white/10 shadow-sm flex items-center gap-2">
+                            <i class="ph ph-download-simple text-lg"></i> Ekspor CSV
                         </button>
                     </div>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10">
                         <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-slate-400 uppercase bg-white/5 border-b border-white/10">
+                            <thead class="text-xs text-slate-600 dark:text-slate-400 uppercase bg-slate-100/50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10">
                                 <tr>
-                                    <th class="px-4 py-3 rounded-tl-lg">Waktu</th>
-                                    <th class="px-4 py-3">Aktor</th>
-                                    <th class="px-4 py-3">Aksi</th>
-                                    <th class="px-4 py-3 rounded-tr-lg">Entitas</th>
+                                    <th class="px-5 py-4">Waktu</th>
+                                    <th class="px-5 py-4">Aktor / User</th>
+                                    <th class="px-5 py-4">Tipe Aksi</th>
+                                    <th class="px-5 py-4">Detail Entitas</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                    <td class="px-4 py-4 text-slate-300">Baru saja</td>
-                                    <td class="px-4 py-4 font-medium text-white">Super Admin</td>
-                                    <td class="px-4 py-4"><span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-md text-xs font-bold">UPDATE</span></td>
-                                    <td class="px-4 py-4 text-slate-300">Data Organisasi (Redis Cache Refreshed)</td>
-                                </tr>
-                                <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                    <td class="px-4 py-4 text-slate-300">1 Jam lalu</td>
-                                    <td class="px-4 py-4 font-medium text-white">Super Admin</td>
-                                    <td class="px-4 py-4"><span class="px-2.5 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-md text-xs font-bold">LOGIN</span></td>
-                                    <td class="px-4 py-4 text-slate-300">System Dashboard Authentication</td>
-                                </tr>
+                            <tbody class="divide-y divide-slate-100 dark:divide-white/5 bg-white/20 dark:bg-transparent">
+                                <!-- LOOP REALTIME EJS -->
+                                <% if(typeof DB.auditLogs !== 'undefined' && DB.auditLogs.length > 0) { %>
+                                    <% DB.auditLogs.forEach(log => { %>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors">
+                                            <td class="px-5 py-4 text-slate-600 dark:text-slate-300 whitespace-nowrap"><%= log.time %></td>
+                                            <td class="px-5 py-4 font-bold text-slate-900 dark:text-white"><%= log.user %></td>
+                                            <td class="px-5 py-4">
+                                                <span class="px-3 py-1 bg-dentistry-100 text-dentistry-600 dark:bg-emerald-500/20 dark:text-emerald-400 border border-dentistry-200 dark:border-emerald-500/30 rounded-md text-xs font-bold tracking-wider uppercase"><%= log.action %></span>
+                                            </td>
+                                            <td class="px-5 py-4 text-slate-600 dark:text-slate-300"><%= log.entity %></td>
+                                        </tr>
+                                    <% }) %>
+                                <% } else { %>
+                                    <!-- Fallback jika array kosong -->
+                                    <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors">
+                                        <td class="px-5 py-4 text-slate-600 dark:text-slate-300">Sistem (Otomatis)</td>
+                                        <td class="px-5 py-4 font-bold text-slate-900 dark:text-white">Admin Utama</td>
+                                        <td class="px-5 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30 rounded-md text-xs font-bold tracking-wider">LOGIN</span></td>
+                                        <td class="px-5 py-4 text-slate-600 dark:text-slate-300">Otentikasi sesi ke Dashboard</td>
+                                    </tr>
+                                <% } %>
                             </tbody>
                         </table>
                     </div>
