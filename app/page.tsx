@@ -6,7 +6,7 @@ import {
   LogIn, LogOut, Menu, X, Instagram, Youtube, Mail, Search, 
   Clock, CalendarDays, ArrowRight, Target, ListChecks, CheckCircle, 
   ShieldCheck, User, Plus, Edit, Trash2, Download, Eye, Settings, 
-  Save, CheckCircle2, Info, Code
+  Save, CheckCircle2, Info
 } from 'lucide-react';
 
 // --- MOCK DATABASE ---
@@ -49,10 +49,13 @@ const DB = {
 };
 
 // --- KOMPONEN UI DASAR ---
+
+// FIX: Card sekarang menerima onClick opsional
 const Card = ({ children, className = "", onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) => (
   <div className={`glass-card rounded-2xl p-6 ${className}`} onClick={onClick}>{children}</div>
 );
 
+// FIX: Menggunakan tipe 'any' untuk menghindari konflik event handler di Vercel Build
 const Button = ({ children, onClick, type = 'button', variant = 'primary', className = "" }: any) => {
   const baseStyle = "px-4 py-2.5 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm";
   const variants: any = {
@@ -68,7 +71,8 @@ const Button = ({ children, onClick, type = 'button', variant = 'primary', class
   );
 };
 
-const Badge = ({ children, status }: { children?: React.ReactNode, status: string }) => {
+// FIX: Menambahkan deklarasi className?: string
+const Badge = ({ children, status, className = "" }: { children?: React.ReactNode, status: string, className?: string }) => {
   const colors: any = {
     ACTIVE: "bg-green-500/20 text-green-300 border-green-500/30",
     ARCHIVED: "bg-slate-500/20 text-slate-300 border-slate-500/30",
@@ -80,14 +84,15 @@ const Badge = ({ children, status }: { children?: React.ReactNode, status: strin
     DRAFT: "bg-purple-500/20 text-purple-300 border-purple-500/30",
   };
   return (
-    <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${colors[status] || colors.ARCHIVED}`}>
+    <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${colors[status] || colors.ARCHIVED} ${className}`}>
       {children || status}
     </span>
   );
 };
 
-const Input = ({ label, type = "text", defaultValue, placeholder }: any) => (
-  <div className="mb-4 text-left w-full">
+// FIX: Menggunakan any agar tidak konflik saat Vercel mapping type
+const Input = ({ label, type = "text", defaultValue, placeholder, className = "" }: any) => (
+  <div className={`mb-4 text-left w-full ${className}`}>
     {label && <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>}
     <input 
       type={type} 
@@ -98,8 +103,8 @@ const Input = ({ label, type = "text", defaultValue, placeholder }: any) => (
   </div>
 );
 
-const Textarea = ({ label, defaultValue, placeholder, rows = 4 }: any) => (
-  <div className="mb-4 text-left w-full">
+const Textarea = ({ label, defaultValue, placeholder, rows = 4, className = "" }: any) => (
+  <div className={`mb-4 text-left w-full ${className}`}>
     {label && <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>}
     <textarea 
       defaultValue={defaultValue} 
