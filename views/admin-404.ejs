@@ -1,10 +1,35 @@
 <%- include('partials/header') %>
 
-<div class="flex flex-col items-center justify-center min-h-[60vh] text-center relative z-10 animate-fade-in">
-    <div class="text-8xl mb-4 font-bold text-brand-500">404</div>
-    <h1 class="text-3xl font-bold text-white mb-4">Halaman Tidak Ditemukan</h1>
-    <p class="text-slate-400 mb-8 max-w-md">Maaf, halaman yang Anda cari mungkin telah dipindahkan, dihapus, atau tidak pernah ada di server kami.</p>
-    <a href="/" class="px-8 py-3 rounded-xl font-medium bg-brand-500 hover:bg-brand-600 text-white shadow-lg shadow-brand-500/30">Kembali ke Beranda</a>
+<div class="flex flex-col items-center justify-center min-h-[75vh] text-center relative z-10 animate-fade-in">
+    
+    <!-- Massive Holographic 404 with Blob behind -->
+    <div class="relative w-full max-w-md mx-auto animate-float">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/30 rounded-full blur-[80px] -z-10"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px] -z-10 animate-pulse-holo"></div>
+        
+        <div class="text-[12rem] leading-none font-black holographic-text drop-shadow-2xl">
+            404
+        </div>
+    </div>
+    
+    <div class="glass-card p-10 mt-8 max-w-xl mx-auto backdrop-blur-xl">
+        <div class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center mx-auto mb-6 text-rose-500">
+            <i class="ph ph-warning-octagon text-4xl"></i>
+        </div>
+        <h1 class="text-4xl font-black text-[var(--text-main)] mb-4">Anomali Terdeteksi</h1>
+        <p class="text-[var(--text-muted)] font-medium mb-8 text-lg leading-relaxed">
+            Sektor yang Anda tuju berada di luar jangkauan radar sistem. Halaman mungkin telah diarsipkan atau URL tidak valid.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="window.history.back()" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold neu-flat text-[var(--text-main)] hover:text-[var(--brand-primary)] flex items-center justify-center gap-3 transition-all">
+                <i class="ph ph-arrow-left"></i> Putar Balik
+            </button>
+            <a href="/" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-[var(--brand-primary)] text-white shadow-[0_10px_30px_rgba(14,165,233,0.4)] hover:shadow-[0_15px_40px_rgba(14,165,233,0.6)] flex items-center justify-center gap-3 transition-all hover:-translate-y-1">
+                <i class="ph ph-house-line"></i> Sistem Utama
+            </a>
+        </div>
+    </div>
 </div>
 
 <%- include('partials/footer') %>
