@@ -1,25 +1,56 @@
 <%- include('partials/header') %>
 
-<div class="space-y-8 animate-fade-in pt-8 relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="px-2.5 py-1 text-xs font-semibold rounded-full border bg-blue-500/20 text-blue-300 border-blue-500/30">Dewan Penasihat & Tim</span>
-        <h2 class="text-4xl font-bold mt-4 mb-4">Our Team</h2>
-        <p class="text-slate-300 leading-relaxed">Susunan Dewan Penasihat dan Pengurus Inti DPM KBMFKG UMI.</p>
-    </div>
+<div class="space-y-10 animate-fade-in pt-8 relative z-10">
+    <header class="text-center max-w-3xl mx-auto mb-14">
+        <span class="px-3 py-1 text-xs font-semibold rounded-full border bg-dentistry-100 text-dentistry-600 border-dentistry-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 transition-colors shadow-sm">Dewan Perwakilan Mahasiswa</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold mt-6 mb-4 text-slate-900 dark:text-white transition-colors">Struktur Kepengurusan</h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 transition-colors">Mengenal lebih dekat fungsionaris yang mengemban amanah legislatif pada periode saat ini.</p>
+    </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <% DB.team.forEach(person => { %>
-            <div class="glass-card rounded-2xl p-0 overflow-hidden flex flex-col text-center">
-                <div class="h-64 bg-slate-800 overflow-hidden relative">
-                    <!-- Referensi Path sesuai permintaan Anda: /css/axaprofil.png -->
-                    <img src="<%= person.image %>" alt="<%= person.name %>" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <% if(typeof DB.team !== 'undefined' && DB.team.length > 0) { %>
+            <% DB.team.forEach(member => { %>
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center text-center group hover:border-dentistry-300 dark:hover:border-brand-500/50 transition-all border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-transparent shadow-sm">
+                    <!-- Foto Profil -->
+                    <div class="w-28 h-28 rounded-full overflow-hidden mb-5 border-4 border-white dark:border-slate-800 shadow-lg relative bg-slate-200 dark:bg-slate-700">
+                        <% if(member.photo) { %>
+                            <img src="<%= member.photo %>" alt="<%= member.name %>" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <% } else { %>
+                            <!-- Placeholder Icon jika foto tidak ada -->
+                            <div class="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-500">
+                                <i class="ph-fill ph-user text-4xl"></i>
+                            </div>
+                        <% } %>
+                        <!-- Status Badge Indikator -->
+                        <div class="absolute bottom-1 right-1 w-4 h-4 bg-emerald-400 border-2 border-white dark:border-slate-800 rounded-full z-10"></div>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 transition-colors"><%= member.name %></h3>
+                    <p class="text-sm font-semibold text-dentistry-600 dark:text-brand-400 mb-4 uppercase tracking-wide transition-colors"><%= member.role %></p>
+                    
+                    <!-- Detail Kontak/Sosmed -->
+                    <div class="mt-auto pt-4 border-t border-slate-200 dark:border-white/10 w-full flex justify-center gap-4 transition-colors">
+                        <% if(member.instagram) { %>
+                            <a href="<%= member.instagram %>" target="_blank" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-dentistry-100 dark:bg-white/5 dark:hover:bg-white/20 text-slate-500 hover:text-dentistry-600 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-colors">
+                                <i class="ph ph-instagram-logo text-lg"></i>
+                            </a>
+                        <% } %>
+                        <% if(member.linkedin) { %>
+                            <a href="<%= member.linkedin %>" target="_blank" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-blue-100 dark:bg-white/5 dark:hover:bg-white/20 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-colors">
+                                <i class="ph ph-linkedin-logo text-lg"></i>
+                            </a>
+                        <% } %>
+                        <a href="mailto:<%= member.email || '#' %>" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/20 text-slate-500 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-colors">
+                            <i class="ph ph-envelope-simple text-lg"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-white mb-1"><%= person.name %></h3>
-                    <p class="text-sm text-brand-400 font-medium"><%= person.position %></p>
-                </div>
+            <% }) %>
+        <% } else { %>
+            <div class="col-span-full text-center py-12 text-slate-500 dark:text-slate-400">
+                Data fungsionaris belum tersedia di database saat ini.
             </div>
-        <% }) %>
+        <% } %>
     </div>
 </div>
 
