@@ -84,7 +84,7 @@ const getDatabase = async () => {
             { id: 'e2', slug: 'evaluasi-triwulan-i', title: 'Evaluasi Triwulan I', date: '2025-09-15', location: 'Ruang Senat FKG UMI' }
         ],
         team: [
-            { id: 't1', name: 'M. Aksa Arsyad., drg., S.KG', position: 'Dewan Penasihat', image: '/css/axaprofil.png' }
+            { id: 't1', name: 'M. Aksa Arsyad., drg., S.KG', position: 'Dewan Penasihat', image: '/css/axaprofil.jpg' }
         ]
     };
 
