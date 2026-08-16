@@ -35,7 +35,11 @@ async function getCache(key) {
             headers: { Authorization: `Bearer ${KV_TOKEN}` }
         });
         const data = await response.json();
-        return data.result ? JSON.parse(data.result) : null;
+        if (!data.result) return null;
+        
+        // Memastikan hasil parsing adalah object, bukan string ganda
+        const parsed = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+        return typeof parsed === 'string' ? JSON.parse(parsed) : parsed;
     } catch (error) {
         console.error('Redis Get Error:', error.message);
         return null;
@@ -51,7 +55,8 @@ async function setCache(key, value, ttl = 3600) {
                 Authorization: `Bearer ${KV_TOKEN}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(JSON.stringify(value))
+            // FIX: Hapus double JSON.stringify untuk mencegah format corrupt di Redis
+            body: JSON.stringify(value)
         });
     } catch (error) {
         console.error('Redis Set Error:', error.message);
@@ -62,9 +67,18 @@ async function setCache(key, value, ttl = 3600) {
 // 🗄️ MOCK DATABASE 
 // ==========================================
 const getDatabase = async () => {
-    const cachedDB = await getCache('dpm_database_v1');
-    if (cachedDB) return cachedDB;
+    try {
+        const cachedDB = await getCache('dpm_database_v1');
+        
+        // FIX: Validasi ketat. Pastikan cache benar-benar Object dan memiliki 'organization'
+        if (cachedDB && typeof cachedDB === 'object' && cachedDB.organization) {
+            return cachedDB;
+        }
+    } catch (err) {
+        console.error('Cache Validation Error:', err.message);
+    }
 
+    // Fallback Database jika cache kosong / rusak
     const DB = {
         organization: {
             name: "DPM KBMFKG UMI",
@@ -118,6 +132,7 @@ const requireAuth = (req, res, next) => {
 // 🌐 ROUTING DENGAN DYNAMIC SEO & JSON-LD
 // ==========================================
 app.use(async (req, res, next) => {
+    // Inject DB ke locals agar bisa diakses semua view
     res.locals.DB = await getDatabase();
     res.locals.path = req.path;
     res.locals.baseUrl = BASE_URL;
