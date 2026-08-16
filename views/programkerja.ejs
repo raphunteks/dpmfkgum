@@ -1,65 +1,71 @@
 <%- include('partials/header') %>
 
-<div class="space-y-8 animate-fade-in pt-8 relative z-10">
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
+<div class="space-y-10 animate-fade-in pt-4 relative z-10">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 border-b border-[var(--glass-border)] pb-8">
         <div>
-            <span class="px-3 py-1 text-xs font-semibold rounded-full border bg-dentistry-100 text-dentistry-600 border-dentistry-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 transition-colors shadow-sm mb-3 inline-block">Legislasi & Eksekusi</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold mb-3 text-slate-900 dark:text-white transition-colors">Program Kerja</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 transition-colors">Daftar program dan realisasi legislatif periode berjalan.</p>
+            <h1 class="text-5xl font-black mb-4 holographic-text inline-block">Program Kerja</h1>
+            <p class="text-xl font-medium text-[var(--text-muted)]">Blueprint realisasi pergerakan legislatif mahasiswa.</p>
         </div>
         
-        <!-- Filter Dropdown Super UI -->
-        <div class="relative w-full md:w-auto">
-            <select class="glass-input rounded-xl px-5 py-3 pr-10 text-sm font-medium text-slate-700 dark:text-white outline-none appearance-none w-full md:w-56 shadow-sm cursor-pointer transition-colors" aria-label="Filter Status Program">
-                <option value="" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Semua Status</option>
-                <option value="PLANNED" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Direncanakan</option>
-                <option value="ONGOING" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Berjalan</option>
-                <option value="COMPLETED" class="bg-white text-slate-800 dark:bg-slate-800 dark:text-white">Selesai</option>
+        <!-- Neumorphic Dropdown -->
+        <div class="relative">
+            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-[var(--brand-primary)]">
+                <i class="ph-bold ph-caret-down"></i>
+            </div>
+            <select class="neu-inset appearance-none w-full md:w-64 pl-6 pr-12 py-4 rounded-2xl text-sm font-bold text-[var(--text-main)] outline-none focus:ring-2 focus:ring-[var(--brand-primary)] transition-shadow cursor-pointer" aria-label="Filter Status">
+                <option value="" class="font-bold">Semua Status Proker</option>
+                <option value="PLANNED" class="font-bold">Direncanakan (Planned)</option>
+                <option value="ONGOING" class="font-bold">Sedang Berjalan (Ongoing)</option>
+                <option value="COMPLETED" class="font-bold">Selesai (Completed)</option>
             </select>
-            <i class="ph ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 pointer-events-none text-lg"></i>
         </div>
     </header>
 
-    <div class="space-y-5" role="list">
-        <% if(typeof DB.programs !== 'undefined' && DB.programs.length > 0) { %>
+    <% if (DB.programs && DB.programs.length > 0) { %>
+        <div class="space-y-6" role="list">
             <% DB.programs.forEach(prog => { %>
-                <article class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center bg-white/40 dark:bg-transparent border border-slate-200/60 dark:border-white/10 hover:border-dentistry-300 dark:hover:border-brand-500/50 transition-all shadow-sm group" role="listitem">
+                <article class="glass-card p-6 md:p-8 flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center group" role="listitem">
                     <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-3">
-                            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-dentistry-600 dark:group-hover:text-brand-400 transition-colors"><%= prog.name %></h2>
+                        <div class="flex flex-wrap items-center gap-4 mb-3">
+                            <div class="w-10 h-10 rounded-xl neu-inset flex items-center justify-center text-[var(--brand-primary)]">
+                                <i class="ph ph-kanban text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-black text-[var(--text-main)]"><%= prog.name %></h2>
                             
-                            <!-- Dynamic Status Badges untuk Light & Dark Mode -->
                             <% if(prog.status === 'ONGOING') { %>
-                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30 transition-colors shadow-sm dark:shadow-none">ONGOING</span>
+                                <span class="px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-lg bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30 animate-pulse">ONGOING</span>
                             <% } else if(prog.status === 'COMPLETED') { %>
-                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-dentistry-50 text-dentistry-600 border-dentistry-200 dark:bg-brand-500/20 dark:text-brand-300 dark:border-brand-500/30 transition-colors shadow-sm dark:shadow-none">COMPLETED</span>
+                                <span class="px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-lg bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/30">COMPLETED</span>
                             <% } else { %>
-                                <span class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border bg-amber-50 text-amber-600 border-amber-200 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 transition-colors shadow-sm dark:shadow-none"><%= prog.status %></span>
+                                <span class="px-3 py-1.5 text-xs font-black uppercase tracking-wider rounded-lg neu-inset text-[var(--text-muted)]"><%= prog.status %></span>
                             <% } %>
                         </div>
                         
-                        <p class="text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed mb-4 transition-colors"><%= prog.description %></p>
+                        <p class="text-[var(--text-muted)] text-base font-medium mb-4 pl-14"><%= prog.description %></p>
                         
-                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-2 transition-colors">
-                            <span class="w-6 h-6 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-dentistry-500 dark:text-slate-300 transition-colors"><i class="ph-fill ph-users"></i></span>
-                            Sasaran: <%= prog.target %>
-                        </p>
+                        <div class="pl-14 flex items-center gap-6">
+                            <p class="text-xs font-bold uppercase tracking-wider text-[var(--text-main)] flex items-center gap-2">
+                                <i class="ph ph-target text-[var(--brand-primary)] text-lg"></i> Sasaran: <span class="text-[var(--text-muted)]"><%= prog.target %></span>
+                            </p>
+                        </div>
                     </div>
                     
-                    <a href="/program-kerja/<%= prog.slug %>" class="px-6 py-3 rounded-xl text-sm font-bold transition-all bg-white hover:bg-slate-50 text-slate-700 hover:text-dentistry-600 border border-slate-200 shadow-sm dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/10 dark:shadow-none shrink-0 text-center w-full sm:w-auto flex items-center justify-center gap-2 group-hover:shadow-md">
-                        Lihat Detail <i class="ph ph-arrow-right"></i>
+                    <a href="/program-kerja/<%= prog.slug %>" class="px-8 py-4 rounded-xl text-sm font-bold transition-all neu-flat text-[var(--text-main)] hover:text-white hover:bg-[var(--brand-primary)] shrink-0 text-center w-full md:w-auto shadow-lg flex items-center justify-center gap-2">
+                        Analisis Detail <i class="ph ph-arrow-right"></i>
                     </a>
                 </article>
             <% }) %>
-        <% } else { %>
-            <!-- Tampilan Fallback jika Program Kerja Kosong -->
-            <div class="text-center py-16 glass-card rounded-3xl border border-slate-200/60 dark:border-white/10 bg-white/40 dark:bg-transparent transition-colors shadow-sm">
-                <i class="ph-fill ph-briefcase text-5xl text-slate-300 dark:text-slate-600 mb-4 block transition-colors"></i>
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">Belum ada Program Kerja</h3>
-                <p class="text-slate-500 dark:text-slate-400 transition-colors">Daftar inisiatif dan program kerja akan muncul di sini.</p>
+        </div>
+    <% } else { %>
+        <!-- Empty State UI Holographic -->
+        <div class="flex flex-col items-center justify-center py-20 text-center neu-flat">
+            <div class="w-32 h-32 rounded-full neu-inset flex items-center justify-center mb-6">
+                <i class="ph ph-folder-dashed text-6xl text-[var(--brand-primary)] opacity-50"></i>
             </div>
-        <% } %>
-    </div>
+            <h2 class="text-2xl font-black text-[var(--text-main)] mb-2">Belum Ada Program Kerja</h2>
+            <p class="text-[var(--text-muted)] font-medium max-w-md">Data program kerja belum diinisialisasi oleh administrator untuk periode saat ini.</p>
+        </div>
+    <% } %>
 </div>
 
 <%- include('partials/footer') %>
