@@ -387,12 +387,19 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
-// Direktori Unggahan File Native (PDF & Gambar)
-const uploadDir = path.join(__dirname, 'public', 'uploads');
+// Direktori Unggahan File Native (PDF & Gambar) - Kompatibel Cloud Vercel & Lokal
+const isVercel = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_VERSION);
+const uploadDir = isVercel ? path.join('/tmp', 'uploads') : path.join(__dirname, 'public', 'uploads');
 const pdfDir = path.join(uploadDir, 'pdf');
 const imgDir = path.join(uploadDir, 'img');
+
+// Buat direktori dengan aman tanpa pernah melempar fatal error di read-only filesystem
 [uploadDir, pdfDir, imgDir].forEach(dir => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } catch (err) {
+    console.warn(`[Storage Warning] Direktori ${dir} tidak dapat dibuat di read-only filesystem:`, err.message);
+  }
 });
 
 // Storage Engine Multer untuk Dokumen PDF Resmi
@@ -443,6 +450,9 @@ const uploadImg = multer({
 });
 
 // Sajikan file PDF Native dengan Header SEO Google Search Console Gold Standard
+const localPdfDir = path.join(__dirname, 'public', 'uploads', 'pdf');
+const localImgDir = path.join(__dirname, 'public', 'uploads', 'img');
+
 app.use('/uploads/pdf', express.static(pdfDir, {
   setHeaders: (res) => {
     res.setHeader('Content-Type', 'application/pdf');
@@ -451,6 +461,9 @@ app.use('/uploads/pdf', express.static(pdfDir, {
     res.setHeader('Cache-Control', 'public, max-age=86400');
   }
 }));
+if (isVercel && fs.existsSync(localPdfDir)) {
+  app.use('/uploads/pdf', express.static(localPdfDir));
+}
 
 // Sajikan file Gambar Banner dengan Header Cache Optimal
 app.use('/uploads/img', express.static(imgDir, {
@@ -459,19 +472,25 @@ app.use('/uploads/img', express.static(imgDir, {
     res.setHeader('X-Robots-Tag', 'index, follow');
   }
 }));
+if (isVercel && fs.existsSync(localImgDir)) {
+  app.use('/uploads/img', express.static(localImgDir));
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname));
 
-// Sajikan favicon dan logo resmi secara direct
-app.get('/dpmfkgumi.webp', (req, res) => {
+// Handler Favicon & Logo Resmi Parlemen (Support dpmfkgumi.webp, dmpfkgumi.webp, dan favicon.ico)
+const sendFaviconResponse = (res) => {
+  const iconRoot = path.join(__dirname, 'dpmfkgumi.webp');
+  const iconPublic = path.join(__dirname, 'public', 'dpmfkgumi.webp');
   res.type('image/webp');
-  res.sendFile(path.join(__dirname, 'dpmfkgumi.webp'));
-});
-app.get('/favicon.ico', (req, res) => {
-  res.type('image/webp');
-  res.sendFile(path.join(__dirname, 'dpmfkgumi.webp'));
-});
+  res.setHeader('Cache-Control', 'public, max-age=604800');
+  if (fs.existsSync(iconRoot)) return res.sendFile(iconRoot);
+  if (fs.existsSync(iconPublic)) return res.sendFile(iconPublic);
+  res.status(204).end();
+};
+
+app.get(['/dpmfkgumi.webp', '/dmpfkgumi.webp', '/favicon.ico'], (req, res) => sendFaviconResponse(res));
 
 // Inisialisasi awal database
 ensureDatabaseInitialized();
