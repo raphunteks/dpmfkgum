@@ -1,0 +1,32 @@
+{
+  "name": "dpm-kbmfkg-umi-portal",
+  "version": "1.0.0",
+  "description": "Portal Resmi & Sistem Informasi Terpadu DPM KBMFKG UMI (Dewan Perwakilan Mahasiswa Keluarga Besar Mahasiswa Fakultas Kedokteran Gigi Universitas Muslim Indonesia)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "dpm",
+    "fkg-umi",
+    "parlemen-mahasiswa",
+    "e-legislasi",
+    "e-aspirasi",
+    "upstash-redis",
+    "vercel"
+  ],
+  "author": "DENTSWEB",
+  "license": "ISC",
+  "dependencies": {
+    "@upstash/redis": "^1.34.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "multer": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

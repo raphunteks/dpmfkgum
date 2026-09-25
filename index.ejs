@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ════════════════════════════════════════════════════════════════
+       FULL DYNAMIC SERVER-SIDE RENDERING (SSR) SEO GOLD STANDARD GSC
+       ════════════════════════════════════════════════════════════════ -->
+  <title><%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Portal Resmi DPM KBMFKG UMI - Parlemen Mahasiswa Berintegritas & Transparan' %></title>
+  <meta name="description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : 'Sistem Informasi Terpadu DPM KBMFKG UMI. Layanan E-Legislasi JDIH Ormawa, E-Aspirasi Advokasi Mahasiswa, dan Pengawasan Program Kerja FKG UMI.' %>">
+  <meta name="keywords" content="<%= (typeof seo !== 'undefined' && seo && seo.keywords) ? seo.keywords : 'DPM FKG UMI, Parlemen Mahasiswa, Kedokteran Gigi UMI, Organisasi Kemahasiswaan Lingkup FKG UMI, JDIH FKG UMI, Aspirasi Mahasiswa, BEM FKG UMI, Advokasi Mahasiswa, Universitas Muslim Indonesia, Makassar' %>">
+  <meta name="author" content="<%= (typeof seo !== 'undefined' && seo && seo.author) ? seo.author : 'DPM KBMFKG UMI' %>">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <% if (typeof seo !== 'undefined' && seo && seo.canonicalUrl) { %>
+  <link rel="canonical" href="<%= seo.canonicalUrl %>">
+  <% } %>
+  <meta name="theme-color" content="#064E3B">
+
+  <!-- Favicon & Icon Web Resmi (dpmfkgumi.webp) -->
+  <link rel="icon" type="image/webp" href="/dpmfkgumi.webp">
+  <link rel="apple-touch-icon" href="/dpmfkgumi.webp">
+
+  <!-- Open Graph Protocol (Facebook, LinkedIn, WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:url" content="<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>">
+  <meta property="og:title" content="<%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Portal Resmi DPM KBMFKG UMI' %>">
+  <meta property="og:description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : 'Portal Resmi Parlemen Mahasiswa Fakultas Kedokteran Gigi Universitas Muslim Indonesia' %>">
+  <meta property="og:image" content="<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '/dpmfkgumi.webp' %>">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Resmi DPM KBMFKG UMI">
+  <meta property="og:site_name" content="DPM KBMFKG UMI">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>">
+  <meta name="twitter:title" content="<%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Portal Resmi DPM KBMFKG UMI' %>">
+  <meta name="twitter:description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : 'Portal Resmi Parlemen Mahasiswa Fakultas Kedokteran Gigi Universitas Muslim Indonesia' %>">
+  <meta name="twitter:image" content="<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '/dpmfkgumi.webp' %>">
+
+  <!-- Structured Data JSON-LD (Schema.org Graph: Organization, WebSite, WebPage, BreadcrumbList, SiteNavigationElement) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#organization",
+        "name": "<%= (typeof seo !== 'undefined' && seo && seo.namaLembaga) ? seo.namaLembaga : 'Dewan Perwakilan Mahasiswa KBMFKG UMI' %>",
+        "alternateName": ["DPM FKG UMI", "DPM KBMFKG UMI", "Parlemen Kedokteran Gigi UMI"],
+        "url": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '/dpmfkgumi.webp' %>",
+          "width": "512",
+          "height": "512"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sekretariat FKG UMI. Jl. Pajonga Dg. Ngalle No.27, Pa'batong, Kec. Mamajang",
+          "addressLocality": "Makassar",
+          "addressRegion": "Sulawesi Selatan",
+          "postalCode": "90122",
+          "addressCountry": "ID"
+        },
+        "department": {
+          "@type": "CollegeOrUniversity",
+          "name": "<%= (typeof seo !== 'undefined' && seo && seo.fakultas) ? seo.fakultas : 'Fakultas Kedokteran Gigi Universitas Muslim Indonesia' %>"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#website",
+        "url": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>",
+        "name": "Portal Resmi DPM KBMFKG UMI",
+        "publisher": {
+          "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#jdih?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#webpage",
+        "url": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>",
+        "name": "<%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Portal Resmi DPM KBMFKG UMI' %>",
+        "description": "<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : '' %>",
+        "inLanguage": "id-ID",
+        "isPartOf": {
+          "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#website"
+        },
+        "breadcrumb": {
+          "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#breadcrumb"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Beranda",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#home"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Profil Dewan",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#profil"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Organisasi Kemahasiswaan Lingkup FKG UMI",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#jdih"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "E-Aspirasi Advokasi",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#aspirasi"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Warta Sidang Parlemen",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#berita"
+          }
+        ]
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": [
+          "Beranda",
+          "Profil Dewan",
+          "Organisasi Kemahasiswaan Lingkup FKG UMI",
+          "E-Aspirasi Mahasiswa",
+          "Warta Sidang",
+          "Direktori Lembaga"
+        ],
+        "url": [
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#home",
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#profil",
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#jdih",
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#aspirasi",
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#berita",
+          "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#ormawa"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts & Core Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Theme Light: Pure Soft Sky & Cyan */
+      --primary-navy: #032B5F;
+      --primary-emerald: #0284C7;
+      --primary-emerald-dark: #0369A1;
+      --primary-emerald-light: #38BDF8;
+      --secondary-cyan: #06B6D4;
+      --secondary-cyan-light: #67E8F9;
+      --accent-cyan-soft: #E0F2FE;
+      --accent-gold: #D97706;
+      --accent-gold-light: #FBBF24;
+      --bg-page: #F0F9FF;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #E0F2FE;
+      --bg-surface-glass: rgba(255, 255, 255, 0.94);
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --border-subtle: #E0F2FE;
+      --border-medium: #BAE6FD;
+      --border-focus: #0EA5E9;
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 3px rgba(2, 132, 199, 0.08);
+      --shadow-md: 0 4px 12px -2px rgba(2, 132, 199, 0.12), 0 2px 4px -1px rgba(2, 132, 199, 0.06);
+      --shadow-lg: 0 16px 32px -4px rgba(2, 132, 199, 0.15), 0 4px 12px -2px rgba(2, 132, 199, 0.08);
+    }
+
+    [data-theme="dark"] {
+      /* Theme Kedua: Biru Terang Soft Murni (Bebas Rona Ungu & Bebas Rona Hijau) */
+      --primary-navy: #041728;
+      --primary-emerald: #38BDF8;
+      --primary-emerald-dark: #0284C7;
+      --primary-emerald-light: #7DD3FC;
+      --secondary-cyan: #00F0FF;
+      --secondary-cyan-light: #67E8F9;
+      --accent-cyan-soft: #082845;
+      --accent-gold: #FBBF24;
+      --bg-page: #041728; /* Deep oceanic cyan blue */
+      --bg-card: #082845; /* Crisp ocean blue card */
+      --bg-card-hover: #0C365D;
+      --bg-surface-glass: rgba(8, 40, 69, 0.94);
+      --text-primary: #F0F9FF; /* Ice white blue */
+      --text-secondary: #BAE6FD; /* Soft bright sky blue */
+      --text-muted: #7DD3FC;
+      --border-subtle: #0C4A6E; /* Pure sky-900 blue */
+      --border-medium: #0284C7;
+      --border-focus: #38BDF8;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 12px rgba(2, 132, 199, 0.3);
+      --shadow-lg: 0 16px 36px rgba(2, 132, 199, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-page); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+
+    /* Public Navbar */
+    .public-navbar {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      padding: 0.85rem 0;
+      transition: all 0.3s ease;
+    }
+    .brand-logo-img {
+      width: 42px; height: 42px;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .brand-title-wrap { display: flex; flex-direction: column; line-height: 1.15; }
+    .brand-main-title { font-size: 1.15rem; font-weight: 800; color: var(--primary-emerald); letter-spacing: -0.01em; }
+    [data-theme="dark"] .brand-main-title { color: #38BDF8; }
+    .brand-sub-title { font-size: 0.72rem; color: var(--text-secondary); font-weight: 500; }
+
+    .nav-link-custom {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-link-custom:hover { color: var(--primary-emerald); background: rgba(2, 132, 199, 0.08); }
+    [data-theme="dark"] .nav-link-custom:hover { color: #38BDF8; background: rgba(56, 189, 248, 0.12); }
+    .nav-link-custom.active { color: #0284C7; background: rgba(2, 132, 199, 0.12); font-weight: 700; }
+    [data-theme="dark"] .nav-link-custom.active { color: #38BDF8; background: rgba(56, 189, 248, 0.2); }
+
+    /* WITA Clock Badge */
+    .wita-badge {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: rgba(2, 132, 199, 0.08); color: var(--primary-emerald);
+      padding: 0.35rem 0.75rem; border-radius: var(--radius-full);
+      font-size: 0.8rem; font-weight: 600; font-family: var(--font-mono);
+      border: 1px solid rgba(2, 132, 199, 0.18);
+    }
+    [data-theme="dark"] .wita-badge {
+      background: rgba(56, 189, 248, 0.12); color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; background: #10b981; border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Buttons */
+    .btn-emerald {
+      background: linear-gradient(135deg, var(--primary-emerald) 0%, var(--primary-emerald-light) 100%);
+      color: #FFFFFF; font-weight: 700; border: none;
+      border-radius: var(--radius-md); padding: 0.65rem 1.25rem;
+      box-shadow: 0 6px 16px -2px rgba(6, 78, 59, 0.3);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-emerald:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -3px rgba(6, 78, 59, 0.4); color: #FFFFFF; }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+      color: #FFFFFF; font-weight: 700; border: none;
+      border-radius: var(--radius-md); padding: 0.65rem 1.25rem;
+      box-shadow: 0 6px 16px -2px rgba(217, 119, 6, 0.3);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -3px rgba(217, 119, 6, 0.4); color: #FFFFFF; }
+    .btn-outline-custom {
+      border: 1.5px solid var(--border-medium); color: var(--text-primary);
+      background: transparent; border-radius: var(--radius-md);
+      padding: 0.5rem 0.95rem; font-weight: 600; font-size: 0.88rem;
+      transition: all 0.2s ease;
+    }
+    .btn-outline-custom:hover { background: var(--bg-card-hover); border-color: var(--primary-emerald); color: var(--primary-emerald); }
+    [data-theme="dark"] .btn-outline-custom:hover { border-color: #34d399; color: #34d399; }
+
+    /* Hero Section */
+    .hero-wrapper {
+      padding: 5.5rem 0 4.5rem 0;
+      position: relative;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(240, 249, 255, 0.90) 0%, rgba(224, 242, 254, 0.82) 55%, rgba(186, 230, 253, 0.65) 100%);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      z-index: 1;
+    }
+    [data-theme="dark"] .hero-overlay {
+      background: linear-gradient(135deg, rgba(4, 23, 40, 0.92) 0%, rgba(8, 40, 69, 0.85) 55%, rgba(2, 132, 199, 0.50) 100%);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .hero-content-relative {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.45rem 1.1rem; border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.85); color: var(--primary-emerald);
+      font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem;
+      border: 1px solid rgba(2, 132, 199, 0.25);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+    [data-theme="dark"] .hero-badge-tag {
+      background: rgba(8, 40, 69, 0.8); color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .hero-title {
+      font-size: 3rem; font-weight: 800; line-height: 1.18;
+      letter-spacing: -0.025em; margin-bottom: 1.25rem;
+    }
+    @media (max-width: 768px) { .hero-title { font-size: 2.15rem; } }
+    .hero-highlight {
+      background: linear-gradient(135deg, var(--primary-emerald) 0%, var(--secondary-cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    [data-theme="dark"] .hero-highlight {
+      background: linear-gradient(135deg, #38BDF8 0%, #00F0FF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 2rem; max-width: 620px; font-weight: 500; }
+
+    /* Bento Stat Card */
+    .bento-stat-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(2, 132, 199, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.12), 0 8px 10px -6px rgba(2, 132, 199, 0.08);
+    }
+    [data-theme="dark"] .bento-stat-card {
+      background: rgba(8, 40, 69, 0.85);
+      border-color: rgba(56, 189, 248, 0.25);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed var(--border-subtle); }
+    .stat-row:last-child { border-bottom: none; }
+
+    /* Section Styling */
+    .section-public { padding: 4.5rem 0; position: relative; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-tag {
+      display: inline-block; font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--primary-emerald); margin-bottom: 0.5rem;
+    }
+    [data-theme="dark"] .section-tag { color: #38BDF8; }
+    .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .section-subtitle { font-size: 0.95rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto; }
+
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .app-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    .badge-status {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.65rem; border-radius: var(--radius-full);
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .badge-status.success { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+    .badge-status.warning { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+    .badge-status.process { background: rgba(2, 132, 199, 0.12); color: #0284c7; }
+
+    /* Search Bar */
+    .search-input-box {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem 0.75rem 2.85rem;
+      width: 100%;
+      outline: none;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .search-input-box:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+
+    /* Footer */
+    .public-footer {
+      background: #0B132B;
+      color: #E2E8F0;
+      padding: 4.5rem 0 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-brand-title { color: #FFFFFF; font-weight: 800; font-size: 1.25rem; }
+    .footer-sub { color: #94A3B8; font-size: 0.88rem; line-height: 1.6; }
+    .footer-heading { color: #FBBF24; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.2rem; }
+    .footer-link { color: #CBD5E1; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-link:hover { color: #34d399; }
+
+    /* Modal Styling */
+    .modal-content-custom {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .form-label-custom { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; display: block; }
+    .form-control-custom, .form-select-custom {
+      background: var(--bg-card); border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-md); padding: 0.65rem 0.95rem;
+      color: var(--text-primary); font-size: 0.9rem; width: 100%; outline: none;
+    }
+    .form-control-custom:focus, .form-select-custom:focus {
+      border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR PUBLIK ── -->
+  <nav class="public-navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="d-flex align-items-center gap-2 text-decoration-none" href="#home" onclick="showPublicSection('home')">
+        <img src="/dpmfkgumi.webp" alt="Logo DPM KBMFKG UMI" class="brand-logo-img">
+        <div class="brand-title-wrap">
+          <span class="brand-main-title">DPM KBMFKG UMI</span>
+          <span class="brand-sub-title">Fakultas Kedokteran Gigi Universitas Muslim Indonesia</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu (Routing Nyata Berbasis URL) -->
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="/" class="nav-link-custom <%= (typeof activePage === 'undefined' || activePage === 'home') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'home', '/')">Beranda</a>
+        <a href="/profil" class="nav-link-custom <%= (typeof activePage !== 'undefined' && activePage === 'profil') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'profil', '/profil')">Profil</a>
+        <a href="/regulasi" class="nav-link-custom <%= (typeof activePage !== 'undefined' && activePage === 'regulasi') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'jdih', '/regulasi')">Regulasi</a>
+        <a href="/aspirasi" class="nav-link-custom <%= (typeof activePage !== 'undefined' && activePage === 'aspirasi') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'aspirasi', '/aspirasi')">Aspirasi</a>
+        <a href="/berita" class="nav-link-custom <%= (typeof activePage !== 'undefined' && activePage === 'berita') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'berita', '/berita')">Berita</a>
+        <a href="/lembaga" class="nav-link-custom <%= (typeof activePage !== 'undefined' && activePage === 'lembaga') ? 'active' : '' %>" onclick="navigatePublicSection(event, 'ormawa', '/lembaga')">Lembaga</a>
+      </div>
+
+      <!-- Action Buttons (Lacak Tiket dihapus dari header navbar) -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="wita-badge d-none d-md-inline-flex">
+          <span class="pulse-dot"></span>
+          <span id="liveWitaClock">--:--:-- WITA</span>
+        </div>
+        <button class="btn btn-outline-custom p-2" onclick="toggleTheme()" title="Ganti Mode Gelap/Terang">
+          <i class="bi bi-moon-stars" id="themeIconNav"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <% 
+    const heroBgImg = (typeof profil !== 'undefined' && profil && profil.hero_image_url) 
+      ? profil.hero_image_url 
+      : 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1920&q=80'; 
+  %>
+  <!-- ════════ SECTION 1: HERO & IDENTITAS ════════ -->
+  <section id="public-hero" class="hero-wrapper" style="background-image: url('<%= heroBgImg %>');">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content-relative">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <div class="hero-badge-tag">
+            <i class="bi bi-shield-check text-primary"></i> Parlemen Mahasiswa Berintegritas & Transparan • Periode <%= (typeof profil !== 'undefined' && profil && profil.periode_aktif) ? profil.periode_aktif : '2026-2027' %>
+          </div>
+          <h1 class="hero-title">
+            Mengabdi dengan Integritas, <br>
+            <span class="hero-highlight">Mengawal Hak Mahasiswa Kedokteran Gigi</span>
+          </h1>
+          <p class="hero-desc">
+            Transformasi digital tata kelola 4 fungsi parlemen DPM KBMFKG UMI: <b>Legislasi, Pengawasan, Anggaran,</b> dan <b>Advokasi Aspirasi</b> untuk mahasiswa Pre-Klinik dan Koas RSGM.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <button class="btn btn-emerald btn-lg shadow-sm" onclick="openAspirasiModal()">
+              <i class="bi bi-megaphone-fill me-1"></i> Sampaikan Aspirasi
+            </button>
+            <button class="btn btn-gold btn-lg shadow-sm" onclick="showPublicSection('jdih')">
+              <i class="bi bi-book-half me-1"></i> Telusuri Regulasi
+            </button>
+            <button class="btn btn-outline-custom btn-lg shadow-sm" onclick="openTrackingModal()">
+              <i class="bi bi-ticket-perforated me-1"></i> Cek Progres Tiket
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="hero-showcase-wrap">
+            <!-- Bento Stat Card (Glassmorphism Kinerja Parlemen) -->
+            <div class="bento-stat-card">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6 class="fw-bold mb-0"><i class="bi bi-graph-up-arrow text-primary me-2"></i>Kinerja Parlemen Terbuka</h6>
+                <span class="badge-status process"><span class="pulse-dot"></span> Live Data</span>
+              </div>
+              <div class="stat-row">
+                <span class="text-secondary small fw-medium">Aspirasi Terselesaikan</span>
+                <span class="font-mono fw-bold text-primary fs-6" id="statHeroAspirasi"><%= (typeof stats !== 'undefined' && stats && stats.aspirasiCount) ? stats.aspirasiCount : '3' %> Tiket Masuk</span>
+              </div>
+              <div class="stat-row">
+                <span class="text-secondary small fw-medium">Produk Hukum JDIH Aktif</span>
+                <span class="font-mono fw-bold fs-6" id="statHeroJdih"><%= (typeof stats !== 'undefined' && stats && stats.jdihCount) ? stats.jdihCount : '3' %> Regulasi</span>
+              </div>
+              <div class="stat-row">
+                <span class="text-secondary small fw-medium">Program Kerja Diawasi</span>
+                <span class="font-mono fw-bold text-primary fs-6" id="statHeroProker"><%= (typeof stats !== 'undefined' && stats && stats.prokerCount) ? stats.prokerCount : '2' %> Kegiatan</span>
+              </div>
+              <div class="stat-row">
+                <span class="text-secondary small fw-medium">Basis Penyimpanan</span>
+                <span class="font-mono small fw-semibold text-muted">Upstash Redis Enterprise</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 2: PROFIL, VISI & MISI ════════ -->
+  <section id="public-profil" class="section-public bg-card">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Falsafah Dewan</span>
+        <h2 class="section-title">Visi, Misi & Nilai Dasar Parlemen</h2>
+        <p class="section-subtitle">Komitmen moral dan yuridis DPM KBMFKG UMI dalam mewujudkan iklim organisasi mahasiswa kedokteran gigi yang progresif, inklusif, dan akuntabel.</p>
+      </div>
+
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="app-card h-100">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="p-3 rounded-circle" style="background: rgba(6, 78, 59, 0.1); color: var(--primary-emerald); font-size: 1.5rem;">
+                <i class="bi bi-compass"></i>
+              </div>
+              <div>
+                <h4 class="fw-bold mb-0">Visi Parlemen</h4>
+                <small class="text-muted">Arah Perjuangan 2026-2027</small>
+              </div>
+            </div>
+            <p class="text-secondary leading-relaxed" id="profVisiText">
+              <%= (typeof profil !== 'undefined' && profil && profil.visi) ? profil.visi : 'Menjadi episentrum parlemen mahasiswa kedokteran gigi yang progresif, kredibel, transparan, dan berlandaskan nilai-nilai keislaman serta keilmuan dental modern.' %>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="app-card h-100">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="p-3 rounded-circle" style="background: rgba(2, 132, 199, 0.1); color: var(--secondary-cyan); font-size: 1.5rem;">
+                <i class="bi bi-list-check"></i>
+              </div>
+              <div>
+                <h4 class="fw-bold mb-0">Misi Strategis</h4>
+                <small class="text-muted">4 Pilar Pelayanan Dewan</small>
+              </div>
+            </div>
+            <div class="text-secondary small leading-relaxed" id="profMisiText" style="white-space: pre-line;">
+              <%= (typeof profil !== 'undefined' && profil && profil.misi) ? profil.misi : '1. Mengawal produk hukum ormawa yang inklusif dan solutif;\n2. Menjalankan pengawasan eksekutif secara konstruktif dan independen;\n3. Mengoptimalkan tata kelola anggaran ormawa yang transparan;\n4. Memperjuangkan hak akademik dan fasilitas klinik pre-klinik serta koas RSGM.' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 3: ORGANISASI KEMAHASISWAAN LINGKUP FKG UMI (JDIH) ════════ -->
+  <section id="public-jdih" class="section-public">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Perpustakaan Regulasi Digital</span>
+        <h2 class="section-title">Organisasi Kemahasiswaan Lingkup FKG UMI</h2>
+        <p class="section-subtitle">Akses terbuka naskah otentik produk hukum, ketetapan sidang paripurna, anggaran dasar/anggaran rumah tangga, dan panduan organisasi.</p>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="row g-3 mb-4 justify-content-center">
+        <div class="col-md-6">
+          <div class="position-relative">
+            <i class="bi bi-search position-absolute top-50 translate-middle-y text-muted" style="left: 1rem;"></i>
+            <input type="text" class="search-input-box" id="jdihSearchInput" placeholder="Cari regulasi: ketetapan, anggaran, ormawa..." oninput="filterJdih()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select-custom h-100" id="jdihCategorySelect" onchange="filterJdih()">
+            <option value="ALL">Semua Jenis Peraturan</option>
+            <option value="TAP_DPM">Ketetapan Sidang (TAP DPM)</option>
+            <option value="Undang_Undang">Undang-Undang Ormawa</option>
+            <option value="Konstitusi_KBM">Konstitusi Dasar KBM</option>
+            <option value="SOP">Standar Operasional (SOP)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cards Container -->
+      <div class="row g-4" id="publicJdihContainer">
+        <!-- Rendered dynamically -->
+        <% if (typeof jdih !== 'undefined' && jdih && jdih.length > 0) { %>
+          <% jdih.forEach(j => { %>
+            <div class="col-md-6 col-lg-4 jdih-card-item" data-title="<%= j.judul_regulasi.toLowerCase() %>" data-type="<%= j.jenis_peraturan %>">
+              <div class="app-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-status process"><%= j.jenis_peraturan %></span>
+                    <span class="font-mono small text-muted"><%= j.tahun_penetapan %></span>
+                  </div>
+                  <h5 class="fw-bold mb-2"><%= j.nomor_peraturan %></h5>
+                  <p class="text-secondary small mb-3"><%= j.judul_regulasi %></p>
+                </div>
+                <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                  <span class="badge-status success"><%= j.status_hukum %></span>
+                  <button class="btn btn-sm btn-outline-custom" onclick="openPdfPreview('<%= j.file_drive_url %>', '<%= j.judul_regulasi %>')">
+                    <i class="bi bi-eye"></i> Baca Naskah
+                  </button>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 4: E-ASPIRASI PUBLIK ════════ -->
+  <section id="public-aspirasi" class="section-public bg-card">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Komisi III Advokasi</span>
+        <h2 class="section-title">E-Aspirasi & Kanal Pengaduan Mahasiswa</h2>
+        <p class="section-subtitle">Sampaikan aspirasi, kendala sarana pre-klinik, atau masalah koas RSGM secara aman dan terlindungi. Tersedia opsi pengaduan anonim.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="app-card p-4 text-center">
+            <div class="mb-3" style="font-size: 2.8rem; color: var(--primary-emerald);">
+              <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h4 class="fw-bold mb-2">Punya Masukan atau Kendala Akademik/Klinik?</h4>
+            <p class="text-secondary small mb-4">Setiap aspirasi yang masuk akan diverifikasi oleh Komisi III dan dieskalasikan ke Rapat Dengar Pendapat (RDP) pimpinan fakultas.</p>
+            <div class="d-flex justify-content-center gap-3">
+              <button class="btn btn-emerald btn-lg" onclick="openAspirasiModal()">
+                <i class="bi bi-pencil-square me-1"></i> Buat Laporan Aspirasi
+              </button>
+              <button class="btn btn-outline-custom btn-lg" onclick="openTrackingModal()">
+                <i class="bi bi-ticket-perforated me-1"></i> Lacak Status Tiket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 5: BERITA & SIARAN PERS ════════ -->
+  <section id="public-berita" class="section-public">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Transparansi Parlemen</span>
+        <h2 class="section-title">Berita & Siaran Pers</h2>
+        <p class="section-subtitle">Ikuti publikasi resmi hasil sidang paripurna, dialog advokasi, dan keterbukaan informasi kemahasiswaan FKG UMI.</p>
+      </div>
+
+      <div class="row g-4" id="publicBeritaContainer">
+        <% if (typeof berita !== 'undefined' && berita && berita.length > 0) { %>
+          <% berita.forEach(b => { %>
+            <div class="col-md-6 col-lg-4">
+              <a href="/berita/<%= b.slug || b.id_berita %>" class="text-decoration-none text-reset d-block h-100">
+                <div class="app-card h-100 d-flex flex-column news-card-interactive" style="cursor: pointer;">
+                  <% if (b.banner_img_url) { %>
+                    <div class="mb-3" style="height: 180px; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: #CBD5E1;">
+                      <img src="<%= b.banner_img_url %>" alt="<%= b.judul_berita %>" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                    </div>
+                  <% } %>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge-status process"><%= b.kategori %></span>
+                    <span class="font-mono small text-muted"><%= b.tanggal_terbit %></span>
+                  </div>
+                  <h5 class="fw-bold mb-2"><%= b.judul_berita %></h5>
+                  <p class="text-secondary small mb-3 flex-grow-1"><%= (b.isi_artikel || '').slice(0, 140) %>...</p>
+                  <div class="pt-2 border-top d-flex justify-content-between align-items-center small text-muted">
+                    <span><i class="bi bi-person me-1"></i><%= b.penulis %></span>
+                    <span><i class="bi bi-eye me-1"></i><%= b.view_count || 0 %></span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 6: DIREKTORI ORMAWA MITRA ════════ -->
+  <section id="public-ormawa" class="section-public bg-card">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Sinergi Lembaga</span>
+        <h2 class="section-title">Organisasi Kemahasiswaan Mitra</h2>
+        <p class="section-subtitle">Mitra strategis pelaksanaan kegiatan dan pergerakan kemahasiswaan dalam lingkup Keluarga Besar Mahasiswa FKG UMI.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="app-card text-center h-100">
+            <div class="mb-3" style="font-size: 2.2rem; color: #0284C7;"><i class="bi bi-award-fill"></i></div>
+            <h5 class="fw-bold mb-1">BEM KBMFKG UMI</h5>
+            <small class="text-muted d-block mb-2">Badan Eksekutif Mahasiswa</small>
+            <p class="text-secondary small">Lembaga eksekutif penggerak program kemahasiswaan dental.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="app-card text-center h-100">
+            <div class="mb-3" style="font-size: 2.2rem; color: #06B6D4;"><i class="bi bi-box-seam-fill"></i></div>
+            <h5 class="fw-bold mb-1">KPU KBMFKG UMI</h5>
+            <small class="text-muted d-block mb-2">Komisi Pemilihan Umum</small>
+            <p class="text-secondary small">Lembaga independen penyelenggara Pemilihan Raya (Pemira) mahasiswa FKG UMI.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="app-card text-center h-100">
+            <div class="mb-3" style="font-size: 2.2rem; color: #0284C7;"><i class="bi bi-shield-check"></i></div>
+            <h5 class="fw-bold mb-1">DMP KBMFKG UMI</h5>
+            <small class="text-muted d-block mb-2">Dewan Mahasiswa Profesi</small>
+            <p class="text-secondary small">Wadah koordinasi, pergerakan, dan advokasi mahasiswa tahapan Profesi Dokter Gigi (Koas) RSGM FKG UMI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER PUBLIK ════════ -->
+  <footer class="public-footer">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="/dpmfkgumi.webp" alt="Logo DPM" style="width: 36px; height: 36px; object-fit: contain; border-radius: 8px;">
+            <span class="footer-brand-title">DPM KBMFKG UMI</span>
+          </div>
+          <p class="footer-sub">
+            Sekretariat FKG UMI. Jl. Pajonga Dg. Ngalle No.27, Pa'batong, Kec. Mamajang, Kota Makassar, Sulawesi Selatan 90122
+          </p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="https://instagram.com/dpmfkgumi" target="_blank" class="footer-link fs-5"><i class="bi bi-instagram"></i></a>
+            <a href="mailto:dpm.kbmfkg@umi.ac.id" class="footer-link fs-5"><i class="bi bi-envelope"></i></a>
+            <a href="https://wa.me/6281299887766" target="_blank" class="footer-link fs-5"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-heading">Navigasi Utama</div>
+          <a href="#home" class="footer-link" onclick="showPublicSection('home')">Beranda</a>
+          <a href="#profil" class="footer-link" onclick="showPublicSection('profil')">Profil Dewan</a>
+          <a href="#jdih" class="footer-link" onclick="showPublicSection('jdih')">Regulasi</a>
+          <a href="#aspirasi" class="footer-link" onclick="showPublicSection('aspirasi')">E-Aspirasi Mahasiswa</a>
+          <a href="#berita" class="footer-link" onclick="showPublicSection('berita')">Berita & Siaran Pers</a>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-heading">Kontak Aspirasi & Layanan</div>
+          <p class="footer-sub mb-2"><i class="bi bi-envelope me-2"></i>dpm.kbmfkg@umi.ac.id</p>
+          <p class="footer-sub mb-2"><i class="bi bi-whatsapp me-2"></i>Hotline Komisi III: +62 812-9988-7766</p>
+          <p class="footer-sub"><i class="bi bi-geo-alt me-2"></i>Sekretariat DPM Lt. 2 FKG UMI</p>
+        </div>
+      </div>
+
+      <div class="pt-3 border-top border-secondary text-center small text-secondary">
+        &copy; 2026 Dewan Perwakilan Mahasiswa KBMFKG UMI. Hak Cipta Dilindungi Undang-Undang.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════ PUBLIC MODALS ════════ -->
+
+  <!-- Modal Submit Aspirasi -->
+  <div class="modal fade" id="modalAspirasiPublik" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header p-4 border-bottom">
+          <h5 class="modal-title fw-bold text-success mb-0"><i class="bi bi-megaphone-fill me-2"></i>Form Pengaduan Aspirasi Mahasiswa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formPublicAspirasi" onsubmit="handlePublicAspirasiSubmit(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Nama Mahasiswa Pelapor</label>
+                <input type="text" class="form-control-custom" name="nama_mahasiswa" id="aspNama" placeholder="Nama lengkap Anda..." required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">NIM / Stambuk</label>
+                <input type="text" class="form-control-custom font-mono" name="nim_stambuk" id="aspNim" placeholder="161202..." required>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="chkAnonim" onchange="toggleAnonimMode()">
+                  <label class="form-check-label small fw-semibold" for="chkAnonim">
+                    Gunakan Mode Anonim (Nama & NIM disamarkan dari rekaman publik)
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Jenjang Studi</label>
+                <select class="form-select-custom" name="program_studi" required>
+                  <option value="Sarjana_Kedokteran_Gigi">S1 Pendidikan Dokter Gigi (Pre-Klinik)</option>
+                  <option value="Profesi_Dokter_Gigi_Koas">Profesi Dokter Gigi (Koas RSGM)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Kategori Isu</label>
+                <select class="form-select-custom" name="kategori_isu" required>
+                  <option value="Fasilitas_RSGM">Fasilitas & Dental Chair RSGM</option>
+                  <option value="Akademik_Kurikulum">Akademik & Ujian Blok</option>
+                  <option value="Kebijakan_Birokrasi">Kebijakan Dekanat / Pembayaran</option>
+                  <option value="Kemahasiswaan">Kegiatan Ormawa & Fasilitas Kampus</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Pokok Aspirasi / Judul Pengaduan</label>
+                <input type="text" class="form-control-custom" name="judul_aspirasi" placeholder="Ringkasan pokok keluhan atau usulan..." required>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Detail Kronologi & Fakta Lapangan</label>
+                <textarea class="form-control-custom" rows="4" name="isi_detail" placeholder="Jelaskan secara runtut fakta, kendala, atau solusi yang diusulkan..." required></textarea>
+              </div>
+              <div class="col-12 text-end mt-4">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-emerald"><i class="bi bi-send-fill"></i> Kirimkan Aspirasi</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tracking Tiket -->
+  <div class="modal fade" id="modalTrackingTiket" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header p-4 border-bottom">
+          <h5 class="modal-title fw-bold"><i class="bi bi-search me-2"></i>Lacak Status Aspirasi Anda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="mb-3">
+            <label class="form-label-custom">Masukkan Kode Tiket Aspirasi</label>
+            <div class="input-group">
+              <input type="text" class="form-control-custom font-mono" id="trackingKodeInput" placeholder="Contoh: ASP-89X2" style="text-transform: uppercase;">
+              <button class="btn btn-emerald" onclick="trackTicketStatus()">Cek</button>
+            </div>
+          </div>
+          <div id="trackingResultArea" class="mt-3" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Preview PDF JDIH -->
+  <div class="modal fade" id="modalPreviewDoc" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header p-4 border-bottom">
+          <h5 class="modal-title fw-bold" id="previewDocTitle">Pratinjau Dokumen Produk Hukum</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0" style="height: 75vh;">
+          <iframe id="previewDocFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <div class="modal-footer p-3 border-top d-flex justify-content-between">
+          <small class="text-muted"><i class="bi bi-shield-check"></i> Dokumen resmi terverifikasi DPM KBMFKG UMI.</small>
+          <a id="previewDocDownloadLink" href="#" target="_blank" class="btn btn-emerald btn-sm">
+            <i class="bi bi-download"></i> Buka Tautan Asli
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+    <div id="liveToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2" id="liveToastMessage">
+          <i class="bi bi-check-circle-fill fs-5"></i> <span>Operasi berhasil!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Theme Management
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('dpm_theme', theme);
+      const icon = document.getElementById('themeIconNav');
+      if (icon) icon.className = theme === 'dark' ? 'bi bi-sun-fill text-warning' : 'bi bi-moon-stars';
+    }
+    const savedTheme = localStorage.getItem('dpm_theme') || 'light';
+    applyTheme(savedTheme);
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // Live WITA Clock
+    function updateClock() {
+      const el = document.getElementById('liveWitaClock');
+      if (!el) return;
+      const d = new Date();
+      el.textContent = d.toLocaleTimeString('id-ID', { hour12: false }) + ' WITA';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Toast
+    function showToast(message, isSuccess = true) {
+      const toastEl = document.getElementById('liveToast');
+      const msg = document.getElementById('liveToastMessage');
+      if (!toastEl) return;
+      toastEl.className = `toast align-items-center text-white ${isSuccess ? 'bg-success' : 'bg-danger'} border-0 shadow-lg`;
+      msg.innerHTML = `<i class="bi bi-${isSuccess ? 'check-circle-fill' : 'exclamation-triangle-fill'} fs-5"></i> <span>${message}</span>`;
+      const t = new bootstrap.Toast(toastEl, { delay: 3500 });
+      t.show();
+    }
+
+    // Navigation Scrolling & History URL PushState
+    function showPublicSection(secId) {
+      const target = document.getElementById('public-' + secId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function navigatePublicSection(event, secId, targetUrl) {
+      if (window.location.pathname === '/' || window.location.pathname === targetUrl || targetUrl.startsWith('/')) {
+        if (event) event.preventDefault();
+        showPublicSection(secId);
+        window.history.pushState({ section: secId }, '', targetUrl);
+        document.querySelectorAll('.nav-link-custom').forEach(el => el.classList.remove('active'));
+        if (event && event.currentTarget) event.currentTarget.classList.add('active');
+      }
+    }
+
+    // Auto-scroll on initial load based on activePage
+    window.addEventListener('DOMContentLoaded', () => {
+      const p = "<%= (typeof activePage !== 'undefined') ? activePage : 'home' %>";
+      if (p === 'profil') setTimeout(() => showPublicSection('profil'), 180);
+      else if (p === 'regulasi') setTimeout(() => showPublicSection('jdih'), 180);
+      else if (p === 'aspirasi') setTimeout(() => showPublicSection('aspirasi'), 180);
+      else if (p === 'berita') setTimeout(() => showPublicSection('berita'), 180);
+      else if (p === 'lembaga') setTimeout(() => showPublicSection('ormawa'), 180);
+    });
+
+    window.addEventListener('popstate', () => {
+      const path = window.location.pathname.replace('/', '') || 'home';
+      if (path === 'profil') showPublicSection('profil');
+      else if (path === 'regulasi') showPublicSection('jdih');
+      else if (path === 'aspirasi') showPublicSection('aspirasi');
+      else if (path === 'berita') showPublicSection('berita');
+      else if (path === 'lembaga') showPublicSection('ormawa');
+      else showPublicSection('home');
+    });
+
+    // Filter JDIH Regulations
+    function filterJdih() {
+      const q = (document.getElementById('jdihSearchInput')?.value || '').toLowerCase().trim();
+      const type = document.getElementById('jdihCategorySelect')?.value || 'ALL';
+      const items = document.querySelectorAll('.jdih-card-item');
+
+      items.forEach(el => {
+        const title = el.getAttribute('data-title') || '';
+        const itemType = el.getAttribute('data-type') || '';
+        const matchQ = !q || title.includes(q);
+        const matchType = type === 'ALL' || itemType === type;
+        el.style.display = (matchQ && matchType) ? 'block' : 'none';
+      });
+    }
+
+    // Modal Helpers
+    function openAspirasiModal() {
+      new bootstrap.Modal(document.getElementById('modalAspirasiPublik')).show();
+    }
+    function openTrackingModal() {
+      new bootstrap.Modal(document.getElementById('modalTrackingTiket')).show();
+    }
+
+    function toggleAnonimMode() {
+      const isAnonim = document.getElementById('chkAnonim').checked;
+      const nama = document.getElementById('aspNama');
+      const nim = document.getElementById('aspNim');
+      if (isAnonim) {
+        nama.value = 'Mahasiswa Anonim';
+        nim.value = '-';
+        nama.readOnly = true;
+        nim.readOnly = true;
+      } else {
+        nama.value = '';
+        nim.value = '';
+        nama.readOnly = false;
+        nim.readOnly = false;
+      }
+    }
+
+    // Submit Aspirasi
+    async function handlePublicAspirasiSubmit(event) {
+      event.preventDefault();
+      const f = document.getElementById('formPublicAspirasi');
+      const payload = {
+        nama_mahasiswa: f.nama_mahasiswa.value,
+        nim_stambuk: f.nim_stambuk.value,
+        program_studi: f.program_studi.value,
+        kategori_isu: f.kategori_isu.value,
+        judul_aspirasi: f.judul_aspirasi.value,
+        isi_detail: f.isi_detail.value
+      };
+
+      try {
+        const res = await fetch('/api/public/aspirasi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data && data.success) {
+          bootstrap.Modal.getInstance(document.getElementById('modalAspirasiPublik')).hide();
+          f.reset();
+          showToast(`Aspirasi berhasil dikirim! Kode Tiket: ${data.data.kodeTiket}`);
+          setTimeout(() => {
+            document.getElementById('trackingKodeInput').value = data.data.kodeTiket;
+            openTrackingModal();
+            trackTicketStatus();
+          }, 1000);
+        } else {
+          showToast(data?.message || 'Gagal mengirim aspirasi.', false);
+        }
+      } catch (e) {
+        showToast('Terjadi kesalahan jaringan.', false);
+      }
+    }
+
+    // Track Ticket Status
+    async function trackTicketStatus() {
+      const code = document.getElementById('trackingKodeInput').value.trim().toUpperCase();
+      const area = document.getElementById('trackingResultArea');
+      if (!code) {
+        showToast('Masukkan kode tiket Anda.', false);
+        return;
+      }
+
+      area.style.display = 'block';
+      area.innerHTML = '<div class="text-center p-3"><div class="spinner-border spinner-border-sm text-success"></div> Mencari tiket...</div>';
+
+      try {
+        const res = await fetch('/api/public/aspirasi/' + code);
+        const d = await res.json();
+        if (d && d.success && d.data) {
+          const item = d.data;
+          area.innerHTML = `
+            <div class="p-3 rounded border bg-light">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="font-mono fw-bold text-success">${item.kode_tiket}</span>
+                <span class="badge-status ${item.status === 'Selesai' ? 'success' : 'warning'}">${item.status}</span>
+              </div>
+              <h6 class="fw-bold mb-1">${item.judul_aspirasi}</h6>
+              <p class="text-muted small mb-2">${item.isi_detail}</p>
+              <div class="small p-2 rounded bg-white border">
+                <b>Tanggapan Dewan:</b><br>
+                <span>${item.tanggapan_dewan || 'Sedang dalam telaah Komisi III DPM.'}</span>
+              </div>
+            </div>
+          `;
+        } else {
+          area.innerHTML = '<div class="alert alert-warning small mb-0">Tiket tidak ditemukan. Periksa kembali kode tiket Anda.</div>';
+        }
+      } catch (e) {
+        area.innerHTML = '<div class="alert alert-danger small mb-0">Gagal mengambil status tiket.</div>';
+      }
+    }
+
+    // PDF Preview Modal
+    function openPdfPreview(url, title) {
+      document.getElementById('previewDocTitle').textContent = title || 'Pratinjau Dokumen';
+      const frame = document.getElementById('previewDocFrame');
+      const dlLink = document.getElementById('previewDocDownloadLink');
+      let cleanUrl = url;
+      if (cleanUrl.includes('drive.google.com') && cleanUrl.includes('/view')) {
+        cleanUrl = cleanUrl.replace('/view', '/preview');
+      }
+      frame.src = cleanUrl;
+      dlLink.href = url;
+      new bootstrap.Modal(document.getElementById('modalPreviewDoc')).show();
+    }
+  </script>
+</body>
+</html>

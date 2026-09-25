@@ -1,0 +1,2585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backoffice Parlemen - DPM KBMFKG UMI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/webp" href="/dpmfkgumi.webp">
+  <link rel="apple-touch-icon" href="/dpmfkgumi.webp">
+
+  <!-- Fonts & Core Dependencies -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --primary-emerald: #064E3B;
+      --primary-emerald-dark: #022C22;
+      --primary-emerald-light: #059669;
+      --secondary-cyan: #0284C7;
+      --secondary-cyan-light: #38BDF8;
+      --accent-gold: #D97706;
+      --accent-gold-light: #FBBF24;
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F1F5F9;
+      --bg-surface-glass: rgba(255, 255, 255, 0.85);
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --border-subtle: #E2E8F0;
+      --border-medium: #CBD5E1;
+      --border-focus: #0284C7;
+      --sidebar-bg: #064E3B;
+      --sidebar-text: #E2E8F0;
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #041728;
+      --bg-card: #082845;
+      --bg-card-hover: #0D3559;
+      --bg-surface-glass: rgba(8, 40, 69, 0.88);
+      --text-primary: #F0F9FF;
+      --text-secondary: #BAE6FD;
+      --text-muted: #7DD3FC;
+      --border-subtle: #0C4A6E;
+      --border-medium: #0369A1;
+      --border-focus: #38BDF8;
+      --sidebar-bg: #031D33;
+      --sidebar-text: #E0F2FE;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-page); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+
+    /* Layout */
+    .backoffice-wrapper { display: flex; min-height: 100vh; }
+    .backoffice-sidebar {
+      width: 270px;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      position: fixed;
+      top: 0; bottom: 0; left: 0;
+      z-index: 1040;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sidebar-header-box { padding: 1.5rem 1.25rem 1rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+    .sidebar-brand-name { color: #FFFFFF; font-weight: 800; font-size: 1.05rem; margin: 0; line-height: 1.2; }
+    .sidebar-brand-sub { color: var(--accent-gold-light); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .sidebar-user-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .sidebar-user-avatar {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--secondary-cyan), var(--primary-emerald-light));
+      color: #FFFFFF;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem;
+    }
+    .sidebar-menu-scroll { flex: 1; padding: 1rem 0.75rem; }
+    .sidebar-group-title {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.45);
+      padding: 0.75rem 0.75rem 0.35rem 0.75rem;
+    }
+    .sidebar-nav-item {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.65rem 0.85rem;
+      color: var(--sidebar-text);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; margin-bottom: 2px;
+      transition: all 0.2s ease;
+    }
+    .sidebar-nav-item i { font-size: 1.15rem; width: 20px; text-align: center; }
+    .sidebar-nav-item:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.08); }
+    .sidebar-nav-item.active {
+      color: #FFFFFF;
+      background: linear-gradient(90deg, rgba(2, 132, 199, 0.35), rgba(6, 78, 59, 0.45));
+      border-left: 3px solid var(--secondary-cyan-light);
+    }
+    .sidebar-footer-box { padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.07); }
+
+    .backoffice-main {
+      margin-left: 270px;
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: margin-left 0.3s ease;
+    }
+    .backoffice-topbar {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.75rem 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 1030;
+    }
+    .wita-clock-badge {
+      font-family: var(--font-mono);
+      font-size: 0.85rem; font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: rgba(6, 78, 59, 0.08);
+      color: var(--primary-emerald);
+      border: 1px solid rgba(6, 78, 59, 0.2);
+    }
+    [data-theme="dark"] .wita-clock-badge {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--secondary-cyan-light);
+      border-color: rgba(56, 189, 248, 0.2);
+    }
+    .backoffice-body { padding: 1.75rem; flex: 1; }
+
+    /* Responsive Sidebar */
+    .sidebar-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1035;
+      display: none;
+    }
+    @media (max-width: 991px) {
+      .backoffice-sidebar { transform: translateX(-100%); }
+      .backoffice-sidebar.show { transform: translateX(0); }
+      .backoffice-main { margin-left: 0; }
+      .sidebar-backdrop.show { display: block; }
+    }
+
+    /* Cards & Widgets */
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .stat-icon-cyan { background: rgba(2, 132, 199, 0.1); color: var(--secondary-cyan); }
+    .stat-icon-emerald { background: rgba(6, 78, 59, 0.1); color: var(--primary-emerald); }
+    .stat-icon-gold { background: rgba(217, 119, 6, 0.1); color: var(--accent-gold); }
+    .stat-icon-red { background: rgba(225, 29, 72, 0.1); color: #e11d48; }
+    .stat-val { font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+    .stat-title { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; }
+
+    /* Tables */
+    .table-custom-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+    .table-custom { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 0; }
+    .table-custom thead th {
+      background: var(--bg-page);
+      color: var(--text-secondary);
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-medium);
+      white-space: nowrap; position: sticky; top: 0; z-index: 10;
+    }
+    .table-custom tbody tr:hover { background-color: var(--bg-card-hover); }
+    .table-custom tbody td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-subtle); font-size: 0.88rem; vertical-align: middle; }
+
+    /* Badges & Buttons */
+    .badge-status {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.65rem; border-radius: var(--radius-full);
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .badge-status.success { background: rgba(16, 185, 129, 0.12); color: #10b981; }
+    .badge-status.warning { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+    .badge-status.process { background: rgba(2, 132, 199, 0.12); color: #0284c7; }
+    .badge-status.danger { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, var(--primary-emerald), var(--primary-emerald-light));
+      color: #FFFFFF; font-weight: 600; border: none;
+      border-radius: var(--radius-sm); padding: 0.5rem 1rem;
+      transition: all 0.2s ease;
+    }
+    .btn-emerald:hover { background: var(--primary-emerald-dark); color: #FFFFFF; transform: translateY(-1px); }
+    .btn-outline-custom {
+      border: 1px solid var(--border-medium); color: var(--text-primary);
+      background: transparent; border-radius: var(--radius-sm);
+      padding: 0.4rem 0.8rem; font-weight: 600; font-size: 0.85rem;
+    }
+    .btn-outline-custom:hover { background: var(--bg-card-hover); }
+
+    /* Form Controls */
+    .form-label-custom { font-size: 0.84rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; display: block; }
+    .form-control-custom, .form-select-custom {
+      background: var(--bg-card); border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-md); padding: 0.6rem 0.9rem;
+      color: var(--text-primary); font-size: 0.9rem; width: 100%; outline: none;
+    }
+    .form-control-custom:focus, .form-select-custom:focus {
+      border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Modals */
+    .modal-content-custom {
+      background: var(--bg-card); border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+    }
+    .modal-header-custom {
+      border-bottom: 1px solid var(--border-subtle); padding: 1.25rem 1.5rem;
+    }
+
+    /* Print Styles */
+    @media print {
+      body * { visibility: hidden; }
+      #printableOfficialContent, #printableOfficialContent * { visibility: visible; }
+      #printableOfficialContent { position: absolute; left: 0; top: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Overlay -->
+  <div id="globalLoadingOverlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 9999; display: none; align-items: center; justify-content: center; flex-direction: column;">
+    <div class="spinner-border text-light mb-2" role="status"></div>
+    <div class="text-white fw-bold small" id="globalLoadingText">Memproses data...</div>
+  </div>
+
+  <div class="backoffice-wrapper">
+    <!-- Sidebar -->
+    <aside class="backoffice-sidebar" id="appSidebar">
+      <div class="sidebar-header-box">
+        <div class="d-flex align-items-center gap-2">
+          <img src="/dpmfkgumi.webp" alt="DPM Logo" style="width: 36px; height: 36px; object-fit: contain; border-radius: 8px;">
+          <div>
+            <h6 class="sidebar-brand-name">PARLEMEN DPM</h6>
+            <div class="sidebar-brand-sub">FKG UMI MAKASSAR</div>
+          </div>
+        </div>
+
+        <div class="sidebar-user-pill">
+          <div class="sidebar-user-avatar" id="sidebarAvatar">A</div>
+          <div class="overflow-hidden">
+            <div class="fw-bold text-white small text-truncate" id="sidebarUserName">Nama User</div>
+            <div class="badge-status process p-1 py-0" style="font-size: 0.65rem;" id="sidebarUserRole">Role</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-menu-scroll">
+        <div class="sidebar-group-title">Menu Utama</div>
+        <a class="sidebar-nav-item active" onclick="switchBackofficeTab('dashboard')" data-tab="dashboard">
+          <i class="bi bi-grid-1x2-fill"></i> <span>Dashboard Analytics</span>
+        </a>
+
+        <!-- Komisi I -->
+        <div class="sidebar-group-title role-nav-komisi1">Komisi I: Legislasi</div>
+        <a class="sidebar-nav-item role-nav-komisi1" onclick="switchBackofficeTab('jdihAdmin')" data-tab="jdihAdmin">
+          <i class="bi bi-book-half"></i> <span>Bank Produk Hukum</span>
+        </a>
+
+        <!-- Komisi II -->
+        <div class="sidebar-group-title role-nav-komisi2">Komisi II: Pengawasan</div>
+        <a class="sidebar-nav-item role-nav-komisi2" onclick="switchBackofficeTab('prokerAdmin')" data-tab="prokerAdmin">
+          <i class="bi bi-calendar2-range-fill"></i> <span>Monitoring Proker</span>
+        </a>
+        <a class="sidebar-nav-item role-nav-komisi2" onclick="switchBackofficeTab('inspeksiAdmin')" data-tab="inspeksiAdmin">
+          <i class="bi bi-clipboard2-check-fill"></i> <span>Inspeksi Lapangan</span>
+        </a>
+
+        <!-- Komisi III -->
+        <div class="sidebar-group-title role-nav-komisi3">Komisi III: Advokasi</div>
+        <a class="sidebar-nav-item role-nav-komisi3" onclick="switchBackofficeTab('aspirasiAdmin')" data-tab="aspirasiAdmin">
+          <i class="bi bi-inbox-fill"></i> <span>Meja E-Aspirasi</span>
+        </a>
+
+        <!-- Badan Anggaran -->
+        <div class="sidebar-group-title role-nav-banggar">Badan Anggaran</div>
+        <a class="sidebar-nav-item role-nav-banggar" onclick="switchBackofficeTab('proposalAdmin')" data-tab="proposalAdmin">
+          <i class="bi bi-file-earmark-medical-fill"></i> <span>Proposal Kegiatan</span>
+        </a>
+        <a class="sidebar-nav-item role-nav-banggar" onclick="switchBackofficeTab('lpjAdmin')" data-tab="lpjAdmin">
+          <i class="bi bi-receipt-cutoff"></i> <span>Audit LPJ Keuangan</span>
+        </a>
+
+        <!-- Ormawa -->
+        <div class="sidebar-group-title role-nav-ormawa">Portal Ormawa</div>
+        <a class="sidebar-nav-item role-nav-ormawa" onclick="switchBackofficeTab('submitProposalTab')" data-tab="submitProposalTab">
+          <i class="bi bi-cloud-arrow-up-fill"></i> <span>Ajukan Proposal (H-14)</span>
+        </a>
+        <a class="sidebar-nav-item role-nav-ormawa" onclick="switchBackofficeTab('submitLpjTab')" data-tab="submitLpjTab">
+          <i class="bi bi-folder-check"></i> <span>Unggah LPJ (H+14)</span>
+        </a>
+
+        <!-- Publikasi -->
+        <div class="sidebar-group-title role-nav-media">Publikasi</div>
+        <a class="sidebar-nav-item role-nav-media" onclick="switchBackofficeTab('beritaAdmin')" data-tab="beritaAdmin">
+          <i class="bi bi-newspaper"></i> <span>Berita & Siaran Pers</span>
+        </a>
+
+        <!-- Sistem / SuperAdmin -->
+        <div class="sidebar-group-title role-nav-admin">Sistem & Master</div>
+        <a class="sidebar-nav-item role-nav-admin" onclick="switchBackofficeTab('userAdmin')" data-tab="userAdmin">
+          <i class="bi bi-people-fill"></i> <span>Manajemen Pengguna</span>
+        </a>
+        <a class="sidebar-nav-item role-nav-admin" onclick="switchBackofficeTab('configAdmin')" data-tab="configAdmin">
+          <i class="bi bi-gear-wide-connected"></i> <span>Profil Organisasi</span>
+        </a>
+        <a class="sidebar-nav-item role-nav-admin" onclick="switchBackofficeTab('logsAdmin')" data-tab="logsAdmin">
+          <i class="bi bi-shield-lock-fill"></i> <span>System Audit Logs</span>
+        </a>
+      </div>
+
+      <div class="sidebar-footer-box">
+        <button class="btn btn-outline-danger w-100 btn-sm d-flex align-items-center justify-content-center gap-2" onclick="logoutSession()">
+          <i class="bi bi-box-arrow-left"></i> Keluar Sistem
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebarMobile()"></div>
+
+    <!-- Main Workspace -->
+    <main class="backoffice-main">
+      <header class="backoffice-topbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-sm btn-outline-custom d-lg-none" onclick="toggleSidebarMobile()">
+            <i class="bi bi-list fs-5"></i>
+          </button>
+          <h5 class="fw-bold mb-0" id="currentTabTitle">Dashboard Analytics</h5>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <div class="wita-clock-badge d-none d-sm-block" id="witaLiveClockBackoffice">
+            <i class="bi bi-clock me-1"></i> --:--:-- WITA
+          </div>
+          <button class="btn btn-sm btn-outline-custom" onclick="toggleTheme()" title="Ganti Tema">
+            <i class="bi bi-moon-stars" id="themeIconBackoffice"></i>
+          </button>
+          <a href="/" class="btn btn-sm btn-outline-custom" title="Ke Web Publik">
+            <i class="bi bi-globe me-1"></i> Web Publik
+          </a>
+        </div>
+      </header>
+
+      <div class="backoffice-body">
+        
+        <!-- TAB 1: DASHBOARD -->
+        <div id="tab-dashboard" class="backoffice-tab-pane">
+          <div class="app-card mb-4 p-4 text-white" style="background: linear-gradient(135deg, var(--primary-emerald), var(--secondary-cyan));">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h4 class="fw-bold mb-1" id="dashGreetingText">Selamat Datang di Portal Parlemen DPM KBMFKG UMI</h4>
+                <p class="mb-0 text-white-50">Sistem informasi terpadu legislasi, evaluasi kinerja ormawa, transparansi anggaran, dan meja advokasi aspirasi mahasiswa.</p>
+              </div>
+              <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <button class="btn btn-light btn-sm fw-bold me-2" onclick="refreshDashboard()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                <button class="btn btn-warning btn-sm fw-bold" onclick="printOfficialSummary()"><i class="bi bi-printer"></i> Cetak Rekap</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-widget">
+                <div class="stat-icon-wrap stat-icon-cyan"><i class="bi bi-inbox"></i></div>
+                <div>
+                  <div class="stat-val font-mono" id="dashKpiAspirasi">0</div>
+                  <div class="stat-title">Aspirasi Masuk</div>
+                  <small class="text-success fw-bold" id="dashKpiAspirasiSub">0 Selesai</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-widget">
+                <div class="stat-icon-wrap stat-icon-emerald"><i class="bi bi-clipboard-data"></i></div>
+                <div>
+                  <div class="stat-val font-mono" id="dashKpiProker">0%</div>
+                  <div class="stat-title">Realisasi Proker</div>
+                  <small class="text-primary fw-bold" id="dashKpiProkerSub">0 Terlaksana</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-widget">
+                <div class="stat-icon-wrap stat-icon-gold"><i class="bi bi-book"></i></div>
+                <div>
+                  <div class="stat-val font-mono" id="dashKpiJdih">0</div>
+                  <div class="stat-title">Produk Hukum</div>
+                  <small class="text-muted" id="dashKpiJdihSub">0 Unduhan</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-widget">
+                <div class="stat-icon-wrap stat-icon-red"><i class="bi bi-wallet2"></i></div>
+                <div>
+                  <div class="stat-val font-mono" id="dashKpiDana">Rp 0</div>
+                  <div class="stat-title">Anggaran Disetujui</div>
+                  <small class="text-danger fw-bold" id="dashKpiDanaSub">0 LPJ Lolos</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+              <div class="app-card h-100">
+                <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-success me-2"></i>Distribusi Aspirasi Per Kategori</h6>
+                <div style="height: 260px; position: relative;">
+                  <canvas id="aspirasiChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="app-card h-100">
+                <h6 class="fw-bold mb-3"><i class="bi bi-bar-chart-line-fill text-primary me-2"></i>Realisasi Anggaran Per Ormawa (Rp)</h6>
+                <div style="height: 260px; position: relative;">
+                  <canvas id="anggaranChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Table -->
+          <div class="app-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold mb-0">Tiket Aspirasi Terbaru Membutuhkan Tindak Lanjut</h6>
+              <button class="btn btn-sm btn-outline-custom" onclick="switchBackofficeTab('aspirasiAdmin')">Lihat Semua</button>
+            </div>
+            <div class="table-custom-wrapper">
+              <table class="table-custom">
+                <thead>
+                  <tr>
+                    <th>Tiket</th>
+                    <th>Pelapor</th>
+                    <th>Judul Aspirasi</th>
+                    <th>Kategori</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="dashRecentAspirasiBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: JDIH ADMIN -->
+        <div id="tab-jdihAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Bank Produk Hukum & JDIH Ormawa</h4>
+              <p class="text-secondary small mb-0">Kelola ketetapan sidang, undang-undang ormawa, dan risalah paripurna.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-custom" onclick="exportTableToCSV('adminJdihTable', 'jdih_dpm_fkg_umi.csv')"><i class="bi bi-file-earmark-spreadsheet"></i> Ekspor CSV</button>
+              <button class="btn btn-emerald" onclick="openAddJdihModal()"><i class="bi bi-plus-circle"></i> Tambah Regulasi</button>
+            </div>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminJdihTable">
+              <thead>
+                <tr>
+                  <th>No. Peraturan</th>
+                  <th>Jenis</th>
+                  <th>Judul Regulasi</th>
+                  <th>Tahun</th>
+                  <th>Status</th>
+                  <th>Unduhan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminJdihBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 3: PROKER ADMIN -->
+        <div id="tab-prokerAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Pengawasan Program Kerja Ormawa</h4>
+              <p class="text-secondary small mb-0">Matriks pelaksanaan kegiatan BEM, TBMG, UKM Dental Sports, dan LSDKG.</p>
+            </div>
+            <button class="btn btn-emerald" onclick="openAddProkerModal()"><i class="bi bi-plus-circle"></i> Tambah Proker</button>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminProkerTable">
+              <thead>
+                <tr>
+                  <th>Ormawa</th>
+                  <th>Nama Kegiatan</th>
+                  <th>Target Jadwal</th>
+                  <th>Realisasi</th>
+                  <th>Status</th>
+                  <th>Capaian</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminProkerBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 4: INSPEKSI ADMIN -->
+        <div id="tab-inspeksiAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Instrumen Inspeksi Lapangan (Komisi II)</h4>
+              <p class="text-secondary small mb-0">Lembar berita acara pengawasan kegiatan sidang dan kepanitiaan ormawa.</p>
+            </div>
+            <button class="btn btn-emerald" onclick="openAddInspeksiModal()"><i class="bi bi-plus-circle"></i> Input Hasil Inspeksi</button>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminInspeksiTable">
+              <thead>
+                <tr>
+                  <th>ID Inspeksi</th>
+                  <th>Proker</th>
+                  <th>Tanggal</th>
+                  <th>Kehadiran</th>
+                  <th>Acara</th>
+                  <th>Konstitusi</th>
+                  <th>Rekomendasi</th>
+                </tr>
+              </thead>
+              <tbody id="adminInspeksiBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 5: ASPIRASI ADMIN -->
+        <div id="tab-aspirasiAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Meja Advokasi & Aspirasi Mahasiswa (Komisi III)</h4>
+              <p class="text-secondary small mb-0">Disposisi pengaduan pre-klinik, koas RSGM, dan eskalasi dekanat.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-warning btn-sm fw-bold" onclick="printOfficialAspirasiReport()"><i class="bi bi-printer"></i> Cetak Rekap RDP</button>
+              <button class="btn btn-outline-custom btn-sm" onclick="exportTableToCSV('adminAspirasiTable', 'aspirasi_dpm.csv')"><i class="bi bi-file-earmark-spreadsheet"></i> CSV</button>
+            </div>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminAspirasiTable">
+              <thead>
+                <tr>
+                  <th>Tiket</th>
+                  <th>Pelapor</th>
+                  <th>Jenjang</th>
+                  <th>Isu</th>
+                  <th>Judul Aspirasi</th>
+                  <th>Status</th>
+                  <th>Disposisi</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminAspirasiBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 6: PROPOSAL BANGGAR -->
+        <div id="tab-proposalAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Telaah Proposal Anggaran (Badan Anggaran)</h4>
+              <p class="text-secondary small mb-0">Verifikasi kelayakan pos anggaran dan batas plafon kegiatan ormawa.</p>
+            </div>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminProposalTable">
+              <thead>
+                <tr>
+                  <th>ID Prop</th>
+                  <th>Ormawa</th>
+                  <th>Nama Proker</th>
+                  <th>Diajukan</th>
+                  <th>Disetujui</th>
+                  <th>Tanggal</th>
+                  <th>Status</th>
+                  <th>Catatan Banggar</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminProposalBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 7: LPJ BANGGAR -->
+        <div id="tab-lpjAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Audit Laporan Pertanggungjawaban (LPJ) Keuangan</h4>
+              <p class="text-secondary small mb-0">Pemeriksaan bukti kuitansi kas dan penerbitan SK Bebas Tanggungan Keuangan.</p>
+            </div>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminLpjTable">
+              <thead>
+                <tr>
+                  <th>ID LPJ</th>
+                  <th>ID Prop</th>
+                  <th>Ormawa</th>
+                  <th>Realisasi Dana</th>
+                  <th>Sisa Saldo</th>
+                  <th>Tgl Serah</th>
+                  <th>Status Audit</th>
+                  <th>No. SK Bebas Tanggungan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminLpjBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 8: ORMAWA SUBMIT PROPOSAL -->
+        <div id="tab-submitProposalTab" class="backoffice-tab-pane" style="display: none;">
+          <div class="app-card max-w-750 mx-auto p-4">
+            <h4 class="fw-bold mb-2"><i class="bi bi-cloud-arrow-up-fill text-success me-2"></i>Penyerahan Berkas Proposal Kegiatan (H-14)</h4>
+            <p class="text-secondary small mb-4">Pengajuan proposal kegiatan wajib diunggah maksimal 14 hari sebelum hari pelaksanaan.</p>
+            <form id="formSubmitProposalOrmawa" onsubmit="handleOrmawaProposalSubmit(event)">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label-custom">Lembaga Ormawa Pengaju <span class="text-danger">*</span></label>
+                  <select class="form-select-custom" name="id_ormawa" required>
+                    <option value="ORG-001">BEM FKG UMI</option>
+                    <option value="ORG-002">TBMG FKG UMI</option>
+                    <option value="ORG-003">Dental Sports Club</option>
+                    <option value="ORG-004">LSDKG FKG UMI</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-custom">Total Anggaran Diajukan (Rp) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control-custom font-mono" name="total_anggaran_diajukan" placeholder="Contoh: 15000000" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Nama Program Kerja / Kegiatan <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control-custom" name="nama_proker" placeholder="Contoh: DENTAL OLYMPIAD 2026" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Unggah Berkas PDF Proposal (PDF Bertanda Tangan) <span class="text-danger">*</span></label>
+                  <input type="file" class="form-control form-control-custom mb-2" accept=".pdf" onchange="handleUploadPdf(this, 'fileProposalUrlInput', 'proposalUploadStatus')">
+                  <div id="proposalUploadStatus" class="small mb-1"></div>
+                  <input type="text" class="form-control-custom font-mono small" name="file_proposal_url" id="fileProposalUrlInput" placeholder="/uploads/pdf/... atau URL Drive" required>
+                </div>
+                <div class="col-12 text-end mt-4">
+                  <button type="submit" class="btn btn-emerald"><i class="bi bi-send-fill"></i> Kirim Berkas Proposal</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 9: ORMAWA SUBMIT LPJ -->
+        <div id="tab-submitLpjTab" class="backoffice-tab-pane" style="display: none;">
+          <div class="app-card max-w-750 mx-auto p-4">
+            <h4 class="fw-bold mb-2"><i class="bi bi-folder-check text-primary me-2"></i>Penyerahan Berkas LPJ Keuangan (H+14)</h4>
+            <p class="text-secondary small mb-4">Wajib menyerahkan berkas laporan pertanggungjawaban dana paling lambat 14 hari pasca kegiatan.</p>
+            <form id="formSubmitLpjOrmawa" onsubmit="handleOrmawaLpjSubmit(event)">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label-custom">Pilih Proposal Kegiatan yang Dipertanggungjawabkan <span class="text-danger">*</span></label>
+                  <select class="form-select-custom" name="id_proposal" id="lpjProposalSelect" required></select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-custom">Total Realisasi Pengeluaran Dana (Rp) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control-custom font-mono" name="total_realisasi_dana" placeholder="12500000" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-custom">Sisa Saldo Lebih / Kurang Kas (Rp) <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control-custom font-mono" name="sisa_lebih_kurang" placeholder="0" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Unggah Berkas PDF LPJ Lengkap <span class="text-danger">*</span></label>
+                  <input type="file" class="form-control form-control-custom mb-2" accept=".pdf" onchange="handleUploadPdf(this, 'fileLpjUrlInput', 'lpjUploadStatus')">
+                  <div id="lpjUploadStatus" class="small mb-1"></div>
+                  <input type="text" class="form-control-custom font-mono small" name="file_lpj_url" id="fileLpjUrlInput" placeholder="/uploads/pdf/... atau URL Drive" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Tautan Folder Drive Scan Bukti Kuitansi & Nota Kas <span class="text-danger">*</span></label>
+                  <input type="url" class="form-control-custom" name="file_kuitansi_drive_folder" placeholder="https://drive.google.com/drive/folders/..." required>
+                </div>
+                <div class="col-12 text-end mt-4">
+                  <button type="submit" class="btn btn-emerald"><i class="bi bi-check2-circle"></i> Serahkan Berkas LPJ</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 10: BERITA ADMIN -->
+        <div id="tab-beritaAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Publikasi Berita & Siaran Pers</h4>
+              <p class="text-secondary small mb-0">Kanal pemberitaan resmi parlemen kepada sivitas akademika.</p>
+            </div>
+            <button class="btn btn-emerald" onclick="openAddBeritaModal()"><i class="bi bi-pencil-square"></i> Tulis Berita Baru</button>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminBeritaTable">
+              <thead>
+                <tr>
+                  <th>ID Berita</th>
+                  <th>Judul Berita</th>
+                  <th>Kategori</th>
+                  <th>Tanggal</th>
+                  <th>Status</th>
+                  <th>Penulis</th>
+                  <th>Pembaca</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminBeritaBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 11: USER MANAGEMENT -->
+        <div id="tab-userAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Manajemen Pengguna & Otoritas Role (RBAC)</h4>
+              <p class="text-secondary small mb-0">Pengelolaan akun dewan, hak akses komisi, dan status keaktifan.</p>
+            </div>
+            <button class="btn btn-emerald" onclick="openAddUserModal()"><i class="bi bi-person-plus-fill"></i> Tambah Pengguna Baru</button>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminUserTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nama Lengkap</th>
+                  <th>NIM</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Jabatan</th>
+                  <th>Status</th>
+                  <th>Login Terakhir</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminUserBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 12: CONFIG PROFIL -->
+        <div id="tab-configAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="app-card max-w-750 mx-auto p-4">
+            <h4 class="fw-bold mb-3"><i class="bi bi-sliders text-success me-2"></i>Konfigurasi Profil Lembaga & Identitas Dewan</h4>
+            <p class="text-secondary small mb-4">Pengaturan identitas periode aktif, pimpinan presidium dewan, dan kontak resmi dewan.</p>
+            <form id="formConfigOrganisasi" onsubmit="handleSaveConfig(event)">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label-custom">Nama Lembaga</label>
+                  <input type="text" class="form-control-custom" name="nama_lembaga" id="cfgNamaLembaga" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-custom">Fakultas / Universitas</label>
+                  <input type="text" class="form-control-custom" name="universitas_fakultas" id="cfgUniv" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">Periode Aktif</label>
+                  <input type="text" class="form-control-custom" name="periode_aktif" id="cfgPeriode" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">Ketua Umum Presidium</label>
+                  <input type="text" class="form-control-custom" name="ketua_umum_presidium" id="cfgKetua" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">Sekretaris Jenderal</label>
+                  <input type="text" class="form-control-custom" name="sekjen_biro" id="cfgSekjen" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Teks Visi Parlemen</label>
+                  <textarea class="form-control-custom" rows="2" name="visi" id="cfgVisi"></textarea>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom">Teks Misi Parlemen</label>
+                  <textarea class="form-control-custom" rows="3" name="misi" id="cfgMisi"></textarea>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">Email Resmi</label>
+                  <input type="email" class="form-control-custom" name="email_resmi" id="cfgEmail">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">WhatsApp Hotline</label>
+                  <input type="text" class="form-control-custom" name="wa_hotline" id="cfgWa">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label-custom">Instagram Resmi</label>
+                  <input type="url" class="form-control-custom" name="ig_resmi" id="cfgIg">
+                </div>
+                <div class="col-12">
+                  <label class="form-label-custom"><i class="bi bi-image me-1 text-info"></i> Gambar Hero Section 1 (Beranda Publik)</label>
+                  <p class="text-xs text-muted mb-2">Unggah file banner/hero baru atau gunakan URL gambar (Unsplash / Cloudinary / dll). Banner ini langsung tampil di Hero Banner Section 1 index.ejs.</p>
+                  <div class="row g-2 align-items-center mb-2">
+                    <div class="col-md-5">
+                      <input type="file" class="form-control form-control-custom" id="cfgHeroFileInput" accept="image/*" onchange="handleUploadImg(this, 'cfgHeroImage', 'cfgHeroUploadStatus', 'cfgHeroPreview')">
+                    </div>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control-custom font-mono small" name="hero_image_url" id="cfgHeroImage" placeholder="https://images.unsplash.com/... atau /uploads/img/..." oninput="updateHeroPreview(this.value)">
+                    </div>
+                  </div>
+                  <div id="cfgHeroUploadStatus" class="small mb-1"></div>
+                  <div id="cfgHeroPreview" class="mt-2 text-center" style="display: none;">
+                    <img id="cfgHeroPreviewImg" src="" alt="Pratinjau Hero Section 1" style="max-height: 200px; width: auto; max-width: 100%; border-radius: 8px; border: 1px solid var(--border-medium); object-fit: cover;">
+                  </div>
+                </div>
+                <div class="col-12 mt-4 text-end">
+                  <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Perubahan Profil</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB 13: AUDIT LOGS -->
+        <div id="tab-logsAdmin" class="backoffice-tab-pane" style="display: none;">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+              <h4 class="fw-bold mb-0">Audit Trail & Rekam Jejak Sistem</h4>
+              <p class="text-secondary small mb-0">Pencatatan waktu nyata aktivitas pengguna, transaksi status, dan modifikasi data master.</p>
+            </div>
+            <button class="btn btn-outline-custom" onclick="loadAllLogsAdmin()"><i class="bi bi-arrow-clockwise"></i> Segarkan Log</button>
+          </div>
+          <div class="table-custom-wrapper">
+            <table class="table-custom" id="adminLogsTable">
+              <thead>
+                <tr>
+                  <th>Waktu (WITA)</th>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Aksi</th>
+                  <th>Modul</th>
+                  <th>Detail Operasi</th>
+                </tr>
+              </thead>
+              <tbody id="adminLogsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ════════ MODALS ════════ -->
+
+  <!-- Modal Disposisi Aspirasi -->
+  <div class="modal fade" id="modalDisposisiAspirasi" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold">Lembar Disposisi & Tanggapan Dewan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formDisposisiAspirasi" onsubmit="handleSaveDisposisi(event)">
+            <input type="hidden" id="dispIdAspirasi" name="id_aspirasi">
+            <div class="mb-3">
+              <label class="form-label-custom">Status Penanganan</label>
+              <select class="form-select-custom" name="status" id="dispStatusSelect" required>
+                <option value="Terverifikasi">Terverifikasi</option>
+                <option value="Disposisi_Komisi3">Disposisi Internal Komisi III</option>
+                <option value="Eskalasi_Dekanat">Eskalasi Dekanat FKG UMI</option>
+                <option value="Dalam_Advokasi">Tahap Audiensi & Advokasi Aktif</option>
+                <option value="Selesai">Selesai & Solutif</option>
+                <option value="Ditolak">Ditolak (Tidak Memenuhi Syarat)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Target Disposisi Ke</label>
+              <input type="text" class="form-control-custom" name="disposisi_ke" id="dispTarget" placeholder="Contoh: Wakil Dekan I, Direktur RSGM, Komisi III">
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Tanggapan Resmi Parlemen / Hasil Audiensi</label>
+              <textarea class="form-control-custom" rows="4" name="tanggapan_dewan" id="dispTanggapan" placeholder="Ketik hasil advokasi yang dapat dibaca pelapor melalui kode tiket..." required></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Disposisi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal JDIH CRUD -->
+  <div class="modal fade" id="modalJdihCrud" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold" id="jdihModalTitle">Tambah Produk Hukum Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formJdihCrud" onsubmit="handleSaveJdih(event)">
+            <input type="hidden" name="id_regulasi" id="jdihCrudId">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Nomor Peraturan / SK <span class="text-danger">*</span></label>
+                <input type="text" class="form-control-custom font-mono" name="nomor_peraturan" id="jdihCrudNomor" placeholder="01/TAP/DPM-FKG/2026" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Jenis Peraturan <span class="text-danger">*</span></label>
+                <select class="form-select-custom" name="jenis_peraturan" id="jdihCrudJenis" required>
+                  <option value="TAP_DPM">Ketetapan Sidang (TAP DPM)</option>
+                  <option value="Undang_Undang">Undang-Undang Ormawa</option>
+                  <option value="Konstitusi_KBM">Konstitusi Dasar KBM</option>
+                  <option value="SOP">Standar Operasional (SOP)</option>
+                  <option value="Risalah_Sidang">Risalah Sidang Paripurna</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Judul Resmi Regulasi <span class="text-danger">*</span></label>
+                <input type="text" class="form-control-custom" name="judul_regulasi" id="jdihCrudJudul" placeholder="Judul lengkap ketetapan" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Tahun Penetapan</label>
+                <input type="number" class="form-control-custom font-mono" name="tahun_penetapan" id="jdihCrudTahun" value="2026">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Tanggal Pengesahan</label>
+                <input type="date" class="form-control-custom" name="tanggal_pengesahan" id="jdihCrudTanggal">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Status Hukum</label>
+                <select class="form-select-custom" name="status_hukum" id="jdihCrudStatus">
+                  <option value="Berlaku">Berlaku</option>
+                  <option value="Direvisi">Direvisi</option>
+                  <option value="Dicabut">Dicabut</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Deskripsi Singkat / Konsideran</label>
+                <textarea class="form-control-custom" rows="2" name="deskripsi_singkat" id="jdihCrudDeskripsi"></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Unggah Dokumen PDF Regulasi (.pdf Native)</label>
+                <input type="file" class="form-control form-control-custom mb-2" id="jdihCrudFileInput" accept=".pdf" onchange="handleUploadPdf(this, 'jdihCrudUrl', 'jdihUploadStatus')">
+                <div id="jdihUploadStatus" class="small mb-2"></div>
+                <label class="form-label-custom small text-muted">Path File Dokumen Terpasang (Tersimpan di DB & SEO Native GSC):</label>
+                <input type="text" class="form-control-custom font-mono small" name="file_drive_url" id="jdihCrudUrl" placeholder="/uploads/pdf/..." required>
+              </div>
+              <div class="col-12 text-end mt-4">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Regulasi</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Proker CRUD -->
+  <div class="modal fade" id="modalProkerCrud" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold" id="prokerModalTitle">Tambah Agenda Program Kerja</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formProkerCrud" onsubmit="handleSaveProker(event)">
+            <input type="hidden" name="id_proker" id="prokerCrudId">
+            <div class="mb-2">
+              <label class="form-label-custom">Ormawa Pelaksana</label>
+              <select class="form-select-custom" name="id_ormawa" id="prokerCrudOrmawa" required>
+                <option value="ORG-001">BEM FKG UMI</option>
+                <option value="ORG-002">TBMG FKG UMI</option>
+                <option value="ORG-003">UKM Dental Sports Club</option>
+                <option value="ORG-004">LSDKG FKG UMI</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Nama Kegiatan / Proker</label>
+              <input type="text" class="form-control-custom" name="nama_kegiatan" id="prokerCrudNama" required placeholder="Contoh: DENTAL SCIENTIFIC FESTIVAL">
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Deskripsi Kegiatan</label>
+              <textarea class="form-control-custom" name="deskripsi_kegiatan" id="prokerCrudDeskripsi" rows="2"></textarea>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label-custom">Target Jadwal</label>
+                <input type="date" class="form-control-custom" name="target_jadwal" id="prokerCrudTarget" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">Realisasi Jadwal</label>
+                <input type="date" class="form-control-custom" name="realisasi_jadwal" id="prokerCrudRealisasi">
+              </div>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label-custom">Status Pelaksanaan</label>
+                <select class="form-select-custom" name="status_pelaksanaan" id="prokerCrudStatus">
+                  <option value="Direncanakan">Direncanakan</option>
+                  <option value="Berjalan">Berjalan</option>
+                  <option value="Terlaksana">Terlaksana</option>
+                  <option value="Tertunda">Tertunda</option>
+                  <option value="Dibatalkan">Dibatalkan</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">Capaian Progres (%)</label>
+                <input type="number" class="form-control-custom" name="persentase_capaian" id="prokerCrudCapaian" min="0" max="100" value="0">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Catatan / Evaluasi Komisi II</label>
+              <textarea class="form-control-custom" name="catatan_komisi2" id="prokerCrudCatatan" rows="2"></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Proker</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Inspeksi CRUD -->
+  <div class="modal fade" id="modalInspeksiCrud" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold">Input Lembar Inspeksi Lapangan (Komisi II)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formInspeksiCrud" onsubmit="handleSaveInspeksi(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label-custom">Program Kerja yang Diinspeksi <span class="text-danger">*</span></label>
+                <select class="form-select-custom" name="id_proker" id="inspeksiProkerSelect" required></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-custom">Tanggal Kehadiran Dewan</label>
+                <input type="date" class="form-control-custom" name="tanggal_inspeksi" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Nama Sesi Sidang / Kegiatan <span class="text-danger">*</span></label>
+                <input type="text" class="form-control-custom" name="nama_sidang_kegiatan" placeholder="Contoh: Pleno Pembukaan, Sidang Komisi A" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Kehadiran Panitia (%)</label>
+                <input type="number" class="form-control-custom font-mono" name="kehadiran_pengurus_persen" placeholder="0-100" min="0" max="100" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Kesesuaian Manual Acara</label>
+                <select class="form-select-custom" name="kesesuaian_manual_acara">
+                  <option value="Sangat_Sesuai">Sangat Sesuai</option>
+                  <option value="Cukup">Cukup Sesuai</option>
+                  <option value="Kurang">Kurang Sesuai</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label-custom">Kepatuhan Konstitusi KBM</label>
+                <select class="form-select-custom" name="kepatuhan_konstitusi">
+                  <option value="Patuh">Patuh</option>
+                  <option value="Pelanggaran_Ringan">Pelanggaran Ringan</option>
+                  <option value="Pelanggaran_Berat">Pelanggaran Berat</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Ringkasan Fakta Lapangan</label>
+                <textarea class="form-control-custom" rows="2" name="ringkasan_temuan"></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label-custom">Rekomendasi / Instruksi Perbaikan Dewan</label>
+                <textarea class="form-control-custom" rows="2" name="rekomendasi_dewan"></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="auto_update_capaian" id="chkAutoUpdate" checked>
+                  <label class="form-check-label small" for="chkAutoUpdate">
+                    Otomatis perbarui persentase capaian proker & set status menjadi 'Terlaksana'
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 text-end mt-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Hasil Inspeksi</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Review Proposal -->
+  <div class="modal fade" id="modalReviewProposal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold">Telaah Proposal Anggaran (Banggar)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formReviewProposal" onsubmit="handleSaveReviewProposal(event)">
+            <input type="hidden" id="revPropId" name="id_proposal">
+            <div class="mb-3">
+              <label class="form-label-custom">Keputusan Banggar</label>
+              <select class="form-select-custom" name="status_approval" id="revPropStatus" required>
+                <option value="Review_Banggar">Dalam Telaah</option>
+                <option value="Revisi">Perlu Revisi Pos Anggaran</option>
+                <option value="Disetujui_Presidium">Disetujui Penuh & Disahkan Presidium</option>
+                <option value="Ditolak">Ditolak</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Plafon Anggaran yang Disetujui (Rp)</label>
+              <input type="number" class="form-control-custom font-mono" name="total_anggaran_disetujui" id="revPropNominal" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Catatan Telaah Banggar</label>
+              <textarea class="form-control-custom" rows="3" name="catatan_banggar" id="revPropCatatan" required></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-check-circle"></i> Simpan Telaah</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Audit LPJ -->
+  <div class="modal fade" id="modalAuditLpj" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold">Audit Berkas LPJ Keuangan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formAuditLpj" onsubmit="handleSaveAuditLpj(event)">
+            <input type="hidden" id="auditLpjId" name="id_lpj">
+            <div class="mb-3">
+              <label class="form-label-custom">Hasil Audit Bukti Kuitansi</label>
+              <select class="form-select-custom" name="status_lpj" id="auditLpjStatus" required>
+                <option value="Lolos_Audit">Lolos Audit (Terbitkan SK Bebas Tanggungan)</option>
+                <option value="Perbaikan">Perbaikan (Bukti Kuitansi Kurang/Cacat)</option>
+                <option value="Selesai">Selesai Penuh</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Catatan Rekonsiliasi Audit</label>
+              <textarea class="form-control-custom" rows="3" name="catatan_audit" id="auditLpjCatatan" placeholder="Detail pemeriksaan bukti nota dan rekonsiliasi kas..." required></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-patch-check"></i> Sahkan Audit LPJ</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Berita CRUD -->
+  <div class="modal fade" id="modalBeritaCrud" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold" id="beritaModalTitle">Tulis Warta Berita Parlemen</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formBeritaCrud" onsubmit="handleSaveBerita(event)">
+            <input type="hidden" name="id_berita" id="beritaCrudId">
+            <div class="mb-2">
+              <label class="form-label-custom">Judul Rilis Berita</label>
+              <input type="text" class="form-control-custom" name="judul_berita" id="beritaCrudJudul" required placeholder="Contoh: Sidang Paripurna I DPM Sahkan UU..." oninput="autoGenerateBeritaSlug(this.value)">
+            </div>
+            <div class="mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label-custom mb-0">Slug URL SEO (Dinamis)</label>
+                <span class="text-xs text-muted font-mono">Format: /berita/[slug]</span>
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text font-mono bg-light text-muted" style="border-color: var(--border-medium); font-size: 0.75rem;">/berita/</span>
+                <input type="text" class="form-control-custom font-mono" name="slug" id="beritaCrudSlug" placeholder="judul-berita-seo-friendly" style="font-size: 0.8rem;">
+              </div>
+              <div class="form-text text-xs text-muted mt-1">Otomatis di-generate dari judul berita. Anda dapat menyesuaikannya untuk kebutuhan SEO (contoh: <code>sidang-paripurna-i-dpm</code>).</div>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label-custom">Kategori Warta</label>
+                <select class="form-select-custom" name="kategori" id="beritaCrudKategori" required>
+                  <option value="Warta_Sidang">Warta Sidang</option>
+                  <option value="Advokasi_Update">Advokasi Update</option>
+                  <option value="Siaran_Pers">Siaran Pers</option>
+                  <option value="Pengumuman">Pengumuman</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">Status Publikasi</label>
+                <select class="form-select-custom" name="status" id="beritaCrudStatus" required>
+                  <option value="Published">Published</option>
+                  <option value="Draft">Draft</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Unggah Banner Gambar Berita (.WEBP / .JPG / .PNG)</label>
+              <input type="file" class="form-control form-control-custom mb-2" id="beritaCrudFileInput" accept="image/*" onchange="handleUploadImg(this, 'beritaCrudBanner', 'beritaUploadStatus', 'beritaBannerPreview')">
+              <div id="beritaUploadStatus" class="small mb-1"></div>
+              <input type="text" class="form-control-custom font-mono small" name="banner_img_url" id="beritaCrudBanner" placeholder="/uploads/img/...">
+              <div id="beritaBannerPreview" class="mt-2 text-center" style="display: none;">
+                <img id="beritaBannerPreviewImg" src="" alt="Pratinjau Banner" style="max-height: 180px; width: auto; max-width: 100%; border-radius: 8px; border: 1px solid var(--border-medium);">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Isi Lengkap Berita</label>
+              <textarea class="form-control-custom" name="isi_artikel" id="beritaCrudIsi" rows="4" required></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-send-fill"></i> Simpan & Publikasikan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal User CRUD -->
+  <div class="modal fade" id="modalUserCrud" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold" id="userModalTitle">Tambah Akun Pengguna</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formUserCrud" onsubmit="handleSaveUser(event)">
+            <input type="hidden" name="id_user" id="userCrudId">
+            <div class="mb-2">
+              <label class="form-label-custom">Nama Lengkap & Gelar</label>
+              <input type="text" class="form-control-custom" name="nama_lengkap" id="userCrudNama" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">NIM / Stambuk</label>
+              <input type="text" class="form-control-custom font-mono" name="nim_stambuk" id="userCrudNim" required>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label-custom">Username</label>
+                <input type="text" class="form-control-custom" name="username" id="userCrudUsername" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">Role Sistem</label>
+                <select class="form-select-custom" name="role" id="userCrudRole" required>
+                  <option value="SuperAdmin">SuperAdmin (Presidium)</option>
+                  <option value="Komisi1">Komisi I (Legislasi)</option>
+                  <option value="Komisi2">Komisi II (Pengawasan)</option>
+                  <option value="Komisi3">Komisi III (Advokasi)</option>
+                  <option value="Banggar">Badan Anggaran</option>
+                  <option value="MitraOrmawa">Mitra Ormawa (BEM/UKM)</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Jabatan di Dewan / Organisasi</label>
+              <input type="text" class="form-control-custom" name="jabatan_organisasi" id="userCrudJabatan" placeholder="Contoh: Koordinator Komisi II">
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Email Resmi</label>
+              <input type="email" class="form-control-custom" name="email" id="userCrudEmail">
+            </div>
+            <div class="mb-2">
+              <label class="form-label-custom">Nomor WhatsApp</label>
+              <input type="text" class="form-control-custom" name="no_wa" id="userCrudWa" placeholder="628123...">
+            </div>
+            <div class="mb-3">
+              <label class="form-label-custom">Kata Sandi Baru (Kosongkan jika tidak diubah)</label>
+              <input type="password" class="form-control-custom" name="new_password" id="userCrudPass">
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-emerald"><i class="bi bi-save"></i> Simpan Akun</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Preview Dokumen PDF -->
+  <div class="modal fade" id="modalPreviewDoc" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content modal-content-custom">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title fw-bold" id="previewDocTitle">Pratinjau Dokumen Produk Hukum</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0" style="height: 75vh;">
+          <iframe id="previewDocFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <small class="text-muted"><i class="bi bi-eye"></i> Terbuka dalam in-browser reader terintegrasi.</small>
+          <a id="previewDocDownloadLink" href="#" target="_blank" class="btn btn-emerald btn-sm">
+            <i class="bi bi-download"></i> Unduh File Asli
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Area Cetak Rekapitulasi Kop Surat -->
+  <div id="printableOfficialContent" class="d-none d-print-block"></div>
+
+  <!-- Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
+    <div id="liveToast" class="toast align-items-center border-0 shadow-lg" role="alert">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2" id="liveToastMessage">
+          <i class="bi bi-check-circle-fill text-success fs-5"></i>
+          <span>Operasi berhasil!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ════════════════════════════════════════════════════════════════
+    // SESSION AUTHENTICATION & SECURITY GUARD
+    // ════════════════════════════════════════════════════════════════
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('dpm_user') || 'null');
+    } catch (e) {}
+
+    if (!currentUser || !currentUser.username || !currentUser.role) {
+      window.location.href = '/admin-login';
+    }
+
+    // Dynamic runtime store
+    const appData = {
+      profil: null,
+      aspirasi: [],
+      jdih: [],
+      proker: [],
+      inspeksi: [],
+      proposal: [],
+      lpj: [],
+      berita: [],
+      ormawa: [],
+      users: [],
+      logs: []
+    };
+
+    // Universal API Client
+    const apiClient = {
+      isNodeEnv: true,
+      async get(endpoint) {
+        try {
+          const res = await fetch('/api' + endpoint);
+          return await res.json();
+        } catch (err) {
+          console.error(`API GET ${endpoint} Error:`, err);
+          return { success: false, message: err.message };
+        }
+      },
+      async post(endpoint, data) {
+        try {
+          const res = await fetch('/api' + endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          return await res.json();
+        } catch (err) {
+          console.error(`API POST ${endpoint} Error:`, err);
+          return { success: false, message: err.message };
+        }
+      },
+      async delete(endpoint) {
+        try {
+          const res = await fetch('/api' + endpoint, { method: 'DELETE' });
+          return await res.json();
+        } catch (err) {
+          console.error(`API DELETE ${endpoint} Error:`, err);
+          return { success: false, message: err.message };
+        }
+      }
+    };
+
+    // UI Helpers
+    function showGlobalLoading(text = 'Memproses data...') {
+      const el = document.getElementById('globalLoadingOverlay');
+      const txt = document.getElementById('globalLoadingText');
+      if (txt) txt.textContent = text;
+      if (el) el.style.display = 'flex';
+    }
+
+    function hideGlobalLoading() {
+      const el = document.getElementById('globalLoadingOverlay');
+      if (el) el.style.display = 'none';
+    }
+
+    function showToast(message, isSuccess = true) {
+      const toastEl = document.getElementById('liveToast');
+      const toastMsg = document.getElementById('liveToastMessage');
+      if (!toastEl) return;
+      toastEl.className = `toast align-items-center text-white ${isSuccess ? 'bg-success' : 'bg-danger'} border-0 shadow-lg`;
+      toastMsg.innerHTML = `
+        <i class="bi bi-${isSuccess ? 'check-circle-fill' : 'exclamation-triangle-fill'} fs-5"></i>
+        <span>${message}</span>
+      `;
+      const toast = new bootstrap.Toast(toastEl, { delay: 3500 });
+      toast.show();
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const target = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('dpm_theme', target);
+      const icon = document.getElementById('themeIconBackoffice');
+      if (icon) icon.className = target === 'dark' ? 'bi bi-sun-fill text-warning' : 'bi bi-moon-stars';
+    }
+    const savedTheme = localStorage.getItem('dpm_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    function updateWitaClock() {
+      const el = document.getElementById('witaLiveClockBackoffice');
+      if (!el) return;
+      const d = new Date();
+      el.innerHTML = `<i class="bi bi-clock me-1"></i> ${d.toLocaleTimeString('id-ID', { hour12: false })} WITA`;
+    }
+    setInterval(updateWitaClock, 1000);
+    updateWitaClock();
+
+    function toggleSidebarMobile() {
+      const sb = document.getElementById('appSidebar');
+      const bd = document.getElementById('sidebarBackdrop');
+      if (sb) sb.classList.toggle('show');
+      if (bd) bd.classList.toggle('show');
+    }
+
+    function logoutSession() {
+      localStorage.removeItem('dpm_user');
+      window.location.href = '/admin-login';
+    }
+
+    // Role-Based Access Control
+    function applyRoleAccessControl(role) {
+      const allRoleNavs = document.querySelectorAll('[class*="role-nav-"]');
+      allRoleNavs.forEach(el => el.style.display = 'none');
+
+      if (role === 'SuperAdmin') {
+        allRoleNavs.forEach(el => el.style.display = '');
+      } else if (role === 'Komisi1') {
+        document.querySelectorAll('.role-nav-komisi1, .role-nav-media').forEach(el => el.style.display = '');
+      } else if (role === 'Komisi2') {
+        document.querySelectorAll('.role-nav-komisi2, .role-nav-media').forEach(el => el.style.display = '');
+      } else if (role === 'Komisi3') {
+        document.querySelectorAll('.role-nav-komisi3, .role-nav-media').forEach(el => el.style.display = '');
+      } else if (role === 'Banggar') {
+        document.querySelectorAll('.role-nav-banggar').forEach(el => el.style.display = '');
+      } else if (role === 'MitraOrmawa') {
+        document.querySelectorAll('.role-nav-ormawa').forEach(el => el.style.display = '');
+      }
+    }
+
+    // Switch Tabs
+    const TAB_TITLES = {
+      dashboard: 'Dashboard Analytics Parlemen',
+      jdihAdmin: 'Komisi I: Bank Produk Hukum & JDIH',
+      prokerAdmin: 'Komisi II: Matriks Pengawasan Proker',
+      inspeksiAdmin: 'Komisi II: Lembar Inspeksi Lapangan',
+      aspirasiAdmin: 'Komisi III: Meja Advokasi & E-Aspirasi',
+      proposalAdmin: 'Badan Anggaran: Telaah Pos Proposal',
+      lpjAdmin: 'Badan Anggaran: Audit LPJ & SK Bebas Tanggungan',
+      submitProposalTab: 'Portal Ormawa: Penyerahan Berkas Proposal',
+      submitLpjTab: 'Portal Ormawa: Penyerahan Berkas LPJ',
+      beritaAdmin: 'Publikasi: Berita & Siaran Pers',
+      userAdmin: 'Master RBAC: Manajemen Akun Pengguna',
+      configAdmin: 'Master Sistem: Pengaturan Profil Lembaga',
+      logsAdmin: 'Master Sistem: Audit Trail & Activity Logs'
+    };
+
+    function switchBackofficeTab(tabName) {
+      document.querySelectorAll('.backoffice-tab-pane').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+
+      const cleanTab = tabName.replace('tab-', '');
+      const targetPane = document.getElementById('tab-' + cleanTab);
+      if (targetPane) targetPane.style.display = 'block';
+
+      const navEl = document.querySelector(`.sidebar-nav-item[data-tab="${cleanTab}"]`);
+      if (navEl) navEl.classList.add('active');
+
+      const titleEl = document.getElementById('currentTabTitle');
+      if (titleEl && TAB_TITLES[cleanTab]) titleEl.textContent = TAB_TITLES[cleanTab];
+
+      // Close mobile sidebar on select
+      const sb = document.getElementById('appSidebar');
+      const bd = document.getElementById('sidebarBackdrop');
+      if (sb) sb.classList.remove('show');
+      if (bd) bd.classList.remove('show');
+
+      // Auto trigger loaders
+      if (cleanTab === 'dashboard') refreshDashboard();
+      if (cleanTab === 'jdihAdmin') loadAllJdihAdmin();
+      if (cleanTab === 'prokerAdmin') loadAllProkerAdmin();
+      if (cleanTab === 'inspeksiAdmin') loadAllInspeksiAdmin();
+      if (cleanTab === 'aspirasiAdmin') loadAllAspirasiAdmin();
+      if (cleanTab === 'proposalAdmin') loadAllProposalAdmin();
+      if (cleanTab === 'lpjAdmin') loadAllLpjAdmin();
+      if (cleanTab === 'submitLpjTab') populateOrmawaProposalOptions();
+      if (cleanTab === 'beritaAdmin') loadAllBeritaAdmin();
+      if (cleanTab === 'userAdmin') loadAllUsersAdmin();
+      if (cleanTab === 'configAdmin') loadConfigAdmin();
+      if (cleanTab === 'logsAdmin') loadAllLogsAdmin();
+    }
+
+    // ════════ MODULE LOADERS & CRUD HANDLERS ════════
+
+    // Dashboard
+    let chartAspirasi = null;
+    let chartAnggaran = null;
+
+    async function refreshDashboard() {
+      const res = await apiClient.get('/dashboard/analytics');
+      if (res && res.success && res.data) {
+        const d = res.data;
+        document.getElementById('dashKpiAspirasi').textContent = d.kpi?.totalAspirasi || 0;
+        document.getElementById('dashKpiAspirasiSub').textContent = `${d.kpi?.aspirasiSelesai || 0} Terselesaikan`;
+        document.getElementById('dashKpiProker').textContent = `${d.kpi?.prokerCapaianPersen || 0}%`;
+        document.getElementById('dashKpiProkerSub').textContent = `${d.kpi?.prokerTerlaksana || 0} Terlaksana`;
+        document.getElementById('dashKpiJdih').textContent = d.kpi?.totalJdih || 0;
+        document.getElementById('dashKpiJdihSub').textContent = `${d.kpi?.totalUnduhan || 0} Total Unduhan`;
+        document.getElementById('dashKpiDana').textContent = `Rp ${Number(d.kpi?.danaDisetujui || 0).toLocaleString('id-ID')}`;
+        document.getElementById('dashKpiDanaSub').textContent = `${d.kpi?.lpjSelesai || 0} LPJ Lolos`;
+
+        // Render Recent Table
+        const tb = document.getElementById('dashRecentAspirasiBody');
+        if (tb && d.recentAspirasi) {
+          tb.innerHTML = d.recentAspirasi.map(a => `
+            <tr>
+              <td class="font-mono fw-bold">${a.kode_tiket}</td>
+              <td><b>${a.nama_mahasiswa}</b></td>
+              <td>${a.judul_aspirasi}</td>
+              <td><span class="badge-status process">${(a.kategori_isu || '').replace('_', ' ')}</span></td>
+              <td><span class="badge-status ${a.status === 'Selesai' ? 'success' : 'warning'}">${a.status}</span></td>
+              <td><button class="btn btn-sm btn-emerald" onclick="openDisposisiModal('${a.id_aspirasi}')"><i class="bi bi-pencil-square"></i></button></td>
+            </tr>
+          `).join('');
+        }
+
+        // Charts
+        renderCharts(d.charts);
+      }
+    }
+
+    function renderCharts(chartData) {
+      if (!chartData) return;
+
+      const ctxAsp = document.getElementById('aspirasiChart');
+      if (ctxAsp) {
+        if (chartAspirasi) chartAspirasi.destroy();
+        chartAspirasi = new Chart(ctxAsp, {
+          type: 'doughnut',
+          data: {
+            labels: chartData.aspirasiKategori?.labels || [],
+            datasets: [{
+              data: chartData.aspirasiKategori?.values || [],
+              backgroundColor: ['#059669', '#0284C7', '#D97706', '#E11D48']
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      }
+
+      const ctxAng = document.getElementById('anggaranChart');
+      if (ctxAng) {
+        if (chartAnggaran) chartAnggaran.destroy();
+        chartAnggaran = new Chart(ctxAng, {
+          type: 'bar',
+          data: {
+            labels: chartData.anggaranOrmawa?.labels || [],
+            datasets: [{
+              label: 'Anggaran Disetujui (Rp)',
+              data: chartData.anggaranOrmawa?.values || [],
+              backgroundColor: '#0284C7',
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: v => 'Rp ' + (v/1000000) + 'jt' } } }
+          }
+        });
+      }
+    }
+
+    // JDIH
+    async function loadAllJdihAdmin() {
+      const res = await apiClient.get('/jdih/admin');
+      if (res && res.success && res.data) {
+        appData.jdih = res.data;
+        const tbody = document.getElementById('adminJdihBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(j => `
+            <tr>
+              <td class="font-mono fw-bold text-success">${j.nomor_peraturan}</td>
+              <td><span class="badge-status process">${j.jenis_peraturan}</span></td>
+              <td class="fw-semibold">${j.judul_regulasi}</td>
+              <td class="font-mono">${j.tahun_penetapan}</td>
+              <td><span class="badge-status ${j.status_hukum === 'Berlaku' ? 'success' : 'danger'}">${j.status_hukum}</span></td>
+              <td class="font-mono">${j.jumlah_unduhan || 0}</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <button class="btn btn-sm btn-outline-custom" onclick="openPdfPreview('${j.file_drive_url}', '${j.judul_regulasi}')"><i class="bi bi-eye"></i></button>
+                  <button class="btn btn-sm btn-outline-custom" onclick="editJdihItem('${j.id_regulasi}')"><i class="bi bi-pencil"></i></button>
+                  <button class="btn btn-sm btn-outline-danger" onclick="deleteJdihItem('${j.id_regulasi}')"><i class="bi bi-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAddJdihModal() {
+      document.getElementById('formJdihCrud').reset();
+      document.getElementById('jdihCrudId').value = '';
+      const st = document.getElementById('jdihUploadStatus');
+      if (st) st.innerHTML = '';
+      document.getElementById('jdihModalTitle').textContent = 'Tambah Produk Hukum Baru';
+      new bootstrap.Modal(document.getElementById('modalJdihCrud')).show();
+    }
+
+    function editJdihItem(id) {
+      const item = (appData.jdih || []).find(x => x.id_regulasi === id);
+      if (!item) return;
+      document.getElementById('jdihCrudId').value = item.id_regulasi;
+      document.getElementById('jdihCrudNomor').value = item.nomor_peraturan;
+      document.getElementById('jdihCrudJenis').value = item.jenis_peraturan;
+      document.getElementById('jdihCrudJudul').value = item.judul_regulasi;
+      document.getElementById('jdihCrudTahun').value = item.tahun_penetapan;
+      document.getElementById('jdihCrudTanggal').value = item.tanggal_pengesahan;
+      document.getElementById('jdihCrudStatus').value = item.status_hukum;
+      document.getElementById('jdihCrudDeskripsi').value = item.deskripsi_singkat || '';
+      document.getElementById('jdihCrudUrl').value = item.file_drive_url || '';
+      const st = document.getElementById('jdihUploadStatus');
+      if (st) {
+        st.innerHTML = item.file_drive_url ? `<span class="text-info small"><i class="bi bi-file-earmark-pdf"></i> File terhubung: ${item.file_drive_url}</span>` : '';
+      }
+      document.getElementById('jdihModalTitle').textContent = 'Ubah Regulasi ' + item.nomor_peraturan;
+      new bootstrap.Modal(document.getElementById('modalJdihCrud')).show();
+    }
+
+    async function handleSaveJdih(event) {
+      event.preventDefault();
+      const f = document.getElementById('formJdihCrud');
+      const payload = {
+        id_regulasi: f.id_regulasi.value,
+        nomor_peraturan: f.nomor_peraturan.value,
+        jenis_peraturan: f.jenis_peraturan.value,
+        judul_regulasi: f.judul_regulasi.value,
+        tahun_penetapan: f.tahun_penetapan.value,
+        tanggal_pengesahan: f.tanggal_pengesahan.value,
+        status_hukum: f.status_hukum.value,
+        deskripsi_singkat: f.deskripsi_singkat.value,
+        file_drive_url: f.file_drive_url.value
+      };
+      showGlobalLoading('Menyimpan regulasi...');
+      const res = await apiClient.post('/jdih/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalJdihCrud')).hide();
+        showToast(res.message);
+        loadAllJdihAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan regulasi.', false);
+      }
+    }
+
+    async function deleteJdihItem(id) {
+      if (!confirm('Hapus produk hukum ini?')) return;
+      showGlobalLoading('Menghapus regulasi...');
+      const res = await apiClient.delete('/jdih/' + id);
+      hideGlobalLoading();
+      showToast(res?.message || 'Regulasi dihapus.');
+      loadAllJdihAdmin();
+    }
+
+    // Proker
+    async function loadAllProkerAdmin() {
+      const res = await apiClient.get('/proker/admin');
+      if (res && res.success && res.data) {
+        appData.proker = res.data;
+        const tbody = document.getElementById('adminProkerBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(p => `
+            <tr>
+              <td class="fw-bold">${p.id_ormawa}</td>
+              <td class="fw-semibold">${p.nama_kegiatan}</td>
+              <td class="font-mono small">${p.target_jadwal}</td>
+              <td class="font-mono small">${p.realisasi_jadwal || '-'}</td>
+              <td><span class="badge-status ${p.status_pelaksanaan === 'Terlaksana' ? 'success' : 'warning'}">${p.status_pelaksanaan}</span></td>
+              <td class="font-mono fw-bold">${p.persentase_capaian}%</td>
+              <td>
+                <button class="btn btn-sm btn-outline-custom" onclick="editProkerItem('${p.id_proker}')"><i class="bi bi-pencil"></i></button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAddProkerModal() {
+      document.getElementById('formProkerCrud').reset();
+      document.getElementById('prokerCrudId').value = '';
+      document.getElementById('prokerModalTitle').textContent = 'Tambah Agenda Program Kerja';
+      new bootstrap.Modal(document.getElementById('modalProkerCrud')).show();
+    }
+
+    function editProkerItem(id) {
+      const item = (appData.proker || []).find(x => x.id_proker === id);
+      if (!item) return;
+      document.getElementById('prokerCrudId').value = item.id_proker;
+      document.getElementById('prokerCrudOrmawa').value = item.id_ormawa;
+      document.getElementById('prokerCrudNama').value = item.nama_kegiatan;
+      document.getElementById('prokerCrudDeskripsi').value = item.deskripsi_kegiatan || '';
+      document.getElementById('prokerCrudTarget').value = item.target_jadwal;
+      document.getElementById('prokerCrudRealisasi').value = item.realisasi_jadwal || '';
+      document.getElementById('prokerCrudStatus').value = item.status_pelaksanaan;
+      document.getElementById('prokerCrudCapaian').value = item.persentase_capaian || 0;
+      document.getElementById('prokerCrudCatatan').value = item.catatan_komisi2 || '';
+      document.getElementById('prokerModalTitle').textContent = 'Ubah Proker ' + item.nama_kegiatan;
+      new bootstrap.Modal(document.getElementById('modalProkerCrud')).show();
+    }
+
+    async function handleSaveProker(event) {
+      event.preventDefault();
+      const f = document.getElementById('formProkerCrud');
+      const payload = {
+        id_proker: f.id_proker.value,
+        id_ormawa: f.id_ormawa.value,
+        nama_kegiatan: f.nama_kegiatan.value,
+        deskripsi_kegiatan: f.deskripsi_kegiatan.value,
+        target_jadwal: f.target_jadwal.value,
+        realisasi_jadwal: f.realisasi_jadwal.value,
+        status_pelaksanaan: f.status_pelaksanaan.value,
+        persentase_capaian: f.persentase_capaian.value,
+        catatan_komisi2: f.catatan_komisi2.value
+      };
+      showGlobalLoading('Menyimpan proker...');
+      const res = await apiClient.post('/proker/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalProkerCrud')).hide();
+        showToast(res.message);
+        loadAllProkerAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan proker.', false);
+      }
+    }
+
+    // Inspeksi
+    async function loadAllInspeksiAdmin() {
+      const res = await apiClient.get('/inspeksi/admin');
+      if (res && res.success && res.data) {
+        appData.inspeksi = res.data;
+        const tbody = document.getElementById('adminInspeksiBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(i => `
+            <tr>
+              <td class="font-mono text-muted">${i.id_inspeksi}</td>
+              <td class="fw-semibold">${i.id_proker}</td>
+              <td class="font-mono small">${i.tanggal_inspeksi}</td>
+              <td class="font-mono">${i.kehadiran_pengurus_persen}%</td>
+              <td><span class="badge-status process">${i.kesesuaian_manual_acara}</span></td>
+              <td><span class="badge-status ${i.kepatuhan_konstitusi === 'Patuh' ? 'success' : 'danger'}">${i.kepatuhan_konstitusi}</span></td>
+              <td class="small">${i.rekomendasi_dewan || '-'}</td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAddInspeksiModal() {
+      const sel = document.getElementById('inspeksiProkerSelect');
+      if (sel) {
+        sel.innerHTML = (appData.proker || []).map(p => `<option value="${p.id_proker}">${p.id_proker} - ${p.nama_kegiatan}</option>`).join('');
+      }
+      document.getElementById('formInspeksiCrud').reset();
+      new bootstrap.Modal(document.getElementById('modalInspeksiCrud')).show();
+    }
+
+    async function handleSaveInspeksi(event) {
+      event.preventDefault();
+      const f = document.getElementById('formInspeksiCrud');
+      const payload = {
+        id_proker: f.id_proker.value,
+        tanggal_inspeksi: f.tanggal_inspeksi.value,
+        nama_sidang_kegiatan: f.nama_sidang_kegiatan.value,
+        kehadiran_pengurus_persen: f.kehadiran_pengurus_persen.value,
+        kesesuaian_manual_acara: f.kesesuaian_manual_acara.value,
+        kepatuhan_konstitusi: f.kepatuhan_konstitusi.value,
+        ringkasan_temuan: f.ringkasan_temuan.value,
+        rekomendasi_dewan: f.rekomendasi_dewan.value,
+        auto_update_capaian: f.auto_update_capaian.checked
+      };
+      showGlobalLoading('Menyimpan laporan inspeksi...');
+      const res = await apiClient.post('/inspeksi/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalInspeksiCrud')).hide();
+        showToast(res.message);
+        loadAllInspeksiAdmin();
+        loadAllProkerAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan laporan inspeksi.', false);
+      }
+    }
+
+    // Aspirasi
+    async function loadAllAspirasiAdmin() {
+      const res = await apiClient.get('/aspirasi/admin');
+      if (res && res.success && res.data) {
+        appData.aspirasi = res.data;
+        const tbody = document.getElementById('adminAspirasiBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(a => `
+            <tr>
+              <td class="font-mono fw-bold text-success">${a.kode_tiket}</td>
+              <td><b>${a.nama_mahasiswa}</b><br><small class="text-muted font-mono">${a.nim_stambuk}</small></td>
+              <td>${(a.program_studi || '').replace('_', ' ')}</td>
+              <td><span class="badge-status process">${(a.kategori_isu || '').replace('_', ' ')}</span></td>
+              <td class="fw-semibold">${a.judul_aspirasi}</td>
+              <td><span class="badge-status ${a.status === 'Selesai' ? 'success' : 'warning'}">${a.status}</span></td>
+              <td class="small text-secondary">${a.disposisi_ke || '-'}</td>
+              <td><button class="btn btn-sm btn-emerald" onclick="openDisposisiModal('${a.id_aspirasi}')"><i class="bi bi-pencil-square"></i></button></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openDisposisiModal(idAspirasi) {
+      const item = (appData.aspirasi || []).find(x => x.id_aspirasi === idAspirasi);
+      if (!item) return;
+      document.getElementById('dispIdAspirasi').value = item.id_aspirasi;
+      document.getElementById('dispStatusSelect').value = item.status;
+      document.getElementById('dispTarget').value = item.disposisi_ke || 'Komisi III DPM';
+      document.getElementById('dispTanggapan').value = item.tanggapan_dewan || '';
+      new bootstrap.Modal(document.getElementById('modalDisposisiAspirasi')).show();
+    }
+
+    async function handleSaveDisposisi(event) {
+      event.preventDefault();
+      const f = document.getElementById('formDisposisiAspirasi');
+      const payload = {
+        idAspirasi: f.id_aspirasi.value,
+        newStatus: f.status.value,
+        disposisiKe: f.disposisi_ke.value,
+        tanggapanDewan: f.tanggapan_dewan.value,
+        currentUser
+      };
+      showGlobalLoading('Menyimpan disposisi...');
+      const res = await apiClient.post('/aspirasi/update', payload);
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalDisposisiAspirasi')).hide();
+        showToast(res.message);
+        loadAllAspirasiAdmin();
+      } else {
+        showToast(res?.message || 'Gagal update aspirasi.', false);
+      }
+    }
+
+    // Proposal Banggar
+    async function loadAllProposalAdmin() {
+      const res = await apiClient.get('/proposal/admin');
+      if (res && res.success && res.data) {
+        appData.proposal = res.data;
+        const tbody = document.getElementById('adminProposalBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(p => `
+            <tr>
+              <td class="font-mono text-muted">${p.id_proposal}</td>
+              <td class="fw-bold">${p.id_ormawa}</td>
+              <td class="fw-semibold">${p.nama_proker}</td>
+              <td class="font-mono">Rp ${Number(p.total_anggaran_diajukan).toLocaleString('id-ID')}</td>
+              <td class="font-mono fw-bold text-success">Rp ${Number(p.total_anggaran_disetujui).toLocaleString('id-ID')}</td>
+              <td class="font-mono small">${p.tanggal_pengajuan}</td>
+              <td><span class="badge-status ${p.status_approval === 'Disetujui_Presidium' ? 'success' : 'warning'}">${p.status_approval}</span></td>
+              <td class="small text-secondary">${p.catatan_banggar || '-'}</td>
+              <td><button class="btn btn-sm btn-emerald" onclick="openReviewProposalModal('${p.id_proposal}')"><i class="bi bi-check2-square"></i> Review</button></td>
+            </tr>
+          `).join('');
+        }
+        populateOrmawaProposalOptions();
+      }
+    }
+
+    function openReviewProposalModal(idProposal) {
+      const item = (appData.proposal || []).find(x => x.id_proposal === idProposal);
+      if (!item) return;
+      document.getElementById('revPropId').value = item.id_proposal;
+      document.getElementById('revPropStatus').value = item.status_approval;
+      document.getElementById('revPropNominal').value = item.total_anggaran_disetujui || item.total_anggaran_diajukan;
+      document.getElementById('revPropCatatan').value = item.catatan_banggar || '';
+      new bootstrap.Modal(document.getElementById('modalReviewProposal')).show();
+    }
+
+    async function handleSaveReviewProposal(event) {
+      event.preventDefault();
+      const f = document.getElementById('formReviewProposal');
+      const payload = {
+        idProposal: f.id_proposal.value,
+        newStatus: f.status_approval.value,
+        nominalDisetujui: f.total_anggaran_disetujui.value,
+        catatan: f.catatan_banggar.value,
+        currentUser
+      };
+      showGlobalLoading('Menyimpan telaah anggaran...');
+      const res = await apiClient.post('/proposal/review', payload);
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalReviewProposal')).hide();
+        showToast(res.message);
+        loadAllProposalAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan telaah proposal.', false);
+      }
+    }
+
+    // LPJ Banggar
+    async function loadAllLpjAdmin() {
+      const res = await apiClient.get('/lpj/admin');
+      if (res && res.success && res.data) {
+        appData.lpj = res.data;
+        const tbody = document.getElementById('adminLpjBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(l => `
+            <tr>
+              <td class="font-mono text-muted">${l.id_lpj}</td>
+              <td class="font-mono">${l.id_proposal}</td>
+              <td class="fw-bold">${l.id_ormawa}</td>
+              <td class="font-mono fw-bold">Rp ${Number(l.total_realisasi_dana).toLocaleString('id-ID')}</td>
+              <td class="font-mono">Rp ${Number(l.sisa_lebih_kurang).toLocaleString('id-ID')}</td>
+              <td class="font-mono small">${l.tanggal_serah_lpj}</td>
+              <td><span class="badge-status ${l.status_lpj === 'Selesai' || l.status_lpj === 'Lolos_Audit' ? 'success' : 'warning'}">${l.status_lpj}</span></td>
+              <td class="font-mono small fw-bold text-success">${l.no_surat_bebas_tanggungan || '-'}</td>
+              <td><button class="btn btn-sm btn-emerald" onclick="openAuditLpjModal('${l.id_lpj}')"><i class="bi bi-patch-check"></i> Audit</button></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAuditLpjModal(idLpj) {
+      const item = (appData.lpj || []).find(x => x.id_lpj === idLpj);
+      if (!item) return;
+      document.getElementById('auditLpjId').value = item.id_lpj;
+      document.getElementById('auditLpjStatus').value = item.status_lpj;
+      document.getElementById('auditLpjCatatan').value = item.catatan_audit || '';
+      new bootstrap.Modal(document.getElementById('modalAuditLpj')).show();
+    }
+
+    async function handleSaveAuditLpj(event) {
+      event.preventDefault();
+      const f = document.getElementById('formAuditLpj');
+      const payload = {
+        idLPJ: f.id_lpj.value,
+        statusLPJ: f.status_lpj.value,
+        catatanAudit: f.catatan_audit.value,
+        currentUser
+      };
+      showGlobalLoading('Mengesahkan audit LPJ...');
+      const res = await apiClient.post('/lpj/audit', payload);
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalAuditLpj')).hide();
+        showToast(res.message);
+        loadAllLpjAdmin();
+      } else {
+        showToast(res?.message || 'Gagal audit LPJ.', false);
+      }
+    }
+
+    // Ormawa Handlers
+    async function handleOrmawaProposalSubmit(event) {
+      event.preventDefault();
+      const f = document.getElementById('formSubmitProposalOrmawa');
+      const payload = {
+        id_ormawa: f.id_ormawa.value,
+        total_anggaran_diajukan: f.total_anggaran_diajukan.value,
+        nama_proker: f.nama_proker.value,
+        file_proposal_url: f.file_proposal_url.value
+      };
+      showGlobalLoading('Menyerahkan berkas proposal...');
+      const res = await apiClient.post('/proposal/submit', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        showToast(res.message);
+        f.reset();
+        switchBackofficeTab('proposalAdmin');
+      } else {
+        showToast(res?.message || 'Gagal mengajukan proposal.', false);
+      }
+    }
+
+    function populateOrmawaProposalOptions() {
+      const sel = document.getElementById('lpjProposalSelect');
+      if (sel) {
+        sel.innerHTML = (appData.proposal || []).map(p => `<option value="${p.id_proposal}">${p.id_proposal} - ${p.nama_proker}</option>`).join('');
+      }
+    }
+
+    async function handleOrmawaLpjSubmit(event) {
+      event.preventDefault();
+      const f = document.getElementById('formSubmitLpjOrmawa');
+      const payload = {
+        id_proposal: f.id_proposal.value,
+        total_realisasi_dana: f.total_realisasi_dana.value,
+        sisa_lebih_kurang: f.sisa_lebih_kurang.value,
+        file_lpj_url: f.file_lpj_url.value,
+        file_kuitansi_drive_folder: f.file_kuitansi_drive_folder.value
+      };
+      showGlobalLoading('Menyerahkan berkas LPJ...');
+      const res = await apiClient.post('/lpj/submit', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        showToast(res.message);
+        f.reset();
+        switchBackofficeTab('lpjAdmin');
+      } else {
+        showToast(res?.message || 'Gagal menyerahkan LPJ.', false);
+      }
+    }
+
+    // Berita
+    async function loadAllBeritaAdmin() {
+      const res = await apiClient.get('/berita/admin');
+      if (res && res.success && res.data) {
+        appData.berita = res.data;
+        const tbody = document.getElementById('adminBeritaBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(b => `
+            <tr>
+              <td class="font-mono text-muted">${b.id_berita}</td>
+              <td class="fw-bold">${b.judul_berita}</td>
+              <td><span class="badge-status process">${b.kategori}</span></td>
+              <td class="font-mono small">${b.tanggal_terbit}</td>
+              <td><span class="badge-status success">${b.status}</span></td>
+              <td class="small">${b.penulis}</td>
+              <td class="font-mono">${b.view_count || 0}</td>
+              <td>
+                <a href="/berita/${b.id_berita}" target="_blank" class="btn btn-sm btn-outline-custom me-1" title="Lihat di Berita.ejs"><i class="bi bi-box-arrow-up-right"></i></a>
+                <button class="btn btn-sm btn-outline-custom me-1" onclick="editBeritaItem('${b.id_berita}')" title="Ubah Berita"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteBeritaItem('${b.id_berita}')" title="Hapus Berita"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAddBeritaModal() {
+      document.getElementById('formBeritaCrud').reset();
+      document.getElementById('beritaCrudId').value = '';
+      const slugInput = document.getElementById('beritaCrudSlug');
+      if (slugInput) {
+        slugInput.value = '';
+        delete slugInput.dataset.manualEdited;
+      }
+      const st = document.getElementById('beritaUploadStatus');
+      if (st) st.innerHTML = '';
+      const pv = document.getElementById('beritaBannerPreview');
+      if (pv) pv.style.display = 'none';
+      document.getElementById('beritaModalTitle').textContent = 'Tulis Berita & Siaran Pers Baru';
+      new bootstrap.Modal(document.getElementById('modalBeritaCrud')).show();
+    }
+
+    function autoGenerateBeritaSlug(title) {
+      const slugInput = document.getElementById('beritaCrudSlug');
+      if (!slugInput) return;
+      const id = document.getElementById('beritaCrudId').value;
+      if (!id || !slugInput.dataset.manualEdited) {
+        slugInput.value = title
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .trim()
+          .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+    }
+
+    function editBeritaItem(id) {
+      const item = (appData.berita || []).find(x => x.id_berita === id);
+      if (!item) return;
+      document.getElementById('beritaCrudId').value = item.id_berita;
+      document.getElementById('beritaCrudJudul').value = item.judul_berita;
+      const slugInput = document.getElementById('beritaCrudSlug');
+      if (slugInput) {
+        slugInput.value = item.slug || '';
+        slugInput.dataset.manualEdited = "true";
+      }
+      document.getElementById('beritaCrudKategori').value = item.kategori;
+      document.getElementById('beritaCrudStatus').value = item.status;
+      document.getElementById('beritaCrudBanner').value = item.banner_img_url || '';
+      document.getElementById('beritaCrudIsi').value = item.isi_artikel;
+      const st = document.getElementById('beritaUploadStatus');
+      if (st) {
+        st.innerHTML = item.banner_img_url ? `<span class="text-info small"><i class="bi bi-image"></i> Banner aktif: ${item.banner_img_url}</span>` : '';
+      }
+      const pv = document.getElementById('beritaBannerPreview');
+      const pvImg = document.getElementById('beritaBannerPreviewImg');
+      if (item.banner_img_url && pv && pvImg) {
+        pvImg.src = item.banner_img_url;
+        pv.style.display = 'block';
+      } else if (pv) {
+        pv.style.display = 'none';
+      }
+      document.getElementById('beritaModalTitle').textContent = 'Ubah Berita: ' + item.judul_berita.slice(0, 30) + '...';
+      new bootstrap.Modal(document.getElementById('modalBeritaCrud')).show();
+    }
+
+    async function handleSaveBerita(event) {
+      event.preventDefault();
+      const f = document.getElementById('formBeritaCrud');
+      const payload = {
+        id_berita: f.id_berita.value,
+        judul_berita: f.judul_berita.value,
+        slug: (f.slug ? f.slug.value.trim() : ''),
+        kategori: f.kategori.value,
+        isi_artikel: f.isi_artikel.value,
+        banner_img_url: f.banner_img_url.value,
+        status: f.status.value
+      };
+      showGlobalLoading('Menyimpan warta...');
+      const res = await apiClient.post('/berita/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalBeritaCrud')).hide();
+        showToast(res.message);
+        loadAllBeritaAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan berita.', false);
+      }
+    }
+
+    async function deleteBeritaItem(id) {
+      if (!confirm('Hapus rilis berita ini?')) return;
+      showGlobalLoading('Menghapus berita...');
+      const res = await apiClient.delete('/berita/' + id);
+      hideGlobalLoading();
+      showToast(res?.message || 'Berita dihapus.');
+      loadAllBeritaAdmin();
+    }
+
+    // Users
+    async function loadAllUsersAdmin() {
+      const res = await apiClient.get('/users/admin');
+      if (res && res.success && res.data) {
+        appData.users = res.data;
+        const tbody = document.getElementById('adminUserBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(u => `
+            <tr>
+              <td class="font-mono text-muted">${u.id_user}</td>
+              <td class="fw-bold">${u.nama_lengkap}</td>
+              <td class="font-mono">${u.nim_stambuk}</td>
+              <td class="font-mono text-primary">${u.username}</td>
+              <td><span class="badge-status process">${u.role}</span></td>
+              <td class="small">${u.jabatan_organisasi}</td>
+              <td><span class="badge-status ${u.status === 'Active' ? 'success' : 'danger'}">${u.status}</span></td>
+              <td class="font-mono small">${u.last_login || '-'}</td>
+              <td><button class="btn btn-sm btn-outline-custom" onclick="editUserItem('${u.id_user}')"><i class="bi bi-pencil"></i></button></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function openAddUserModal() {
+      document.getElementById('formUserCrud').reset();
+      document.getElementById('userCrudId').value = '';
+      document.getElementById('userModalTitle').textContent = 'Tambah Akun Pengguna';
+      new bootstrap.Modal(document.getElementById('modalUserCrud')).show();
+    }
+
+    function editUserItem(id) {
+      const item = (appData.users || []).find(x => x.id_user === id);
+      if (!item) return;
+      document.getElementById('userCrudId').value = item.id_user;
+      document.getElementById('userCrudNama').value = item.nama_lengkap;
+      document.getElementById('userCrudNim').value = item.nim_stambuk;
+      document.getElementById('userCrudUsername').value = item.username;
+      document.getElementById('userCrudRole').value = item.role;
+      document.getElementById('userCrudJabatan').value = item.jabatan_organisasi;
+      document.getElementById('userCrudEmail').value = item.email || '';
+      document.getElementById('userCrudWa').value = item.no_wa || '';
+      document.getElementById('userModalTitle').textContent = 'Ubah Akun ' + item.username;
+      new bootstrap.Modal(document.getElementById('modalUserCrud')).show();
+    }
+
+    async function handleSaveUser(event) {
+      event.preventDefault();
+      const f = document.getElementById('formUserCrud');
+      const payload = {
+        id_user: f.id_user.value,
+        nama_lengkap: f.nama_lengkap.value,
+        nim_stambuk: f.nim_stambuk.value,
+        username: f.username.value,
+        role: f.role.value,
+        jabatan_organisasi: f.jabatan_organisasi.value,
+        email: f.email.value,
+        no_wa: f.no_wa.value,
+        new_password: f.new_password.value,
+        status: 'Active'
+      };
+      showGlobalLoading('Menyimpan akun pengguna...');
+      const res = await apiClient.post('/users/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        bootstrap.Modal.getInstance(document.getElementById('modalUserCrud')).hide();
+        showToast(res.message);
+        loadAllUsersAdmin();
+      } else {
+        showToast(res?.message || 'Gagal menyimpan akun user.', false);
+      }
+    }
+
+    // Config Profil
+    function updateHeroPreview(url) {
+      const pv = document.getElementById('cfgHeroPreview');
+      const pvImg = document.getElementById('cfgHeroPreviewImg');
+      if (url && pv && pvImg) {
+        pvImg.src = url;
+        pv.style.display = 'block';
+      } else if (pv) {
+        pv.style.display = 'none';
+      }
+    }
+
+    async function loadConfigAdmin() {
+      const res = await apiClient.get('/profil/admin');
+      if (res && res.success && res.data) {
+        appData.profil = res.data;
+        const p = res.data;
+        document.getElementById('cfgNamaLembaga').value = p.nama_lembaga || '';
+        document.getElementById('cfgUniv').value = p.universitas_fakultas || '';
+        document.getElementById('cfgPeriode').value = p.periode_aktif || '';
+        document.getElementById('cfgKetua').value = p.ketua_umum_presidium || '';
+        document.getElementById('cfgSekjen').value = p.sekjen_biro || '';
+        const heroInput = document.getElementById('cfgHeroImage');
+        if (heroInput) {
+          heroInput.value = p.hero_image_url || '';
+          updateHeroPreview(p.hero_image_url || '');
+        }
+        document.getElementById('cfgVisi').value = p.visi || '';
+        document.getElementById('cfgMisi').value = p.misi || '';
+        document.getElementById('cfgEmail').value = p.email_resmi || '';
+        document.getElementById('cfgWa').value = p.wa_hotline || '';
+        document.getElementById('cfgIg').value = p.ig_resmi || '';
+      }
+    }
+
+    async function handleSaveConfig(event) {
+      event.preventDefault();
+      const f = document.getElementById('formConfigOrganisasi');
+      const payload = {
+        nama_lembaga: f.nama_lembaga.value,
+        universitas_fakultas: f.universitas_fakultas.value,
+        periode_aktif: f.periode_aktif.value,
+        ketua_umum_presidium: f.ketua_umum_presidium.value,
+        sekjen_biro: f.sekjen_biro.value,
+        hero_image_url: (f.hero_image_url ? f.hero_image_url.value.trim() : ''),
+        visi: f.visi.value,
+        misi: f.misi.value,
+        email_resmi: f.email_resmi.value,
+        wa_hotline: f.wa_hotline.value,
+        ig_resmi: f.ig_resmi.value
+      };
+      showGlobalLoading('Menyimpan konfigurasi profil...');
+      const res = await apiClient.post('/profil/save', { formData: payload, currentUser });
+      hideGlobalLoading();
+      if (res && res.success) {
+        appData.profil = Object.assign(appData.profil || {}, payload);
+        showToast(res.message);
+      } else {
+        showToast(res?.message || 'Gagal menyimpan profil.', false);
+      }
+    }
+
+    // Logs
+    async function loadAllLogsAdmin() {
+      const res = await apiClient.get('/logs/admin');
+      if (res && res.success && res.data) {
+        appData.logs = res.data;
+        const tbody = document.getElementById('adminLogsBody');
+        if (tbody) {
+          tbody.innerHTML = res.data.map(l => `
+            <tr>
+              <td class="font-mono small">${l.timestamp}</td>
+              <td class="fw-bold">${l.username}</td>
+              <td><span class="badge-status process" style="font-size: 0.7rem;">${l.role}</span></td>
+              <td><span class="badge-status ${l.action === 'CREATE' ? 'success' : l.action === 'APPROVE' ? 'process' : 'warning'}">${l.action}</span></td>
+              <td class="font-mono small">${l.module}</td>
+              <td class="small">${l.detail}</td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    // Upload File Helper Functions
+    async function handleUploadPdf(inputEl, targetInputId, statusElId) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.pdf')) {
+        showToast('Hanya dokumen .pdf yang diperbolehkan!', false);
+        inputEl.value = '';
+        return;
+      }
+      const statusEl = document.getElementById(statusElId);
+      if (statusEl) {
+        statusEl.innerHTML = '<span class="text-primary"><i class="spinner-border spinner-border-sm me-1"></i> Mengunggah file PDF native...</span>';
+      }
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('/api/upload/pdf', {
+          method: 'POST',
+          body: formData
+        });
+        const res = await response.json();
+        if (res && res.success && res.data) {
+          document.getElementById(targetInputId).value = res.data.fileUrl;
+          if (statusEl) {
+            statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Terunggah: ${res.data.fileName} (SEO Native)</span>`;
+          }
+          showToast('Dokumen PDF berhasil diunggah secara native!');
+        } else {
+          if (statusEl) {
+            statusEl.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle me-1"></i> ${res?.message || 'Gagal unggah PDF.'}</span>`;
+          }
+          showToast(res?.message || 'Gagal mengunggah PDF.', false);
+        }
+      } catch (err) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-danger">Kesalahan jaringan saat unggah file.</span>';
+        showToast('Kesalahan jaringan saat unggah file.', false);
+      }
+    }
+
+    async function handleUploadImg(inputEl, targetInputId, statusElId, previewWrapId) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        showToast('Hanya file gambar (JPG, PNG, WEBP) yang diperbolehkan!', false);
+        inputEl.value = '';
+        return;
+      }
+      const statusEl = document.getElementById(statusElId);
+      if (statusEl) {
+        statusEl.innerHTML = '<span class="text-primary"><i class="spinner-border spinner-border-sm me-1"></i> Mengunggah banner gambar...</span>';
+      }
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('/api/upload/image', {
+          method: 'POST',
+          body: formData
+        });
+        const res = await response.json();
+        if (res && res.success && res.data) {
+          document.getElementById(targetInputId).value = res.data.imageUrl;
+          if (statusEl) {
+            statusEl.innerHTML = `<span class="text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Gambar terunggah: ${res.data.fileName}</span>`;
+          }
+          const previewWrap = document.getElementById(previewWrapId);
+          const previewImg = document.getElementById(previewWrapId + 'Img');
+          if (previewWrap && previewImg) {
+            previewImg.src = res.data.imageUrl;
+            previewWrap.style.display = 'block';
+          }
+          showToast('Banner gambar berhasil diunggah!');
+        } else {
+          if (statusEl) {
+            statusEl.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle me-1"></i> ${res?.message || 'Gagal unggah gambar.'}</span>`;
+          }
+          showToast(res?.message || 'Gagal mengunggah banner gambar.', false);
+        }
+      } catch (err) {
+        if (statusEl) statusEl.innerHTML = '<span class="text-danger">Kesalahan jaringan saat unggah gambar.</span>';
+        showToast('Kesalahan jaringan saat unggah gambar.', false);
+      }
+    }
+
+    // PDF Preview
+    function openPdfPreview(url, title) {
+      document.getElementById('previewDocTitle').textContent = title || 'Pratinjau Dokumen';
+      const frame = document.getElementById('previewDocFrame');
+      const dlLink = document.getElementById('previewDocDownloadLink');
+      let cleanUrl = url;
+      if (cleanUrl.includes('drive.google.com') && cleanUrl.includes('/view')) {
+        cleanUrl = cleanUrl.replace('/view', '/preview');
+      }
+      frame.src = cleanUrl;
+      dlLink.href = url;
+      new bootstrap.Modal(document.getElementById('modalPreviewDoc')).show();
+    }
+
+    // Export CSV
+    function exportTableToCSV(tableId, filename) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      let csvContent = '\uFEFF';
+      const rows = table.querySelectorAll('tr');
+      rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        const rowData = [];
+        cols.forEach((col, idx) => {
+          if (idx === cols.length - 1 && (col.textContent.trim() === 'Aksi' || col.querySelector('button'))) return;
+          let text = col.innerText.replace(/"/g, '""').replace(/\n/g, ' ').trim();
+          rowData.push(`"${text}"`);
+        });
+        if (rowData.length > 0) csvContent += rowData.join(',') + '\r\n';
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(`File ${filename} berhasil diunduh.`);
+    }
+
+    // Cetak Dokumen Resmi
+    function printOfficialAspirasiReport() {
+      const area = document.getElementById('printableOfficialContent');
+      const d = new Date();
+      const nowStr = d.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + ' • ' + d.toLocaleTimeString('id-ID');
+
+      area.innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h5 style="font-weight: bold; text-decoration: underline; margin-bottom: 5px;">REKAPITULASI RESMI ASPIRASI & ADVOKASI MAHASISWA</h5>
+          <p style="font-size: 10pt; margin: 0;">Bahan Lampiran Rapat Dengar Pendapat (RDP) Komisi III bersama Pimpinan Fakultas & RSGM</p>
+          <small style="font-size: 8.5pt; color: #555;">Dicetak pada: ${nowStr} WITA</small>
+        </div>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-top: 15px;" border="1" cellpadding="6">
+          <thead>
+            <tr style="background: #E2E8F0; text-align: center;">
+              <th style="width: 15%;">Kode Tiket</th>
+              <th style="width: 18%;">Pelapor</th>
+              <th style="width: 15%;">Jenjang</th>
+              <th style="width: 32%;">Pokok Permasalahan</th>
+              <th style="width: 20%;">Status / Rekomendasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${(appData.aspirasi || []).map(a => `
+              <tr>
+                <td style="font-family: monospace; font-weight: bold; text-align: center;">${a.kode_tiket}</td>
+                <td><b>${a.nama_mahasiswa}</b><br><small>${a.nim_stambuk}</small></td>
+                <td style="text-align: center;">${(a.program_studi || '').replace('_', ' ')}</td>
+                <td><b>${a.judul_aspirasi}</b><br><small>${a.isi_detail}</small></td>
+                <td><b>${a.status}</b><br><small>${a.tanggapan_dewan || '-'}</small></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 9.5pt;">
+          <div style="text-align: center; width: 40%;">
+            Mengetahui,<br><b>Ketua Umum Presidium DPM</b><br><br><br><br>
+            <u>drg. Muh. Fauzan, S.KG</u><br>NIM. 16120200001
+          </div>
+          <div style="text-align: center; width: 40%;">
+            Makassar, ${nowStr.split('•')[0]}<br><b>Koordinator Komisi III (Advokasi)</b><br><br><br><br>
+            <u>Nurul Annisa, S.KG</u><br>NIM. 16120210088
+          </div>
+        </div>
+      `;
+      window.print();
+    }
+
+    function printOfficialSummary() {
+      printOfficialAspirasiReport();
+    }
+
+    // Initial Startup
+    document.addEventListener('DOMContentLoaded', () => {
+      if (currentUser) {
+        document.getElementById('sidebarUserName').textContent = currentUser.nama_lengkap || currentUser.username;
+        document.getElementById('sidebarUserRole').textContent = currentUser.role || 'Member';
+        document.getElementById('sidebarAvatar').textContent = (currentUser.nama_lengkap || currentUser.username).charAt(0).toUpperCase();
+        applyRoleAccessControl(currentUser.role);
+      }
+      switchBackofficeTab('dashboard');
+    });
+  </script>
+</body>
+</html>
