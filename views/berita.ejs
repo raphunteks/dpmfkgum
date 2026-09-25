@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title><%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Berita & Siaran Pers - DPM KBMFKG UMI' %></title>
+  <meta name="description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : 'Publikasi resmi hasil sidang paripurna, telaah advokasi, dan siaran pers DPM KBMFKG UMI.' %>">
+  <meta name="keywords" content="<%= (typeof seo !== 'undefined' && seo && seo.keywords) ? seo.keywords : 'Berita DPM FKG UMI, Parlemen Mahasiswa, Siaran Pers' %>">
+  <meta name="author" content="<%= (typeof seo !== 'undefined' && seo && seo.author) ? seo.author : 'DPM KBMFKG UMI' %>">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>">
+  <link rel="icon" type="image/webp" href="/dpmfkgumi.webp">
+  <link rel="apple-touch-icon" href="/dpmfkgumi.webp">
+
+  <!-- Open Graph / Facebook / WhatsApp Preview -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DPM KBMFKG UMI">
+  <meta property="og:title" content="<%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Berita & Siaran Pers DPM KBMFKG UMI' %>">
+  <meta property="og:description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : 'Portal Berita & Siaran Pers Resmi Parlemen Mahasiswa FKG UMI.' %>">
+  <meta property="og:url" content="<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>">
+  <meta property="og:image" content="<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '/dpmfkgumi.webp' %>">
+  <meta property="og:image:alt" content="<%= (typeof berita !== 'undefined' && berita && berita.judul_berita) ? berita.judul_berita : 'Banner Berita DPM FKG UMI' %>">
+  <% if (typeof berita !== 'undefined' && berita && berita.tanggal_terbit) { %>
+    <meta property="article:published_time" content="<%= berita.tanggal_terbit %>">
+    <meta property="article:author" content="<%= berita.penulis || 'Humas DPM KBMFKG UMI' %>">
+    <meta property="article:section" content="<%= berita.kategori || 'Berita & Siaran Pers' %>">
+  <% } %>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= (typeof seo !== 'undefined' && seo && seo.title) ? seo.title : 'Berita DPM KBMFKG UMI' %>">
+  <meta name="twitter:description" content="<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : '' %>">
+  <meta name="twitter:image" content="<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '/dpmfkgumi.webp' %>">
+
+  <!-- Structured Data JSON-LD (NewsArticle & BreadcrumbList SSR GSC Gold Standard) -->
+  <% if (typeof berita !== 'undefined' && berita) { %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        "@id": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>#article",
+        "isPartOf": {
+          "@type": "WebPage",
+          "@id": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>"
+        },
+        "headline": "<%= berita.judul_berita %>",
+        "description": "<%= (typeof seo !== 'undefined' && seo && seo.description) ? seo.description : '' %>",
+        "image": [
+          "<%= (typeof seo !== 'undefined' && seo && seo.ogImage) ? seo.ogImage : '' %>"
+        ],
+        "datePublished": "<%= berita.tanggal_terbit %>T08:00:00+08:00",
+        "dateModified": "<%= berita.tanggal_terbit %>T08:00:00+08:00",
+        "author": {
+          "@type": "Person",
+          "name": "<%= berita.penulis || 'Biro Humas Parlemen DPM KBMFKG UMI' %>"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "DPM KBMFKG UMI",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/dpmfkgumi.webp"
+          }
+        },
+        "mainEntityOfPage": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Beranda",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Berita & Siaran Pers",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.baseUrl) ? seo.baseUrl : '' %>/#berita"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "<%= berita.judul_berita %>",
+            "item": "<%= (typeof seo !== 'undefined' && seo && seo.canonicalUrl) ? seo.canonicalUrl : '' %>"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <% } %>
+
+  <!-- Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Palette Light / Blue Cyan Soft */
+      --primary-navy: #0F172A;
+      --primary-cyan: #0284C7;
+      --primary-cyan-hover: #0369A1;
+      --secondary-cyan: #06B6D4;
+      --accent-cyan-soft: #E0F2FE;
+      --accent-gold: #D97706;
+
+      --bg-page: #F0F9FF;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #E0F2FE;
+      --bg-surface-glass: rgba(255, 255, 255, 0.92);
+
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+
+      --border-subtle: #E0F2FE;
+      --border-medium: #BAE6FD;
+      --border-focus: #0EA5E9;
+
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(2, 132, 199, 0.06);
+      --shadow-md: 0 4px 12px -2px rgba(2, 132, 199, 0.1);
+      --shadow-lg: 0 16px 32px -4px rgba(2, 132, 199, 0.14);
+    }
+
+    [data-theme="dark"] {
+      /* Theme Kedua: Biru Terang Soft Murni (Bebas Rona Ungu & Bebas Rona Hijau) */
+      --primary-navy: #041728;
+      --primary-cyan: #38BDF8;
+      --primary-cyan-hover: #0EA5E9;
+      --secondary-cyan: #00F0FF;
+      --accent-cyan-soft: #082845;
+      --accent-gold: #FBBF24;
+
+      --bg-page: #041728;
+      --bg-card: #082845;
+      --bg-card-hover: #0C365D;
+      --bg-surface-glass: rgba(8, 40, 69, 0.94);
+
+      --text-primary: #F0F9FF;
+      --text-secondary: #BAE6FD;
+      --text-muted: #7DD3FC;
+
+      --border-subtle: #0C4A6E;
+      --border-medium: #0284C7;
+      --border-focus: #38BDF8;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 12px rgba(2, 132, 199, 0.3);
+      --shadow-lg: 0 16px 36px rgba(2, 132, 199, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+    body { background: var(--bg-page); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+
+    /* Reading Progress Bar */
+    .reading-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0284C7, #06B6D4, #38BDF8);
+      width: 0%;
+      z-index: 1050;
+      transition: width 0.1s ease;
+    }
+
+    /* Navbar */
+    .news-navbar {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-medium);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      padding: 0.85rem 0;
+    }
+    .brand-logo-img {
+      width: 40px; height: 40px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .brand-main-title { font-size: 1.15rem; font-weight: 800; color: var(--primary-cyan); letter-spacing: -0.01em; }
+    .brand-sub-title { font-size: 0.72rem; color: var(--text-secondary); font-weight: 500; }
+
+    /* Breadcrumbs */
+    .breadcrumb-custom {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .breadcrumb-custom a {
+      color: var(--primary-cyan);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .breadcrumb-custom a:hover { text-decoration: underline; }
+
+    /* Reader Layout */
+    .article-container { max-width: 860px; margin: 0 auto; padding: 2.5rem 1rem 4rem 1rem; }
+    .article-header { margin-bottom: 2rem; }
+    .article-category-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.35rem 0.85rem; border-radius: var(--radius-full);
+      font-size: 0.78rem; font-weight: 700;
+      background: rgba(2, 132, 199, 0.12);
+      color: var(--primary-cyan);
+      border: 1px solid var(--border-medium);
+      margin-bottom: 1rem;
+    }
+    .article-title {
+      font-size: 2.45rem;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+    }
+    @media (max-width: 768px) {
+      .article-title { font-size: 1.85rem; }
+    }
+    .article-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-medium);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    .article-meta-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+    /* Banner Image */
+    .article-banner-wrap {
+      margin: 2rem 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-medium);
+      box-shadow: var(--shadow-md);
+      background: var(--bg-card);
+    }
+    .article-banner-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .article-banner-caption {
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+
+    /* Article Body Typography */
+    .article-body {
+      font-size: 1.12rem;
+      line-height: 1.85;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+    .article-body p { margin-bottom: 1.5rem; }
+    .article-body p:first-of-type::first-letter {
+      font-size: 3.2rem;
+      float: left;
+      line-height: 0.85;
+      padding-right: 0.65rem;
+      font-weight: 800;
+      color: var(--primary-cyan);
+    }
+
+    /* Share Bar */
+    .share-bar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 3rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 1rem; border-radius: var(--radius-md);
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .share-btn-wa { background: #25D366; color: #FFFFFF; }
+    .share-btn-tg { background: #229ED9; color: #FFFFFF; }
+    .share-btn-x { background: #0F1419; color: #FFFFFF; }
+    .share-btn-copy { background: rgba(2, 132, 199, 0.12); color: var(--primary-cyan); border: 1px solid var(--border-medium); }
+    .share-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* Related News Cards */
+    .related-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      height: 100%;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .related-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-cyan);
+    }
+    .related-img-wrap {
+      height: 160px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 1rem;
+      background: #CBD5E1;
+    }
+    .related-img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Footer */
+    .public-footer {
+      background: #031524;
+      color: #E2E8F0;
+      padding: 4rem 0 2rem 0;
+      border-top: 1px solid rgba(56, 189, 248, 0.15);
+      margin-top: 5rem;
+    }
+    .footer-brand-title { color: #FFFFFF; font-weight: 800; font-size: 1.25rem; }
+    .footer-sub { color: #94A3B8; font-size: 0.88rem; line-height: 1.6; }
+    .footer-heading { color: #38BDF8; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.2rem; }
+    .footer-link { color: #CBD5E1; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-link:hover { color: #38BDF8; }
+
+    /* Buttons */
+    .btn-outline-custom {
+      background: transparent;
+      border: 1.5px solid var(--border-medium);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      padding: 0.45rem 0.95rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-outline-custom:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      color: var(--primary-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress-bar" id="readingProgressBar"></div>
+
+  <!-- Navbar Berita -->
+  <nav class="news-navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a class="d-flex align-items-center gap-2 text-decoration-none" href="/">
+        <img src="/dpmfkgumi.webp" alt="Logo DPM KBMFKG UMI" class="brand-logo-img">
+        <div class="d-flex flex-column line-height-1">
+          <span class="brand-main-title">DPM KBMFKG UMI</span>
+          <span class="brand-sub-title">Fakultas Kedokteran Gigi Universitas Muslim Indonesia</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-2">
+        <a href="/berita" class="btn btn-outline-custom d-inline-flex align-items-center gap-1">
+          <i class="bi bi-arrow-left"></i> <span class="d-none d-sm-inline">Kembali ke Berita</span>
+        </a>
+        <button class="btn btn-outline-custom p-2" onclick="toggleTheme()" title="Ganti Mode Gelap/Terang">
+          <i class="bi bi-moon-stars" id="themeIconNav"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Container -->
+  <main class="article-container">
+    <% if (typeof notFound !== 'undefined' && notFound) { %>
+      <div class="text-center py-5">
+        <div class="mb-3 text-warning" style="font-size: 3.5rem;"><i class="bi bi-exclamation-triangle"></i></div>
+        <h2 class="fw-bold mb-2">Artikel Tidak Ditemukan</h2>
+        <p class="text-secondary mb-4">Warta sidang atau siaran pers yang Anda cari tidak tersedia atau telah diarsipkan.</p>
+        <a href="/" class="btn btn-primary"><i class="bi bi-house-door me-1"></i> Kembali ke Beranda</a>
+      </div>
+    <% } else if (typeof berita !== 'undefined' && berita) { %>
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+        <a href="/">Beranda</a>
+        <i class="bi bi-chevron-right small"></i>
+        <a href="/berita">Berita & Siaran Pers</a>
+        <i class="bi bi-chevron-right small"></i>
+        <span class="text-truncate" style="max-width: 320px;"><%= berita.judul_berita %></span>
+      </nav>
+
+      <!-- Header -->
+      <header class="article-header">
+        <div class="article-category-badge">
+          <i class="bi bi-tag-fill"></i> <%= berita.kategori || 'Berita & Siaran Pers' %>
+        </div>
+        <h1 class="article-title"><%= berita.judul_berita %></h1>
+
+        <div class="article-meta-row">
+          <div class="article-meta-item">
+            <i class="bi bi-person-circle"></i>
+            <span><%= berita.penulis || 'Biro Pers Parlemen' %></span>
+          </div>
+          <div class="article-meta-item">
+            <i class="bi bi-calendar3"></i>
+            <span><%= berita.tanggal_terbit %></span>
+          </div>
+          <div class="article-meta-item">
+            <i class="bi bi-eye"></i>
+            <span><%= berita.view_count || 1 %> Pembaca</span>
+          </div>
+          <div class="article-meta-item">
+            <i class="bi bi-clock"></i>
+            <span>± 3 Menit Baca</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Banner Gambar Native / URL -->
+      <% if (berita.banner_img_url) { %>
+        <div class="article-banner-wrap">
+          <img src="<%= berita.banner_img_url %>" alt="<%= berita.judul_berita %>" class="article-banner-img">
+          <div class="article-banner-caption d-flex align-items-center justify-content-between">
+            <span><i class="bi bi-camera me-1"></i> Dokumentasi Resmi DPM KBMFKG UMI</span>
+            <span class="badge bg-light text-dark border">Terverifikasi</span>
+          </div>
+        </div>
+      <% } %>
+
+      <!-- Article Content Body -->
+      <article class="article-body">
+        <% 
+          const paragraphs = (berita.isi_artikel || '').split(/\r?\n\r?\n|\n/);
+          paragraphs.forEach(p => {
+            const trimmed = p.trim();
+            if (trimmed) {
+        %>
+          <p><%= trimmed %></p>
+        <% 
+            }
+          }); 
+        %>
+      </article>
+
+      <!-- Share Bar -->
+      <div class="share-bar-card">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div>
+            <div class="fw-bold mb-1" style="font-size: 0.95rem;"><i class="bi bi-share-fill text-primary me-2"></i>Bagikan Informasi Ini</div>
+            <small class="text-muted">Dukung keterbukaan informasi parlemen mahasiswa FKG UMI.</small>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="share-btn share-btn-wa" onclick="shareWa()">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </button>
+            <button class="share-btn share-btn-tg" onclick="shareTg()">
+              <i class="bi bi-telegram"></i> Telegram
+            </button>
+            <button class="share-btn share-btn-x" onclick="shareX()">
+              <i class="bi bi-twitter-x"></i> X
+            </button>
+            <button class="share-btn share-btn-copy" onclick="copyArticleLink()">
+              <i class="bi bi-link-45deg"></i> Salin Tautan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="p-4 rounded-3 border bg-card mb-5 d-flex align-items-center gap-3">
+        <img src="/dpmfkgumi.webp" alt="Avatar Humas" style="width: 58px; height: 58px; object-fit: contain; border-radius: 12px; background: #FFF; padding: 4px; border: 1px solid var(--border-medium);">
+        <div>
+          <h6 class="fw-bold mb-1"><%= berita.penulis || 'Biro Kesekretariatan & Pers Parlemen' %></h6>
+          <p class="text-secondary small mb-0">Divisi Komunikasi Publik dan Keterbukaan Informasi Dewan Perwakilan Mahasiswa KBMFKG UMI Periode 2026-2027.</p>
+        </div>
+      </div>
+
+      <!-- Berita Terkait / Lainnya -->
+      <% if (typeof recentBerita !== 'undefined' && recentBerita && recentBerita.length > 0) { %>
+        <div class="mt-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold mb-0">Berita & Siaran Pers Lainnya</h4>
+            <a href="/#berita" class="text-decoration-none small fw-bold text-primary">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="row g-3">
+            <% recentBerita.forEach(rb => { %>
+              <div class="col-md-6">
+                <a href="/berita/<%= rb.slug || rb.id_berita %>" class="related-card">
+                  <% if (rb.banner_img_url) { %>
+                    <div class="related-img-wrap">
+                      <img src="<%= rb.banner_img_url %>" alt="<%= rb.judul_berita %>" class="related-img" loading="lazy">
+                    </div>
+                  <% } %>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="badge bg-primary-subtle text-primary small" style="font-size: 0.72rem;"><%= rb.kategori %></span>
+                    <span class="small text-muted font-mono"><%= rb.tanggal_terbit %></span>
+                  </div>
+                  <h6 class="fw-bold mb-2 line-clamp-2"><%= rb.judul_berita %></h6>
+                  <p class="text-secondary small flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"><%= rb.isi_artikel %></p>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+  </main>
+
+  <!-- Footer Publik -->
+  <footer class="public-footer">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="/dpmfkgumi.webp" alt="Logo DPM" style="width: 36px; height: 36px; object-fit: contain; border-radius: 8px;">
+            <span class="footer-brand-title">DPM KBMFKG UMI</span>
+          </div>
+          <p class="footer-sub">
+            Sekretariat FKG UMI. Jl. Pajonga Dg. Ngalle No.27, Pa'batong, Kec. Mamajang, Kota Makassar, Sulawesi Selatan 90122
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-heading">Navigasi Cepat</div>
+          <a href="/" class="footer-link">Beranda</a>
+          <a href="/#profil" class="footer-link">Profil Dewan</a>
+          <a href="/#jdih" class="footer-link">Regulasi & JDIH</a>
+          <a href="/#berita" class="footer-link">Berita & Siaran Pers</a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-heading">Kanal Aspirasi</div>
+          <a href="/#aspirasi" class="footer-link">Sampaikan Aspirasi</a>
+          <a href="/admin-login" class="footer-link">Login Dewan</a>
+        </div>
+      </div>
+      <div class="pt-4 border-top border-secondary text-center small text-secondary">
+        &copy; 2026 DPM KBMFKG UMI. All Rights Reserved. Parlemen Mahasiswa Berintegritas & Transparan.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+    <div id="liveToast" class="toast align-items-center text-white bg-primary border-0 shadow-lg" role="alert">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2" id="toastMessage">
+          <i class="bi bi-check-circle-fill fs-5"></i> <span>Tautan berhasil disalin!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Theme Management
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('dpm_theme', theme);
+      const icon = document.getElementById('themeIconNav');
+      if (icon) icon.className = theme === 'dark' ? 'bi bi-sun-fill text-warning' : 'bi bi-moon-stars';
+    }
+    const savedTheme = localStorage.getItem('dpm_theme') || 'light';
+    applyTheme(savedTheme);
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // Reading Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const bar = document.getElementById('readingProgressBar');
+      if (bar) bar.style.width = scrolled + '%';
+    });
+
+    // Share Functions
+    const currentUrl = window.location.href;
+    const currentTitle = document.title;
+
+    function shareWa() {
+      const u = `https://api.whatsapp.com/send?text=${encodeURIComponent(currentTitle + ' ' + currentUrl)}`;
+      window.open(u, '_blank');
+    }
+    function shareTg() {
+      const u = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`;
+      window.open(u, '_blank');
+    }
+    function shareX() {
+      const u = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(currentTitle)}`;
+      window.open(u, '_blank');
+    }
+    function copyArticleLink() {
+      navigator.clipboard.writeText(currentUrl).then(() => {
+        const toastEl = document.getElementById('liveToast');
+        if (toastEl) new bootstrap.Toast(toastEl).show();
+      });
+    }
+  </script>
+</body>
+</html>
