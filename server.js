@@ -383,8 +383,13 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Konfigurasi EJS View Engine & Static Assets
-app.set('views', __dirname);
+// Konfigurasi EJS View Engine & Static Assets (Support /views directory)
+const viewsPaths = [
+  path.join(__dirname, 'views'),
+  path.join(process.cwd(), 'views'),
+  __dirname
+];
+app.set('views', viewsPaths);
 app.set('view engine', 'ejs');
 
 // Direktori Unggahan File Native (PDF & Gambar) - Kompatibel Cloud Vercel & Lokal
